@@ -1,0 +1,22 @@
+{
+  "name": "docker_web_app",
+  "version": "1.0.0",
+  "description": "Node.js on Docker",
+  "main": "server.js",
+  "scripts": {
+    "build": "babel index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run build && nodemon index.js"
+  },
+  "author": "ektoplasme",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "nodemon": "^1.17.5"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
