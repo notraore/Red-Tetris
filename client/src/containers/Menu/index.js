@@ -7,7 +7,8 @@ import './styles/animation/selectOption.css'
 import './styles/animation/background.css'
 import {styles, colorArray} from './styles/Menu-styles.js'
 import Title from './Title.js'
-import Option from './Option.js'
+import {Option} from './Option.js'
+import {Join, Solo, Create, Settings} from './MenuSubSection'
 
 const _shuffleColor = (e) => {
   let randNum = _.random(0, 7)
@@ -31,44 +32,10 @@ const App = (props) => {
           className={`flex center alignCenter column ${classes.chosen}`}
           style={selected > 0 ? {display: 'flex'} : {display: 'none'}}
         >
-          <div className={`flex center alignCenter column`} style={selected === 1 ? {display: 'flex'} : {display: 'none'}}>
-            <p>
-              Select your name
-            </p>
-            <input/>
-            <p className={classes.optionLabel}>
-              Start
-            </p>
-          </div>
-          <div className={`flex center alignCenter column`} style={selected === 2 ? {display: 'flex'} : {display: 'none'}}>
-            <p>
-              Enter existing room name
-            </p>
-            <input/>
-            <p className={classes.optionLabel}>
-              Join
-            </p>
-          </div>
-          <div className={`flex center alignCenter column`} style={selected === 3 ? {display: 'flex'} : {display: 'none'}}>
-            <p>
-              Enter a new room name
-            </p>
-            <input/>
-            <p className={classes.optionLabel}>
-              Create
-            </p>
-          </div>
-          <div className={`flex center alignCenter column`} style={selected === 4 ? {display: 'flex'} : {display: 'none'}}>
-            <p>
-              Options
-            </p>
-            <p className={classes.optionLabel}>
-              Change default name
-            </p>
-            <p className={classes.optionLabel}>
-              Change mode
-            </p>
-          </div>
+          <Join selected={selected}/>
+          <Solo selected={selected}/>
+          <Create selected={selected}/>
+          <Settings selected={selected}/>
           <p onClick={()=>{select(0)}} className={classes.optionLabel}>
             Return
           </p>

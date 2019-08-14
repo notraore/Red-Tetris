@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import './styles/fonts.css'
 import './styles/patterns.css'
-import App from './views/Menu';
+import {Game} from './components/Game.js'
+// import App from './containers/Menu';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Game />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
