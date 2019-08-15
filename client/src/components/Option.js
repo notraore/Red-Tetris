@@ -1,5 +1,5 @@
 import React from 'react'
-import {styles} from '../styles/Menu-styles.js/index.js.js'
+import {styles} from '../styles/Menu-styles.js'
 import { withStyles }  from '@material-ui/styles'
 
 const OptionComponent = (props) => {

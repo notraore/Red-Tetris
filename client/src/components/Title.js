@@ -1,6 +1,6 @@
 import React from 'react'
-import tetrimino from '../../assets/blue-tetrimino.png'
-import {styles} from '../styles/Menu-styles.js/index.js'
+import tetrimino from '../assets/blue-tetrimino.png'
+import {styles} from '../styles/Menu-styles.js'
 import { withStyles }  from '@material-ui/styles'
 
 const Title = (props) => {

@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { withStyles }  from '@material-ui/styles'
 import _ from 'lodash'
-import './styles/Menu.css'
-import './styles/animation/text-animations.css'
-import './styles/animation/selectOption.css'
-import './styles/animation/background.css'
-import {styles, colorArray} from './styles/Menu-styles.js'
-import Title from './Title.js'
-import {Option} from './Option.js'
-import {Join, Solo, Create, Settings} from './MenuSubSection'
+import './Menu.css'
+import '../../styles/animation/text-animations.css'
+import '../../styles/animation/selectOption.css'
+import '../../styles/animation/background.css'
+import {styles, colorArray} from '../../styles/Menu-styles.js'
+import Title from '../../components/Title.js'
+import {Option} from '../../components/Option.js'
+import {Join, Solo, Create, Settings} from '../../components/MenuSubSection'
 
 const _shuffleColor = (e) => {
   let randNum = _.random(0, 7)
