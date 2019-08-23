@@ -2,7 +2,7 @@ import pieces from '../components/pieces.1.json'
 
 export const initialTetriState = {
     listIndex: 0,
-    name: 'I',
+    name: 'O',
     x: 0,
     y: 0,
     leftSpace: 0,
