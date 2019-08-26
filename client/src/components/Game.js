@@ -35,7 +35,8 @@ export const Game = () => {
 		tetri.form.map((line, y)=>{
 			line.map((col, x)=>{
 				if (col > 0 && map[tetri.y + y][tetri.x + x] > 0 ||
-					tetri.x + x > 9 + tetri.rightSpace || tetri.x + x < 0 - tetri.leftSpace){
+					tetri.x + x > 9 + tetri.rightSpace ||
+					 tetri.x + x < 0 - tetri.leftSpace){
 					res = false
 				}
 			})
@@ -77,6 +78,14 @@ export const Game = () => {
 				else return tetri
 			})
 		}
+		if (event.keyCode === 32) {//ESPACE
+			clearInterval(refInterval.current)
+			refInterval.current = setInterval(() => {
+				moveTetri((tetri)=>{
+					return {...tetri, y: tetri.y + 1}
+				})
+			}, 15)
+		}
 		if (event.keyCode === 38) {//HAUT (rotation)
 			moveTetri((tetri)=>{
 				const rot = tetri.rot > 2 ? 0 : tetri.rot + 1
@@ -99,12 +108,22 @@ export const Game = () => {
 			})
 		}
 		if (event.keyCode === 40) {//BAS
+			clearInterval(refInterval.current)
+			refInterval.current = setInterval(() => {
+				moveTetri((tetri)=>{
+					return {...tetri, y: tetri.y + 1}
+				})
+			}, 50)
+		}
+	}
+	const keyupFunc = event => {
+			if (event.keyCode === 40) {//BAS
 				clearInterval(refInterval.current)
 				refInterval.current = setInterval(() => {
 					moveTetri((tetri)=>{
 						return {...tetri, y: tetri.y + 1}
 					})
-				}, 50)
+				}, 500)
 		}
 	}
 
@@ -122,6 +141,7 @@ export const Game = () => {
 
 	useEffect(() => {
 		document.addEventListener("keydown", keydownFunc)
+		document.addEventListener("keyup", keyupFunc)
 	}, [])
 
 	const colorTab = ([
@@ -134,12 +154,12 @@ export const Game = () => {
 		'green'
 	])
 
-	const checkColision = ()=>{
-		if (!!board.tab[curTetri.y + curTetri.maxHeight] &&
-			 ((board.tab[curTetri.y + curTetri.h[0]][curTetri.x] > 0 && curTetri.leftSpace === 0)||
-			 (board.tab[curTetri.y + curTetri.h[1]][curTetri.x + 1] > 0 && curTetri.h[1] > 0) ||
-			 (board.tab[curTetri.y + curTetri.h[2]][curTetri.x + 2] > 0 && curTetri.h[2] > 0)||
-			 (board.tab[curTetri.y + curTetri.h[3]][curTetri.x + 3] > 0 && curTetri.rightSpace === 0))){
+	const checkColision = (tetri)=>{
+		if (tetri.y + tetri.maxHeight > 19 || (!!board.tab[tetri.y + tetri.maxHeight] &&
+			 ((board.tab[tetri.y + tetri.h[0]][tetri.x] > 0 && tetri.leftSpace === 0)||
+			 (board.tab[tetri.y + tetri.h[1]][tetri.x + 1] > 0 && tetri.h[1] > 0) ||
+			 (board.tab[tetri.y + tetri.h[2]][tetri.x + 2] > 0 && tetri.h[2] > 0)||
+			 (board.tab[tetri.y + tetri.h[3]][tetri.x + 3] > 0 && tetri.rightSpace === 0)))){
 			return true
 		}
 		return false
@@ -169,33 +189,30 @@ export const Game = () => {
 
 	useEffect(() => {
 			checkLine()
-
-			if (curTetri.y + curTetri.maxHeight > 19 || checkColision()){
+			if (checkColision(curTetri)){
 				clearInterval(refInterval.current)
-				updateBoard((old)=>{
-					curTetri.form.map((line, y)=>{
-						line.map((col, x)=>{
-							if (curTetri.form[y][x] > 0){
-								old.tab[curTetri.y + y][curTetri.x + x] = curTetri.form[y][x]
-							}
+					updateBoard((old)=>{
+						curTetri.form.map((line, y)=>{
+							line.map((col, x)=>{
+								if (curTetri.form[y][x] > 0){
+									old.tab[curTetri.y + y][curTetri.x + x] = curTetri.form[y][x]
+								}
+							})
 						})
+						return old
 					})
-					return old
-				})
-
-			board.tetriList.length >= 1
-				? board.tetriList.concat(curTetri)
-				: board.tetriList.push(curTetri)
-			
-			if (!board.tab[0][curTetri.x + curTetri.leftSpace] > 0 &&
-			!board.tab[0][curTetri.x + curTetri.leftSpace + 1] > 0 &&
-			!board.tab[0][curTetri.x + curTetri.leftSpace + 2] > 0){
-				increment((i)=>i+1)
-				moveTetri(initialTetriState())
-			} else {
-				document.removeEventListener('keydown', keydownFunc)
+	
+					board.tetriList.length >= 1
+						? board.tetriList.concat(curTetri)
+						: board.tetriList.push(curTetri)
+					
+					if (canFit(curTetri)){
+						increment((i)=>i+1)
+						moveTetri(initialTetriState())
+					} else {
+						document.removeEventListener('keydown', keydownFunc)
+					}
 			}
-		}
 	})
 
 
@@ -249,7 +266,8 @@ export const Game = () => {
 				{
 					<div
 						className={`absolute`}
-						style={{top: `${blockSize * curTetri.y + curTetri.y * 2}px`, left: `${blockSize * curTetri.x + curTetri.x * 2}px`}}>
+						style={{top: `${blockSize * curTetri.y + curTetri.y * 2}px`, left: `${blockSize * curTetri.x + curTetri.x * 2}px`}}
+					>
 					{
 						tetri.map((line, index)=>{
 						return <div style={{display: 'flex'}} key={index}>
