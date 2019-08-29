@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import './styles/fonts.css'
 import './styles/patterns.css'
-import {Game} from './components/Game.js'
+import Game from './components/Game.js'
 // import App from './containers/Menu';
 import * as serviceWorker from './serviceWorker';
 

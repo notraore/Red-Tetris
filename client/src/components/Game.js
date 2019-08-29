@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import pieces from './pieces.json'
 import tab from './pieces.1.json'
+import { withStyles }  from '@material-ui/styles'
+import {GameStyle} from '../styles/Game-style.js'
 
 const blockSize = 40
 
@@ -9,6 +11,32 @@ const blockStyle = ({
 	width: `${blockSize}px`,
 	height: `${blockSize}px`,
 	border: '1px solid pink'
+})
+
+const initialBoardState = () => ({
+	tab: [
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0]
+	],
+	tetriList: []
 })
 
 const Block = ({empty, color, transparent})=>{
@@ -24,55 +52,9 @@ const Block = ({empty, color, transparent})=>{
 	)
 }
 
-export const Game = () => {
-	const [counter, increment] = useState(0)
-	const [gameOver, overGame] = useState(false)
-	const [score, updateScore] = useState(0)
-	const [board, updateBoard] = useState({
-		tab: [
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0]
-		],
-		tetriList: []
-	})
-
-	const canFit = (tetri) => {
-		const map = board.tab
-		let res = true
-
-		tetri.form.map((line, y)=>{
-			line.map((col, x)=>{
-				if (col > 0 && ((!map[tetri.y + y] || (map[tetri.y + y][tetri.x + x] > 0) ||
-					tetri.x + x > 9 + tetri.rightSpace ||
-					 tetri.x + x < 0 - tetri.leftSpace ||
-					 typeof map[tetri.y + y][tetri.x + x] === 'undefined'))){
-					res = false
-				}
-			})
-		})
-		return res
-	}
-
-	const initialTetriState = () => {
-		const name = pieces.pieces[counter]
+const Game = (props) => {
+	const initialTetriState = (count) => {
+		const name = pieces.pieces[count]
 		const tetri = {
 			maxWidth: tab[name].position[0].maxWidth,
 			maxHeight: tab[name].position[0].maxHeight,
@@ -93,8 +75,46 @@ export const Game = () => {
 		else return false
 	}
 
-	const [curTetri, moveTetri] = useState(initialTetriState())
-	const [nextTetri, next] = useState(tab[pieces.pieces[counter + 1]])
+	const canFit = (tetri) => {
+		const map = board.tab
+		let res = true
+
+		tetri.form.map((line, y)=>{
+			line.map((col, x)=>{
+				if (col > 0 && ((!map[tetri.y + y] || (map[tetri.y + y][tetri.x + x] > 0) ||
+					tetri.x + x > 9 + tetri.rightSpace ||
+					 tetri.x + x < 0 - tetri.leftSpace ||
+					 typeof map[tetri.y + y][tetri.x + x] === 'undefined'))){
+					res = false
+				}
+			})
+		})
+		return res
+	}
+
+	const {classes} = props
+	const [counter, increment] = useState(0)
+	const [gameOver, overGame] = useState(false)
+	const [score, updateScore] = useState(0)
+	const [board, updateBoard] = useState(initialBoardState())
+	const [curTetri, moveTetri] = useState(initialTetriState(0))
+	const [nextTetri, next] = useState(tab[pieces.pieces[1]])
+	const refInterval = useRef(false)
+
+	useEffect(() => {
+		if (JSON.stringify(board) === JSON.stringify(initialBoardState()) && counter > 0){
+			increment(0)
+			updateScore(0)
+			const t = initialTetriState(0)
+			moveTetri(initialTetriState(0))
+			next(tab[pieces.pieces[1]])
+			overGame(false)
+		}
+	}, [board, counter])
+
+	const resetGame = () => {
+		updateBoard(initialBoardState())
+	}
 
 	const keydownFunc = event => {//DROITE
 		if (event.keyCode === 39) {
@@ -137,20 +157,29 @@ export const Game = () => {
 		}
 		if (event.keyCode === 40) {//BAS
 			addScore('soft drop', 1)
+			// clearInterval(refInterval.current)
+			// refInterval.current = setGameLoop(50)
 			moveTetri((tetri)=>{
 					if (canFit({...tetri, y: tetri.y + 1})) return {...tetri, y: tetri.y + 1}
 					else return tetri
 				})
-			// clearInterval(refInterval.current)
-			// refInterval.current = setGameLoop(50)
 		}
 	}
+
+	// const keyUpFunc = event => {
+	// 		if (event.keyCode === 40) {//BAS
+	// 		console.log("refInterval.current");
+	// 		clearInterval(refInterval.current)
+	// 		refInterval.current = setGameLoop(1000)
+	// 	}
+	// }
+
 
 	const setGameLoop = (speed) => {
 		return setInterval(() => {
 			moveTetri((tetri)=>{
 				if (!canFit({...tetri, y: tetri.y + 1})){
-					clearInterval(refInterval.current)
+					// clearInterval(refInterval.current)
 					updateBoard((old)=>{
 						tetri.form.map((line, y)=>{
 							line.map((col, x)=>{
@@ -161,15 +190,15 @@ export const Game = () => {
 						})
 						return old
 					})
+					const t = initialTetriState(counter + 1)
 					increment((i)=>{
 						next(tab[pieces.pieces[counter + 1]])
 						return i+1
 					})
-					const t = initialTetriState()
 					if (t === false || !canFit(t)){
 						overGame(true)
 						return tetri
-					} else return initialTetriState()
+					} else return t
 				}
 				else return {...tetri, y: tetri.y + 1}
 			})
@@ -177,7 +206,7 @@ export const Game = () => {
 	}
 
 	useEffect(() => {
-		refInterval.current = setGameLoop(500)
+		refInterval.current = setGameLoop(1000)
 			if (gameOver) clearInterval(refInterval.current)
 			return () => {
 				clearInterval(refInterval.current)
@@ -186,10 +215,15 @@ export const Game = () => {
 
 	useEffect(() => {
 		document.addEventListener("keydown", keydownFunc)
-		if (gameOver) document.removeEventListener("keydown", keydownFunc)
+		// document.addEventListener("keyup", keyUpFunc)
+		if (gameOver){
+			document.removeEventListener("keydown", keydownFunc)
+			// document.addEventListener("keyup", keyUpFunc)
+		}
 		return () => {
 			document.removeEventListener("keydown", keydownFunc)
-		}
+		// document.removeEventListener("keyup", keyUpFunc)
+	}
 	}, [counter, gameOver])
 
 	const colorTab = ([
@@ -247,21 +281,24 @@ export const Game = () => {
 			checkLine()
 	})
 
-	const refInterval = useRef(false)
 	const tetri = curTetri.form
 
 	return (
 		gameOver
 		? <div className='flex column center alignCenter' style={{height: '100vh'}}>
-				<div className='flex column center alignCenter' style={{height: '500px', width: '500px', backgroundColor: 'pink'}}>
+				<div className={`flex column center alignCenter ${classes.gameOverContainer}`}>
 					<div style={{fontSize: '60px', fontWeight: 'bold', color: 'salmon'}}>Sorry, you lose</div>
-					<div style={{fontSize: '60px', fontWeight: 'bold', color: 'lightblue'}}>:(</div>
 					<div style={{fontSize: '50px', fontWeight: 'bold', color: 'white'}}>SCORE: {score}</div>
+					<div className={`flex column center alignCenter ${classes.restartButton}`}>
+						<div className={classes.restartLabel} onClick={()=>{resetGame()}}>
+							RESTART
+						</div>
+					</div>
 				</div>
 		</div>
 		: <div className='flex'>
 				<div className={'absolute'} style={{height: '500px', left: '100px'}}>
-					<div style={{fontSize: '40px', fontWeight: 'bold', color: 'pink', marginTop: '20px'}}>SCORE: {score}</div>
+					<div className={classes.scoreLabel}>SCORE: {score}</div>
 				</div>
 				<div className={'absolute'} style={{top: '100px', left: '100px'}}>
 					{
@@ -330,3 +367,5 @@ export const Game = () => {
 		</div>
 	)
 }
+
+export default withStyles(GameStyle)(Game)
