@@ -95,16 +95,17 @@ const Game = (props) => {
 	const {classes} = props
 	const [counter, increment] = useState(0)
 	const [gameOver, overGame] = useState(false)
-	const [score, updateScore] = useState(0)
+	// const [score, updateScore] = useState(0)
 	const [board, updateBoard] = useState(initialBoardState())
 	const [curTetri, moveTetri] = useState(initialTetriState(0))
 	const [nextTetri, next] = useState(tab[pieces.pieces[1]])
 	const refInterval = useRef(false)
+	let keyDown
 
 	useEffect(() => {
 		if (JSON.stringify(board) === JSON.stringify(initialBoardState()) && counter > 0){
 			increment(0)
-			updateScore(0)
+			// updateScore(0)
 			const t = initialTetriState(0)
 			moveTetri(initialTetriState(0))
 			next(tab[pieces.pieces[1]])
@@ -117,6 +118,8 @@ const Game = (props) => {
 	}
 
 	const keydownFunc = event => {//DROITE
+		if (keyDown && (keyDown.keyCode == 38 || keyDown.keyCode == 32 || keyDown.keyCode == 40)) return
+		keyDown = event
 		if (event.keyCode === 39) {
 				moveTetri((tetri)=>{
 					if (canFit({...tetri, x: tetri.x + 1})) return {...tetri, x: tetri.x + 1}
@@ -130,12 +133,12 @@ const Game = (props) => {
 			})
 		}
 		if (event.keyCode === 32) {//ESPACE
-			addScore('hard drop', 20 - curTetri.y - curTetri.maxHeight)
+			// addScore('hard drop', 20 - curTetri.y - curTetri.maxHeight)
 			clearInterval(refInterval.current)
 			refInterval.current = setGameLoop(15)
 		}
 		if (event.keyCode === 38) {//HAUT (rotation)
-			moveTetri((tetri)=>{
+			moveTetri(tetri => {
 				const rot = tetri.rot > 2 ? 0 : tetri.rot + 1
 				const tetriRot = {//tetri potentiel apres rotation demandée
 					...tetri,
@@ -156,29 +159,17 @@ const Game = (props) => {
 			})
 		}
 		if (event.keyCode === 40) {//BAS
-			addScore('soft drop', 1)
-			// clearInterval(refInterval.current)
-			// refInterval.current = setGameLoop(50)
-			moveTetri((tetri)=>{
-					if (canFit({...tetri, y: tetri.y + 1})) return {...tetri, y: tetri.y + 1}
-					else return tetri
-				})
+			// addScore('soft drop', 1)
+			clearInterval(refInterval.current)
+			refInterval.current = setGameLoop(30)
 		}
 	}
-
-	// const keyUpFunc = event => {
-	// 		if (event.keyCode === 40) {//BAS
-	// 		console.log("refInterval.current");
-	// 		clearInterval(refInterval.current)
-	// 		refInterval.current = setGameLoop(1000)
-	// 	}
-	// }
-
 
 	const setGameLoop = (speed) => {
 		return setInterval(() => {
 			moveTetri((tetri)=>{
 				if (!canFit({...tetri, y: tetri.y + 1})){
+					keyDown = null
 					clearInterval(refInterval.current)
 					updateBoard((old)=>{
 						tetri.form.map((line, y)=>{
@@ -215,14 +206,18 @@ const Game = (props) => {
 
 	useEffect(() => {
 		document.addEventListener("keydown", keydownFunc)
-		// document.addEventListener("keyup", keyUpFunc)
+		document.addEventListener("keyup", event => {
+			if (event.keyCode === 40){
+				clearInterval(refInterval.current)
+				refInterval.current = setGameLoop(1000)
+			}
+			if (keyDown !== 32) keyDown = null
+		})
 		if (gameOver){
 			document.removeEventListener("keydown", keydownFunc)
-			// document.addEventListener("keyup", keyUpFunc)
 		}
 		return () => {
 			document.removeEventListener("keydown", keydownFunc)
-		// document.removeEventListener("keyup", keyUpFunc)
 	}
 	}, [counter, gameOver])
 
@@ -246,21 +241,21 @@ const Game = (props) => {
 		updateBoard({tetriList: board.tetriList, tab:newTab})
 	}
 
-	const addScore = (type, nb) => {
-		let points = 0
-		const lineMarks = [40,100,300,1200]
-		switch (type) {
-			case 'row':
-				points = lineMarks[nb + 1]
-			case 'hard drop':
-				points = nb + 1
-			case 'soft drop':
-				points = nb
-			default:
-				break
-		}
-		updateScore((oldScore)=>oldScore + points)
-	}
+	// const addScore = (type, nb) => {
+	// 	let points = 0
+	// 	const lineMarks = [40,100,300,1200]
+	// 	switch (type) {
+	// 		case 'row':
+	// 			points = lineMarks[nb + 1]
+	// 		case 'hard drop':
+	// 			points = nb + 1
+	// 		case 'soft drop':
+	// 			points = nb
+	// 		default:
+	// 			break
+	// 	}
+	// 	updateScore((oldScore)=>oldScore + points)
+	// }
 
 	const checkLine = () => {
 		let tab = board.tab
@@ -273,7 +268,7 @@ const Game = (props) => {
 		})
 		if (lines.length){
 			removeLine(lines, tab)
-			addScore('row', lines.length)
+			// addScore('row', lines.length)
 		}
 	}
 
@@ -288,7 +283,7 @@ const Game = (props) => {
 		? <div className='flex column center alignCenter' style={{height: '100vh'}}>
 				<div className={`flex column center alignCenter ${classes.gameOverContainer}`}>
 					<div style={{fontSize: '60px', fontWeight: 'bold', color: 'salmon'}}>Sorry, you lose</div>
-					<div style={{fontSize: '50px', fontWeight: 'bold', color: 'white'}}>SCORE: {score}</div>
+					{/* <div style={{fontSize: '50px', fontWeight: 'bold', color: 'white'}}>SCORE: {score}</div> */}
 					<div className={`flex column center alignCenter ${classes.restartButton}`}>
 						<div className={classes.restartLabel} onClick={()=>{resetGame()}}>
 							RESTART
@@ -297,9 +292,9 @@ const Game = (props) => {
 				</div>
 		</div>
 		: <div className='flex'>
-				<div className={'absolute'} style={{height: '500px', left: '100px'}}>
+				{/* <div className={'absolute'} style={{height: '500px', left: '100px'}}>
 					<div className={classes.scoreLabel}>SCORE: {score}</div>
-				</div>
+				</div> */}
 				<div className={'absolute'} style={{top: '100px', left: '100px'}}>
 					{
 						board.tab.map((line, index)=>{
