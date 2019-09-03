@@ -179,7 +179,7 @@ const Game = (props) => {
 		return setInterval(() => {
 			moveTetri((tetri)=>{
 				if (!canFit({...tetri, y: tetri.y + 1})){
-					// clearInterval(refInterval.current)
+					clearInterval(refInterval.current)
 					updateBoard((old)=>{
 						tetri.form.map((line, y)=>{
 							line.map((col, x)=>{
