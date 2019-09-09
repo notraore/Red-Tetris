@@ -5,6 +5,7 @@ import { withStyles }  from '@material-ui/styles'
 import {GameStyle} from '../styles/Game-style.js'
 
 const blockSize = 40
+let dropTime = 1000
 
 const blockStyle = ({
 	backgroundColor: 'pink',
@@ -95,9 +96,12 @@ const Game = (props) => {
 	const {classes} = props
 	const [counter, increment] = useState(0)
 	const [gameOver, overGame] = useState(false)
-	// const [score, updateScore] = useState(0)
+	const [score, updateScore] = useState(0)
 	const [board, updateBoard] = useState(initialBoardState())
 	const [curTetri, moveTetri] = useState(initialTetriState(0))
+	const [curPos, setCurPos] = useState(0)
+	const [prevFit, setPrevFit] = useState(0)
+	const [canMove, setCanMove] = useState(true)
 	const [nextTetri, next] = useState(tab[pieces.pieces[1]])
 	const refInterval = useRef(false)
 	let keyDown
@@ -105,7 +109,7 @@ const Game = (props) => {
 	useEffect(() => {
 		if (JSON.stringify(board) === JSON.stringify(initialBoardState()) && counter > 0){
 			increment(0)
-			// updateScore(0)
+			updateScore(0)
 			const t = initialTetriState(0)
 			moveTetri(initialTetriState(0))
 			next(tab[pieces.pieces[1]])
@@ -120,24 +124,26 @@ const Game = (props) => {
 	const keydownFunc = event => {//DROITE
 		if (keyDown && (keyDown.keyCode == 38 || keyDown.keyCode == 32 || keyDown.keyCode == 40)) return
 		keyDown = event
-		if (event.keyCode === 39) {
+		if (event.keyCode === 39 && canMove) {
 				moveTetri((tetri)=>{
 					if (canFit({...tetri, x: tetri.x + 1})) return {...tetri, x: tetri.x + 1}
 					else return tetri
 				})
 		}
-		if (event.keyCode === 37) {//GAUCHE
+		if (event.keyCode === 37 && canMove) {//GAUCHE
 			moveTetri((tetri)=>{
 				if (canFit({...tetri, x: tetri.x - 1})) return {...tetri, x: tetri.x - 1}
 				else return tetri
 			})
 		}
-		if (event.keyCode === 32) {//ESPACE
-			// addScore('hard drop', 20 - curTetri.y - curTetri.maxHeight)
+		if (event.keyCode === 32 && canMove) {//ESPACE
+			setCanMove(false)
+			// setCurPos(curTetri.y)
+			addScore('hard drop', prevFit - curTetri.y)
 			clearInterval(refInterval.current)
 			refInterval.current = setGameLoop(15)
 		}
-		if (event.keyCode === 38) {//HAUT (rotation)
+		if (event.keyCode === 38 && canMove) {//HAUT (rotation)
 			moveTetri(tetri => {
 				const rot = tetri.rot > 2 ? 0 : tetri.rot + 1
 				const tetriRot = {//tetri potentiel apres rotation demandée
@@ -165,10 +171,18 @@ const Game = (props) => {
 		}
 	}
 
+	// useEffect(()=>{
+	// 	 addScore('hard drop', prevFit - curPos)
+	// }, [prevFit, curPos])
+
 	const setGameLoop = (speed) => {
 		return setInterval(() => {
 			moveTetri((tetri)=>{
 				if (!canFit({...tetri, y: tetri.y + 1})){
+					setPrevFit(tetri.y + 1)
+					setCanMove(true)
+					// console.log('addscore', prevFit - curPos)
+					// addScore('hard drop', prevFit - curPos)
 					keyDown = null
 					clearInterval(refInterval.current)
 					updateBoard((old)=>{
@@ -183,7 +197,7 @@ const Game = (props) => {
 					})
 					const t = initialTetriState(counter + 1)
 					increment((i)=>{
-						next(tab[pieces.pieces[counter + 1]])
+						next(tab[pieces.pieces[i+2]])
 						return i+1
 					})
 					if (t === false || !canFit(t)){
@@ -194,6 +208,22 @@ const Game = (props) => {
 				else return {...tetri, y: tetri.y + 1}
 			})
 		}, speed)
+	}
+
+	const addScore = (type, nb) => {
+		let points = 0
+		const lineMarks = [40,100,300,1200]
+		switch (type) {
+			case 'row':
+				points = lineMarks[nb + 1]
+			case 'hard drop':
+				points = nb + 1
+			case 'soft drop':
+				points = nb
+			default:
+				break
+		}
+		updateScore((oldScore)=>oldScore + points)
 	}
 
 	useEffect(() => {
@@ -219,7 +249,7 @@ const Game = (props) => {
 		return () => {
 			document.removeEventListener("keydown", keydownFunc)
 	}
-	}, [counter, gameOver])
+	}, [counter, gameOver, canMove, curTetri, curPos, prevFit])
 
 	const colorTab = ([
 		'red',
@@ -241,22 +271,6 @@ const Game = (props) => {
 		updateBoard({tetriList: board.tetriList, tab:newTab})
 	}
 
-	// const addScore = (type, nb) => {
-	// 	let points = 0
-	// 	const lineMarks = [40,100,300,1200]
-	// 	switch (type) {
-	// 		case 'row':
-	// 			points = lineMarks[nb + 1]
-	// 		case 'hard drop':
-	// 			points = nb + 1
-	// 		case 'soft drop':
-	// 			points = nb
-	// 		default:
-	// 			break
-	// 	}
-	// 	updateScore((oldScore)=>oldScore + points)
-	// }
-
 	const checkLine = () => {
 		let tab = board.tab
 		let lines = []
@@ -268,7 +282,7 @@ const Game = (props) => {
 		})
 		if (lines.length){
 			removeLine(lines, tab)
-			// addScore('row', lines.length)
+			addScore('row', lines.length)
 		}
 	}
 
@@ -283,7 +297,7 @@ const Game = (props) => {
 		? <div className='flex column center alignCenter' style={{height: '100vh'}}>
 				<div className={`flex column center alignCenter ${classes.gameOverContainer}`}>
 					<div style={{fontSize: '60px', fontWeight: 'bold', color: 'salmon'}}>Sorry, you lose</div>
-					{/* <div style={{fontSize: '50px', fontWeight: 'bold', color: 'white'}}>SCORE: {score}</div> */}
+					<div style={{fontSize: '50px', fontWeight: 'bold', color: 'white'}}>SCORE: {score}</div>
 					<div className={`flex column center alignCenter ${classes.restartButton}`}>
 						<div className={classes.restartLabel} onClick={()=>{resetGame()}}>
 							RESTART
@@ -292,9 +306,9 @@ const Game = (props) => {
 				</div>
 		</div>
 		: <div className='flex'>
-				{/* <div className={'absolute'} style={{height: '500px', left: '100px'}}>
+				<div className={'absolute'} style={{height: '500px', left: '100px'}}>
 					<div className={classes.scoreLabel}>SCORE: {score}</div>
-				</div> */}
+				</div>
 				<div className={'absolute'} style={{top: '100px', left: '100px'}}>
 					{
 						board.tab.map((line, index)=>{
