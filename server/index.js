@@ -1,14 +1,8 @@
-"use strict";
+var express = require("express");
+var app = express();
 
-var _express = _interopRequireDefault(require("express"));
+app.use(express.static("static"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-var port = 3000;
-var host = '0.0.0.0';
-var app = (0, _express["default"])();
-app.get('/', function (req, res) {
-  res.send('Wesh\n');
+app.listen(3000, function() {
+	console.log("Server Started");
 });
-app.listen(port, host);
-console.log("Running on https://".concat(host, ":").concat(port, " !"));

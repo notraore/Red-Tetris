@@ -5,13 +5,12 @@ import { withStyles }  from '@material-ui/styles'
 import {GameStyle} from '../styles/Game-style.js'
 
 const blockSize = 40
-let dropTime = 1000
 
 const blockStyle = ({
 	backgroundColor: 'pink',
 	width: `${blockSize}px`,
 	height: `${blockSize}px`,
-	border: '1px solid pink'
+	border: '0.5px solid #3331'
 })
 
 const initialBoardState = () => ({
@@ -46,8 +45,8 @@ const Block = ({empty, color, transparent})=>{
 			style={!!empty
 				? {...blockStyle}
 				: transparent
-					? {...blockStyle, border: '1px solid transparent', backgroundColor: 'transparent'}
-					: {...blockStyle, border: '1px solid white', backgroundColor: `${color}`}
+					? {...blockStyle, border: '0.5px solid transparent', backgroundColor: 'transparent'}
+					: {...blockStyle, border: '0.5px solid white', backgroundColor: `${color}`}
 			}
 		/>
 	)
@@ -100,9 +99,15 @@ const Game = (props) => {
 	const [board, updateBoard] = useState(initialBoardState())
 	const [curTetri, moveTetri] = useState(initialTetriState(0))
 	const [curPos, setCurPos] = useState(0)
+	// const [prevFit, setPrevFit] = useState(0)
 	const [prevFit, setPrevFit] = useState(0)
+	// const [lines, setLines] = useState([])
+	const [points, setPoints] = useState(0)
 	const [canMove, setCanMove] = useState(true)
 	const [nextTetri, next] = useState(tab[pieces.pieces[1]])
+	const [rows, setRows] = useState(0);
+	const [level, setLevel] = useState(0);
+	const [dropTime, setDropTime] = useState(1000);
 	const refInterval = useRef(false)
 	let keyDown
 
@@ -139,7 +144,7 @@ const Game = (props) => {
 		if (event.keyCode === 32 && canMove) {//ESPACE
 			setCanMove(false)
 			// setCurPos(curTetri.y)
-			addScore('hard drop', prevFit - curTetri.y)
+			// addScore('hard drop', prevFit - curTetri.y)
 			clearInterval(refInterval.current)
 			refInterval.current = setGameLoop(15)
 		}
@@ -210,24 +215,24 @@ const Game = (props) => {
 		}, speed)
 	}
 
-	const addScore = (type, nb) => {
-		let points = 0
-		const lineMarks = [40,100,300,1200]
-		switch (type) {
-			case 'row':
-				points = lineMarks[nb + 1]
-			case 'hard drop':
-				points = nb + 1
-			case 'soft drop':
-				points = nb
-			default:
-				break
-		}
-		updateScore((oldScore)=>oldScore + points)
-	}
+	// const addScore = (type, nb) => {
+	// 	let points = 0
+	// 	const lineMarks = [40,100,300,1200]
+	// 	switch (type) {
+	// 		case 'row':
+	// 			points = lineMarks[nb + 1]
+	// 		case 'hard drop':
+	// 			points = nb + 1
+	// 		case 'soft drop':
+	// 			points = nb
+	// 		default:
+	// 			break
+	// 	}
+	// 	updateScore((oldScore)=>oldScore + points)
+	// }
 
 	useEffect(() => {
-		refInterval.current = setGameLoop(1000)
+		refInterval.current = setGameLoop(dropTime)
 			if (gameOver) clearInterval(refInterval.current)
 			return () => {
 				clearInterval(refInterval.current)
@@ -239,7 +244,7 @@ const Game = (props) => {
 		document.addEventListener("keyup", event => {
 			if (event.keyCode === 40){
 				clearInterval(refInterval.current)
-				refInterval.current = setGameLoop(1000)
+				refInterval.current = setGameLoop(dropTime)
 			}
 			if (keyDown !== 32) keyDown = null
 		})
@@ -249,7 +254,7 @@ const Game = (props) => {
 		return () => {
 			document.removeEventListener("keydown", keydownFunc)
 	}
-	}, [counter, gameOver, canMove, curTetri, curPos, prevFit])
+	}, [counter, gameOver, canMove, curTetri, curPos, prevFit, points])
 
 	const colorTab = ([
 		'red',
@@ -271,18 +276,116 @@ const Game = (props) => {
 		updateBoard({tetriList: board.tetriList, tab:newTab})
 	}
 
+	const displayUpdate = (rows, len) => {
+		const pointTab = [40, 100, 300, 1200];
+		setPoints((points) => {return points + (pointTab[len - 1])})
+		setRows((rows) =>{
+			let total = rows + len 
+			switch (total)
+			{
+				case 10:
+				setLevel((level) => level + 1);
+				setDropTime((dropTime)=>dropTime - (level * 100));
+				console.log(level);
+					break;
+				case 20:
+				setLevel((level)=>level + 1);
+				setDropTime((dropTime)=>dropTime - (level * 100));
+			console.log(level);
+					break;
+				case 30:
+				setLevel((level)=>level + 1);
+				setDropTime((dropTime)=>dropTime - (level * 100));
+			console.log(level);
+					break;
+				case 40:
+				setLevel((level)=>level + 1);
+				setDropTime((dropTime)=>dropTime - (level * 100));
+			console.log(level);
+					break;
+				case 50:
+				setLevel((level)=>level + 1);
+				setDropTime((dropTime)=>dropTime - (level * 100));
+			console.log(level);
+					break;
+				case 60:
+				setLevel((level)=>level + 1);
+				setDropTime((dropTime)=>dropTime - (level * 100));
+			console.log(level);
+					break;
+				case 70:
+				setLevel((level)=>level + 1);
+				setDropTime((dropTime)=>dropTime - (level * 100));
+			console.log(level);
+					break;
+				case 80:
+				setLevel((level)=>level + 1);
+				setDropTime((dropTime)=>dropTime - (level * 100));
+			console.log(level);
+					break;
+			}
+		 return rows + len	
+		});
+	}
+
 	const checkLine = () => {
 		let tab = board.tab
 		let lines = []
 		tab.map((line, y)=>{
-			if (line.every((num)=>{return num > 0})){
+			if (line.every((num) => {return num > 0})){
 				lines.push(y)
 			}
 			return tab
 		})
 		if (lines.length){
 			removeLine(lines, tab)
-			addScore('row', lines.length)
+
+			displayUpdate(rows, lines.length);
+			// console.log(rows);
+			// switch (rows)
+			// {
+			// 	case 10:
+			// 	setLevel((level) => level + 1);
+			// 	setDropTime((dropTime)=>dropTime - (level * 100));
+			// console.log(level);
+			// 		break;
+			// 	case 20:
+			// 	setLevel((level)=>level + 1);
+			// 	setDropTime((dropTime)=>dropTime - (level * 100));
+			// console.log(level);
+			// 		break;
+			// 	case 30:
+			// 	setLevel((level)=>level + 1);
+			// 	setDropTime((dropTime)=>dropTime - (level * 100));
+			// console.log(level);
+			// 		break;
+			// 	case 40:
+			// 	setLevel((level)=>level + 1);
+			// 	setDropTime((dropTime)=>dropTime - (level * 100));
+			// console.log(level);
+			// 		break;
+			// 	case 50:
+			// 	setLevel((level)=>level + 1);
+			// 	setDropTime((dropTime)=>dropTime - (level * 100));
+			// console.log(level);
+			// 		break;
+			// 	case 60:
+			// 	setLevel((level)=>level + 1);
+			// 	setDropTime((dropTime)=>dropTime - (level * 100));
+			// console.log(level);
+			// 		break;
+			// 	case 70:
+			// 	setLevel((level)=>level + 1);
+			// 	setDropTime((dropTime)=>dropTime - (level * 100));
+			// console.log(level);
+			// 		break;
+			// 	case 80:
+			// 	setLevel((level)=>level + 1);
+			// 	setDropTime((dropTime)=>dropTime - (level * 100));
+			// console.log(level);
+			// 		break;
+			// }
+			// addScore('row', lines.length)
 		}
 	}
 
@@ -290,14 +393,20 @@ const Game = (props) => {
 			checkLine()
 	})
 
+
+	// useEffect(() => {
+	// 		displayUpdate(rows, lines);
+	// }, [rows, level, score, dropTime])
+
 	const tetri = curTetri.form
 
 	return (
 		gameOver
-		? <div className='flex column center alignCenter' style={{height: '100vh'}}>
+		? <div className='flex column center alignCenter' style={{height: '100hw'}}>
 				<div className={`flex column center alignCenter ${classes.gameOverContainer}`}>
-					<div style={{fontSize: '60px', fontWeight: 'bold', color: 'salmon'}}>Sorry, you lose</div>
-					<div style={{fontSize: '50px', fontWeight: 'bold', color: 'white'}}>SCORE: {score}</div>
+					<div style={{fontSize: '100hv', fontWeight: 'bold', color: 'salmon'}}>Sorry, you lose</div>
+					<div style={{fontSize: '200hw', fontWeight: 'bold', color: 'white'}}>SCORE: {points}</div>
+					<div style={{fontSize: '200hw', fontWeight: 'bold', color: 'white'}}>Level: {level}</div>
 					<div className={`flex column center alignCenter ${classes.restartButton}`}>
 						<div className={classes.restartLabel} onClick={()=>{resetGame()}}>
 							RESTART
@@ -307,9 +416,14 @@ const Game = (props) => {
 		</div>
 		: <div className='flex'>
 				<div className={'absolute'} style={{height: '500px', left: '100px'}}>
-					<div className={classes.scoreLabel}>SCORE: {score}</div>
+					<aside>
+						<div className={classes.scoreLabel}>SCORE: {points}</div>
+						<div className={classes.scoreLabel}>LEVEL: {level}</div>
+						<div className={classes.scoreLabel}>ROWS: {rows}</div>
+						<div className={classes.scoreLabel}>DropTime: {dropTime}</div>
+					</aside>
 				</div>
-				<div className={'absolute'} style={{top: '100px', left: '100px'}}>
+				<div className={'absolute'} style={{top: '270px', left: '100px'}}>
 					{
 						board.tab.map((line, index)=>{
 							return <div style={{display: 'flex'}} key={index}>
@@ -330,8 +444,8 @@ const Game = (props) => {
 						<div
 							className={`absolute`}
 							style={{
-								top: `${blockSize * curTetri.y + curTetri.y * 2}px`,
-								left: `${blockSize * curTetri.x + curTetri.x * 2}px`
+								top: `${blockSize * curTetri.y + curTetri.y}px`,
+								left: `${blockSize * curTetri.x + curTetri.x}px`
 							}}
 						>
 						{
