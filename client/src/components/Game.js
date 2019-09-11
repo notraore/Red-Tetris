@@ -3,95 +3,11 @@ import pieces from './pieces.json'
 import tab from './pieces.1.json'
 import { withStyles }  from '@material-ui/styles'
 import {GameStyle} from '../styles/Game-style.js'
-
-const blockSize = 40
-
-const blockStyle = ({
-	backgroundColor: 'pink',
-	width: `${blockSize}px`,
-	height: `${blockSize}px`,
-	border: '0.5px solid #3331'
-})
-
-const initialBoardState = () => ({
-	tab: [
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0]
-	],
-	tetriList: []
-})
-
-const Block = ({empty, color, transparent})=>{
-	return (
-		<div
-			style={!!empty
-				? {...blockStyle}
-				: transparent
-					? {...blockStyle, border: '0.5px solid transparent', backgroundColor: 'transparent'}
-					: {...blockStyle, border: '0.5px solid white', backgroundColor: `${color}`}
-			}
-		/>
-	)
-}
+import {blockSize, Block, colorTab} from './Block.js'
+import {canFit} from './canFit.js'
+import {initialBoardState, initialTetriState} from './initialState.js'
 
 const Game = (props) => {
-	const initialTetriState = (count) => {
-		const name = pieces.pieces[count]
-		const tetri = {
-			maxWidth: tab[name].position[0].maxWidth,
-			maxHeight: tab[name].position[0].maxHeight,
-			h: tab[name].position[0].height,
-			type: tab[name].type,
-			name: name,
-			width: tab[name].position[0].width,
-			x: 3,
-			y: 0,
-			leftSpace: tab[name].position[0].leftSpace,
-			rightSpace: tab[name].position[0].rightSpace,
-			downSpace: tab[name].position[0].downSpace,
-			rot: 0,
-			form: tab[name].position[0].form,
-			color: tab[name].color,
-		}
-		if (canFit(tetri)) return(tetri)
-		else return false
-	}
-
-	const canFit = (tetri) => {
-		const map = board.tab
-		let res = true
-
-		tetri.form.map((line, y)=>{
-			line.map((col, x)=>{
-				if (col > 0 && ((!map[tetri.y + y] || (map[tetri.y + y][tetri.x + x] > 0) ||
-					tetri.x + x > 9 + tetri.rightSpace ||
-					 tetri.x + x < 0 - tetri.leftSpace ||
-					 typeof map[tetri.y + y][tetri.x + x] === 'undefined'))){
-					res = false
-				}
-			})
-		})
-		return res
-	}
-
 	const {classes} = props
 	const [counter, increment] = useState(0)
 	const [gameOver, overGame] = useState(false)
@@ -125,26 +41,31 @@ const Game = (props) => {
 	}
 
 	const keydownFunc = event => {//DROITE
-		if (keyDown && (keyDown.keyCode == 38 || keyDown.keyCode == 32 || keyDown.keyCode == 40)) return
+		if ((keyDown && (keyDown.keyCode == 38 || keyDown.keyCode == 32 || keyDown.keyCode == 40)) || !canMove) return
 		keyDown = event
-		if (event.keyCode === 39 && canMove) {
+		if (event.keyCode === 39) {
 				moveTetri((tetri)=>{
-					if (canFit({...tetri, x: tetri.x + 1})) return {...tetri, x: tetri.x + 1}
+					if (canFit(board.tab, {...tetri, x: tetri.x + 1})) return {...tetri, x: tetri.x + 1}
 					else return tetri
 				})
 		}
-		if (event.keyCode === 37 && canMove) {//GAUCHE
+		if (event.keyCode === 37) {//GAUCHE
 			moveTetri((tetri)=>{
-				if (canFit({...tetri, x: tetri.x - 1})) return {...tetri, x: tetri.x - 1}
+				if (canFit(board.tab, {...tetri, x: tetri.x - 1})) return {...tetri, x: tetri.x - 1}
 				else return tetri
 			})
 		}
-		if (event.keyCode === 32 && canMove) {//ESPACE
+		if (event.keyCode === 40) {//BAS
+			console.log('CAN MOVE:', canMove)
+			clearInterval(refInterval.current)
+			refInterval.current = setGameLoop(30)
+		}
+		if (event.keyCode === 32) {//ESPACE
 			setCanMove(false)
 			clearInterval(refInterval.current)
 			refInterval.current = setGameLoop(15)
 		}
-		if (event.keyCode === 38 && canMove) {//HAUT (rotation)
+		if (event.keyCode === 38) {//HAUT (rotation)
 			moveTetri(tetri => {
 				const rot = tetri.rot > 2 ? 0 : tetri.rot + 1
 				const tetriRot = {//tetri potentiel apres rotation demandée
@@ -160,21 +81,17 @@ const Game = (props) => {
 					width: tab[tetri.name].position[rot].width,
 					height: tab[tetri.name].position[rot].height,
 				}
-				if (canFit(tetriRot)){//si ya la place de faire une rotation
+				if (canFit(board.tab, tetriRot)){//si ya la place de faire une rotation
 					return tetriRot
 				} else return tetri
 			})
-		}
-		if (event.keyCode === 40) {//BAS
-			clearInterval(refInterval.current)
-			refInterval.current = setGameLoop(30)
 		}
 	}
 
 	const setGameLoop = (speed) => {
 		return setInterval(() => {
 			moveTetri((tetri)=>{
-				if (!canFit({...tetri, y: tetri.y + 1})){
+				if (!canFit(board.tab, {...tetri, y: tetri.y + 1})){
 					setCanMove(true)
 					keyDown = null
 					clearInterval(refInterval.current)
@@ -193,7 +110,7 @@ const Game = (props) => {
 						next(tab[pieces.pieces[i+2]])
 						return i+1
 					})
-					if (t === false || !canFit(t)){
+					if (t === false || !canFit(board.tab, t)){
 						overGame(true)
 						return tetri
 					} else return t
@@ -214,7 +131,7 @@ const Game = (props) => {
 	useEffect(() => {
 		document.addEventListener("keydown", keydownFunc)
 		document.addEventListener("keyup", event => {
-			if (event.keyCode === 40){
+			if (event.keyCode === 40 && canMove){
 				clearInterval(refInterval.current)
 				refInterval.current = setGameLoop(dropTime)
 			}
@@ -227,16 +144,6 @@ const Game = (props) => {
 			document.removeEventListener("keydown", keydownFunc)
 	}
 	}, [counter, gameOver, canMove, curTetri, score])
-
-	const colorTab = ([
-		'red',
-		'blue',
-		'yellow',
-		'purple',
-		'salmon',
-		'cyan',
-		'green'
-	])
 
 	const removeLine = (num, tab) => {
 		let newTab = tab
