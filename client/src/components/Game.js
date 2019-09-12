@@ -6,6 +6,10 @@ import {GameStyle} from '../styles/Game-style.js'
 import {blockSize, Block, colorTab} from './Block.js'
 import {canFit} from './canFit.js'
 import {initialBoardState, initialTetriState} from './initialState.js'
+import InGameInfos from '../styles/GameInfos.js'
+import GameOverInfos from '../styles/GameOverInfos.js'
+import styled from 'styled-components'
+
 
 const Game = (props) => {
 	const {classes} = props
@@ -193,13 +197,16 @@ const Game = (props) => {
 
 	const tetri = curTetri.form
 
+
 	return (
+
 		gameOver
 		? <div className='flex column center alignCenter' style={{height: '100hw'}}>
 				<div className={`flex column center alignCenter ${classes.gameOverContainer}`}>
-					<div style={{fontSize: '100hv', fontWeight: 'bold', color: 'salmon'}}>Sorry, you lose</div>
-					<div style={{fontSize: '200hw', fontWeight: 'bold', color: 'white'}}>SCORE: {score}</div>
-					<div style={{fontSize: '200hw', fontWeight: 'bold', color: 'white'}}>Level: {level}</div>
+					<GameOverInfos text={`Sorry, you lose`} size={'1.0rem'}/>
+					<GameOverInfos text={`Level: ${level}`} size={'1.3rem'}/>
+					<GameOverInfos text={`Score: ${score}`} size={'1.3rem'}/>
+					<GameOverInfos text={`Rows: ${rows}`} size={'1.3rem'}/>
 					<div className={`flex column center alignCenter ${classes.restartButton}`}>
 						<div className={classes.restartLabel} onClick={()=>{resetGame()}}>
 							RESTART
@@ -207,14 +214,13 @@ const Game = (props) => {
 					</div>
 				</div>
 		</div>
+			
 		: <div className='flex'>
 				<div className={'absolute'} style={{height: '500px', left: '100px'}}>
-					<aside>
-						<div className={classes.scoreLabel}>SCORE: {score}</div>
-						<div className={classes.scoreLabel}>LEVEL: {level}</div>
-						<div className={classes.scoreLabel}>ROWS: {rows}</div>
-						<div className={classes.scoreLabel}>DropTime: {dropTime}</div>
-					</aside>
+					<InGameInfos text={`Score: ${score}`}/>
+					<InGameInfos text={`Level: ${level}`}/>
+					<InGameInfos text={`Rows: ${rows}`}/>
+					<InGameInfos text={`Speed: x${1000 - dropTime}`}/>
 				</div>
 				<div className={'absolute'} style={{top: '270px', left: '100px'}}>
 					{

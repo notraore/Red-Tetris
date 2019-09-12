@@ -5,12 +5,6 @@ export const GameStyle = () => ({
         width: '500px',
         backgroundColor: 'pink'
     },
-    scoreLabel: {
-        fontSize: '40px',
-        fontWeight: 'bold',
-        color: 'pink',
-        marginTop: '20px'
-    },
     restartLabel: {
         fontSize: '50px',
         fontWeight: 'bold',
