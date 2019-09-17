@@ -50,7 +50,7 @@ const App = (props) => {
             <Option selected={selected} name='Create' select={select} num={3} shuffle={_shuffleColor} />
           </div>
           <div className={`flex center ${classes.optionsContainer}`}>
-            <Option selected={selected} name='Opt' select={select} num={4} shuffle={_shuffleColor} />
+            <Option selected={selected} name='Score' select={select} num={4} shuffle={_shuffleColor} />
           </div>
         </div>
       </div>

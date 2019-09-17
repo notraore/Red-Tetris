@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import pieces from './pieces.json'
 import tab from './pieces.1.json'
 import { withStyles }  from '@material-ui/styles'
@@ -8,16 +8,6 @@ import {canFit} from './canFit.js'
 import {initialBoardState, initialTetriState} from './initialState.js'
 import InGameInfos from '../styles/GameInfos.js'
 import GameOverInfos from '../styles/GameOverInfos.js'
-import io from 'socket.io-client'
-
-var socket = io.connect('http://localhost:3000')
-
-socket.on('connect', ()=>{
-	console.log('je me connecte du front')
-	// socket.emit('test', 'tobi', 'woot', (data)=>{
-	// 	console.log(data)
-	// })
-})
 
 const Game = (props) => {
 	const {classes, returnMenu} = props
@@ -32,7 +22,7 @@ const Game = (props) => {
 	const [level, setLevel] = useState(0);
 	const [dropTime, setDropTime] = useState(1000);
 	const refInterval = useRef(false)
-	let keyDown
+	const keyDown = useRef(false)
 
 	useEffect(() => {
 		if (JSON.stringify(board) === JSON.stringify(initialBoardState()) && counter > 0){
@@ -41,7 +31,6 @@ const Game = (props) => {
 			setLevel(0)
 			setRows(0)
 			setDropTime(1000)
-			const t = initialTetriState(0)
 			moveTetri(initialTetriState(0))
 			next(tab[pieces.pieces[1]])
 			overGame(false)
@@ -52,9 +41,41 @@ const Game = (props) => {
 		updateBoard(initialBoardState())
 	}
 
-	const keydownFunc = event => {//DROITE
-		if ((keyDown && (keyDown.keyCode === 38 || keyDown.keyCode === 32 || keyDown.keyCode === 40)) || !canMove) return
-		keyDown = event
+	const setGameLoop = useCallback((speed) => {
+		return setInterval(() => {
+			moveTetri((tetri)=>{
+				if (!canFit(board.tab, {...tetri, y: tetri.y + 1})){
+					setCanMove(true)
+					keyDown.current = null
+					clearInterval(refInterval.current)
+					updateBoard((old)=>{
+						tetri.form.forEach((line, y)=>{
+							line.forEach((col, x)=>{
+								if (tetri.form[y][x] > 0){
+									old.tab[tetri.y + y][tetri.x + x] = tetri.form[y][x]
+								}
+							})
+						})
+						return old
+					})
+					const t = initialTetriState(counter + 1)
+					increment((i)=>{
+						next(tab[pieces.pieces[i+2]])
+						return i+1
+					})
+					if (t === false || !canFit(board.tab, t)){
+						overGame(true)
+						return tetri
+					} else return t
+				}
+				else return {...tetri, y: tetri.y + 1}
+			})
+		}, speed)
+	}, [board.tab, counter])
+
+	const keydownFunc = useCallback(event => {//DROITE
+		if ((keyDown.current && (keyDown.current.keyCode === 38 || keyDown.current.keyCode === 32 || keyDown.current.keyCode === 40)) || !canMove) return
+		keyDown.current = event
 		if (event.keyCode === 39) {
 				moveTetri((tetri)=>{
 					if (canFit(board.tab, {...tetri, x: tetri.x + 1})) return {...tetri, x: tetri.x + 1}
@@ -68,7 +89,6 @@ const Game = (props) => {
 			})
 		}
 		if (event.keyCode === 40) {//BAS
-			console.log('CAN MOVE:', canMove)
 			clearInterval(refInterval.current)
 			refInterval.current = setGameLoop(30)
 		}
@@ -98,39 +118,7 @@ const Game = (props) => {
 				} else return tetri
 			})
 		}
-	}
-
-	const setGameLoop = (speed) => {
-		return setInterval(() => {
-			moveTetri((tetri)=>{
-				if (!canFit(board.tab, {...tetri, y: tetri.y + 1})){
-					setCanMove(true)
-					keyDown = null
-					clearInterval(refInterval.current)
-					updateBoard((old)=>{
-						tetri.form.map((line, y)=>{
-							line.map((col, x)=>{
-								if (tetri.form[y][x] > 0){
-									old.tab[tetri.y + y][tetri.x + x] = tetri.form[y][x]
-								}
-							})
-						})
-						return old
-					})
-					const t = initialTetriState(counter + 1)
-					increment((i)=>{
-						next(tab[pieces.pieces[i+2]])
-						return i+1
-					})
-					if (t === false || !canFit(board.tab, t)){
-						overGame(true)
-						return tetri
-					} else return t
-				}
-				else return {...tetri, y: tetri.y + 1}
-			})
-		}, speed)
-	}
+	}, [board.tab, canMove, setGameLoop])
 
 	useEffect(() => {
 		refInterval.current = setGameLoop(dropTime)
@@ -138,7 +126,7 @@ const Game = (props) => {
 			return () => {
 				clearInterval(refInterval.current)
 			}
-		}, [counter, gameOver, dropTime])
+		}, [counter, gameOver, dropTime, setGameLoop])
 
 	useEffect(() => {
 		document.addEventListener("keydown", keydownFunc)
@@ -147,7 +135,7 @@ const Game = (props) => {
 				clearInterval(refInterval.current)
 				refInterval.current = setGameLoop(dropTime)
 			}
-			if (keyDown !== 32) keyDown = null
+			if (keyDown.current !== 32) keyDown.current = null
 		})
 		if (gameOver){
 			document.removeEventListener("keydown", keydownFunc)
@@ -155,7 +143,7 @@ const Game = (props) => {
 		return () => {
 			document.removeEventListener("keydown", keydownFunc)
 	}
-	}, [counter, gameOver, canMove, curTetri, score])
+	}, [counter, gameOver, canMove, curTetri, score, dropTime, keydownFunc, setGameLoop])
 
 	const removeLine = (num, tab) => {
 		let newTab = tab

@@ -10,7 +10,6 @@ const StyledGameOverInfos = styled.div`
 	padding: 3px;
 `
 
-const GameOverInfos = ({text}) => (
-	<StyledGameOverInfos>{text}</StyledGameOverInfos>)
+const GameOverInfos = ({text}) => (<StyledGameOverInfos>{text}</StyledGameOverInfos>)
 
 export default GameOverInfos

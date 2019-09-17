@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {styles} from '../styles/Menu-styles.js'
 import { withStyles }  from '@material-ui/styles'
+import { joinRoom } from '../sockets/emits.js'
 
 const SoloComponent = ({ classes, selected, startGame }) => {
     return (
         <div className={`flex center alignCenter column`} style={selected === 1 ? {display: 'flex'} : {display: 'none'}}>
-            <p className={classes.optionLabel} onClick={()=>{startGame('game')}}>
+            <p className={classes.optionLabel} onClick={()=>{startGame('solo')}}>
                 Start
             </p>
         </div>
@@ -30,21 +31,27 @@ const SettingsComponent = ({ selected }) => {
     return (
         <div className={`flex center alignCenter column`} style={selected === 4 ? {display: 'flex'} : {display: 'none'}}>
             <p>
-              Default name
+              Leaderboard:
             </p>
-            <input/>
+            {/* <input/> */}
           </div>
     )
 }
 
 const JoinComponent = ({ classes, selected }) => {
+    const [roomName, handleChange] = useState('')
+
     return (
         <div className={`flex center alignCenter column`} style={selected === 2 ? {display: 'flex'} : {display: 'none'}}>
             <p>
               Enter existing room name
             </p>
-            <input/>
-            <p className={classes.optionLabel}>
+            <input onChange={(e)=>{
+              handleChange(e.target.value)
+            }}/>
+            <p className={classes.optionLabel} onClick={()=>{
+              if (roomName.length) joinRoom(roomName)
+            }}>
               Join
             </p>
           </div>

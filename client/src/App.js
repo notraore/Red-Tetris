@@ -1,32 +1,43 @@
 import React, { useState, Fragment } from 'react'
 import Menu from './containers/Menu' 
-import Game from './components/Game';
+import Solo from './components/Game'
+import {Multi} from './containers/Multi'
+import {SocketProvider} from './sockets/socketProvider'
+import {connect} from './sockets/events'
+
+connect()
 
 export const App = () => {
-    const [optionSelected, setOption] = useState('menu')
+	const [optionSelected, setOption] = useState('menu')
 
-    const onOptionChange = (value) => {
-        setOption(value)
-    }
-    
-    const returnMenu = () =>{
-        setOption('menu')
-    }
+	const onOptionChange = (value) => {
+		setOption(value)
+	}
+	
+	const returnMenu = () =>{
+		setOption('menu')
+	}
 
-    const renderOption = (option) => {
-        switch (option) {
-            case 'game':
-                return <Game returnMenu={returnMenu}/>
-            case 'menu':
-                return <Menu onOptionChange={onOptionChange}/>
-            default:
-                return null
-        }
-    }
-    
-    return(
-        <Fragment>
-            {renderOption(optionSelected)}
-        </Fragment>
-    )
+	const renderOption = (option) => {
+		switch (option) {
+			case 'solo':
+				return <Solo returnMenu={returnMenu}/>
+			case 'menu':
+				return <Menu onOptionChange={onOptionChange}/>
+			case 'create':
+				return <Multi returnMenu={returnMenu}/>
+			// case 'join':
+			//  return <Menu onOptionChange={onOptionChange}/>
+			default:
+				return null
+		}
+	}
+	
+	return(
+		<Fragment>
+			<SocketProvider>
+				{renderOption(optionSelected)}
+			</SocketProvider>
+		</Fragment>
+	)
 }

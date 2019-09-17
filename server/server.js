@@ -14,12 +14,26 @@ app.get('/', function(req, res){
 })
 
 io.on('connection', (socket)=>{
-	console.log('Je suis bien connectée !', socket.id, 'id des personnes connectées (dont moi)', Object.keys(io.sockets.sockets))
-	// socket.on('test', (name, word, fn) => {
-	// 	fn(name + ' says ' + word);
-	// });
+	console.log('CONNECTE A SOCKET IO ! id User (socket): ', socket.id)
+	socket.on('join room', (roomName, res) => {
+		var usersInRoom = io.sockets.adapter.rooms[roomName]
+		var canJoinRoom = typeof usersInRoom === 'undefined' || usersInRoom.length < 2
+
+		if (typeof usersInRoom !== 'undefined') console.log(`gens dans la room ${roomName}:`, usersInRoom.length)
+		if (canJoinRoom){ // si la room est pas full join la room
+			console.log(`Room pas full !\nCONNECTION A LA ROOM "${roomName}", id:`, socket.id)
+			socket.join(roomName, ()=>{
+				console.log("CONNEXION A LA ROOM ETABLIE: mon id:", socket.id)
+			})
+		} else {
+			if (socket.rooms.hasOwnProperty(roomName)){ // si l'user est deja dans la room
+				console.log(`Jsuis deja dans cette room "${roomName}" BOULET`)
+			} else { // si la room est full
+				console.log(`JE PEUX PAS ME CONNECTER LA ROOM "${roomName}" EST FULL: mon id:`, socket.id)
+			}
+		}
+		res(canJoinRoom, roomName) // Envoie au front si l'user a rejoint la room ou non
+	})
 })
 
 server.listen(3000, () => console.log("Port listening on port :3000\n\n█████████████████\n█░░░░░░░░░░░░░░░█\n█░░░░░░░░░░░░░░░█\n█░░████░░░████░░█\n█░░████░░░████░░█\n█░░░░░░███░░░░░░█\n█░░░░███████░░░░█\n█░░░░███████░░░░█\n█░░░░██░░░██░░░░█\n█░░░░░░░░░░░░░░░█\n█████████████████\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n█████████████████\n█░░░░░░░█░░░░░░░█\n█░░░░░░░█░░░░░░░█\n█░░░░░░░█░░░░░░░█\n█░░░░░░░█░░░░░░░█\n█████████████████\n█████████████████"))
-// app.listen(3000, () => console.log("Port listening on port :3000\n\n█████████████████\n█░░░░░░░░░░░░░░░█\n█░░░░░░░░░░░░░░░█\n█░░████░░░████░░█\n█░░████░░░████░░█\n█░░░░░░███░░░░░░█\n█░░░░███████░░░░█\n█░░░░███████░░░░█\n█░░░░██░░░██░░░░█\n█░░░░░░░░░░░░░░░█\n█████████████████\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n───█░░░░░░░░░█───\n█████████████████\n█░░░░░░░█░░░░░░░█\n█░░░░░░░█░░░░░░░█\n█░░░░░░░█░░░░░░░█\n█░░░░░░░█░░░░░░░█\n█████████████████\n█████████████████"));
-// celui la ^ fonctionne pas avec socket io :(
