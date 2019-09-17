@@ -21,7 +21,7 @@ const _shuffleColor = (e) => {
 }
 
 const App = (props) => {
-  const { classes } = props
+  const { classes, onOptionChange } = props
   const [selected, select] = useState(0)
 
   return (
@@ -33,7 +33,7 @@ const App = (props) => {
           style={selected > 0 ? {display: 'flex'} : {display: 'none'}}
         >
           <Join selected={selected}/>
-          <Solo selected={selected}/>
+          <Solo selected={selected} startGame={onOptionChange}/>
           <Create selected={selected}/>
           <Settings selected={selected}/>
           <p onClick={()=>{select(0)}} className={classes.optionLabel}>

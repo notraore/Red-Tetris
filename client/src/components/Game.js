@@ -8,11 +8,19 @@ import {canFit} from './canFit.js'
 import {initialBoardState, initialTetriState} from './initialState.js'
 import InGameInfos from '../styles/GameInfos.js'
 import GameOverInfos from '../styles/GameOverInfos.js'
-import styled from 'styled-components'
+import io from 'socket.io-client'
 
+var socket = io.connect('http://localhost:3000')
+
+socket.on('connect', ()=>{
+	console.log('je me connecte du front')
+	// socket.emit('test', 'tobi', 'woot', (data)=>{
+	// 	console.log(data)
+	// })
+})
 
 const Game = (props) => {
-	const {classes} = props
+	const {classes, returnMenu} = props
 	const [counter, increment] = useState(0)
 	const [gameOver, overGame] = useState(false)
 	const [board, updateBoard] = useState(initialBoardState())
@@ -45,7 +53,7 @@ const Game = (props) => {
 	}
 
 	const keydownFunc = event => {//DROITE
-		if ((keyDown && (keyDown.keyCode == 38 || keyDown.keyCode == 32 || keyDown.keyCode == 40)) || !canMove) return
+		if ((keyDown && (keyDown.keyCode === 38 || keyDown.keyCode === 32 || keyDown.keyCode === 40)) || !canMove) return
 		keyDown = event
 		if (event.keyCode === 39) {
 				moveTetri((tetri)=>{
@@ -197,95 +205,98 @@ const Game = (props) => {
 
 	const tetri = curTetri.form
 
-
 	return (
-
-		gameOver
-		? <div className='flex column center alignCenter' style={{height: '100hw'}}>
-				<div className={`flex column center alignCenter ${classes.gameOverContainer}`}>
-					<GameOverInfos text={`Sorry, you lose`} size={'1.0rem'}/>
-					<GameOverInfos text={`Level: ${level}`} size={'1.3rem'}/>
-					<GameOverInfos text={`Score: ${score}`} size={'1.3rem'}/>
-					<GameOverInfos text={`Rows: ${rows}`} size={'1.3rem'}/>
-					<div className={`flex column center alignCenter ${classes.restartButton}`}>
-						<div className={classes.restartLabel} onClick={()=>{resetGame()}}>
-							RESTART
-						</div>
-					</div>
-				</div>
-		</div>
-			
-		: <div className='flex'>
-				<div className={'absolute'} style={{height: '500px', left: '100px'}}>
-					<InGameInfos text={`Score: ${score}`}/>
-					<InGameInfos text={`Level: ${level}`}/>
-					<InGameInfos text={`Rows: ${rows}`}/>
-					<InGameInfos text={`Speed: x${1000 - dropTime}`}/>
-				</div>
-				<div className={'absolute'} style={{top: '270px', left: '100px'}}>
-					{
-						board.tab.map((line, index)=>{
-							return <div style={{display: 'flex'}} key={index}>
-								{
-									line.map((col, index) => {
-										return <div key={index}>
-											{col > 0
-												? <Block color={colorTab[col - 1]}/>
-												: <Block empty/>
-											}
-										</div>
-									})
-								}
-							</div>
-						})
-					}
-					{
-						<div
-							className={`absolute`}
-							style={{
-								top: `${blockSize * curTetri.y + curTetri.y}px`,
-								left: `${blockSize * curTetri.x + curTetri.x}px`
-							}}
-						>
-						{
-							tetri.map((line, index)=>{
-							return <div style={{display: 'flex'}} key={index}>
-								{
-									line.map((col, index) => {
-										return <div key={index}>
-											{col > 0
-												? <Block color={curTetri.color}/>
-												: <Block transparent/>
-											}
-										</div>
-									})
-								}
-							</div>
-						})}
-						</div>
-					}
-				</div>
-				<div className={'absolute flex center alignCenter column'} style={{backgroundColor: 'lightblue', left: '600px', top: '100px'}}>
-					<div style={{fontSize: '40px', fontWeight: 'bold', color: 'navy', marginTop: '20px'}}>Next:</div>
-					<div className={'relative'} style={{top: '10px', padding: '10px'}}>
-						{
-							nextTetri.position[0].form.map((line, index)=>{
-								return <div style={{display: 'flex'}} key={index}>
-									{
-										line.map((col, index) => {
-											return <div key={index}>
-												{col > 0
-													? <Block color={nextTetri.color}/>
-													: <Block transparent/>
-												}
-											</div>
-										})
-									}
+		<div>
+			<div className='navigationBar fullWidth flex center alignCenter' style={{height: '30px', backgroundColor: 'red'}}>
+				<p onClick={()=>{returnMenu()}}>RETURN MENU</p>
+			</div>
+			{gameOver
+				? <div className='flex column center alignCenter' style={{height: '100hw'}}>
+						<div className={`flex column center alignCenter ${classes.gameOverContainer}`}>
+							<GameOverInfos text={`Sorry, you lose`} size={'1.0rem'}/>
+							<GameOverInfos text={`Level: ${level}`} size={'1.3rem'}/>
+							<GameOverInfos text={`Score: ${score}`} size={'1.3rem'}/>
+							<GameOverInfos text={`Rows: ${rows}`} size={'1.3rem'}/>
+							<div className={`flex column center alignCenter ${classes.restartButton}`}>
+								<div className={classes.restartLabel} onClick={()=>{resetGame()}}>
+									RESTART
 								</div>
-							})
-						}
-					</div>
+							</div>
+						</div>
 				</div>
+					
+				: <div className='flex'>
+						<div className={'absolute'} style={{top: '100px', left: '100px'}}>
+							{
+								board.tab.map((line, index)=>{
+									return <div style={{display: 'flex'}} key={index}>
+										{
+											line.map((col, index) => {
+												return <div key={index}>
+													{col > 0
+														? <Block color={colorTab[col - 1]}/>
+														: <Block empty/>
+													}
+												</div>
+											})
+										}
+									</div>
+								})
+							}
+							{
+								<div
+									className={`absolute`}
+									style={{
+										top: `${blockSize * curTetri.y + curTetri.y}px`,
+										left: `${blockSize * curTetri.x + curTetri.x}px`
+									}}
+								>
+								{
+									tetri.map((line, index)=>{
+									return <div style={{display: 'flex'}} key={index}>
+										{
+											line.map((col, index) => {
+												return <div key={index}>
+													{col > 0
+														? <Block color={curTetri.color}/>
+														: <Block transparent/>
+													}
+												</div>
+											})
+										}
+									</div>
+								})}
+								</div>
+							}
+						</div>
+						<div className={'absolute flex center alignCenter column'} style={{left: '600px', top: '100px'}}>
+							<div style={{fontSize: '40px', fontWeight: 'bold', color: 'navy', marginTop: '20px'}}>Next:</div>
+							<div className={'relative'} style={{top: '10px', padding: '10px'}}>
+								{
+									nextTetri.position[0].form.map((line, index)=>{
+										return <div style={{display: 'flex'}} key={index}>
+											{
+												line.map((col, index) => {
+													return <div key={index}>
+														{col > 0
+															? <Block color={nextTetri.color}/>
+															: <Block transparent/>
+														}
+													</div>
+												})
+											}
+										</div>
+									})
+								}
+							</div>
+							<div className={'relative'} style={{}}>
+							<InGameInfos text={`Score: ${score}`}/>
+							<InGameInfos text={`Level: ${level}`}/>
+							<InGameInfos text={`Rows: ${rows}`}/>
+							<InGameInfos text={`Speed: x${1000 - dropTime}`}/>
+						</div>
+						</div>
+				</div>}
 		</div>
 	)
 }

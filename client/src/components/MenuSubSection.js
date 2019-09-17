@@ -2,10 +2,10 @@ import React from 'react'
 import {styles} from '../styles/Menu-styles.js'
 import { withStyles }  from '@material-ui/styles'
 
-const SoloComponent = ({ classes, selected }) => {
+const SoloComponent = ({ classes, selected, startGame }) => {
     return (
         <div className={`flex center alignCenter column`} style={selected === 1 ? {display: 'flex'} : {display: 'none'}}>
-            <p className={classes.optionLabel}>
+            <p className={classes.optionLabel} onClick={()=>{startGame('game')}}>
                 Start
             </p>
         </div>
