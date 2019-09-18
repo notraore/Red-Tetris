@@ -5,8 +5,10 @@
   "dependencies": {
     "@material-ui/styles": "^4.3.0",
     "gridlex": "^2.7.1",
+    "history": "^4.10.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-router": "^5.0.1",
     "react-scripts": "3.0.1",
     "socket.io-client": "^2.2.0",
     "styled-components": "^4.3.0"

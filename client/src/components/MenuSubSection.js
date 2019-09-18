@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import {styles} from '../styles/Menu-styles.js'
 import { withStyles }  from '@material-ui/styles'
 import { joinRoom } from '../sockets/emits.js'
+import { createRoom } from '../sockets/emits.js'
+import { historyPush } from '../history.js';
 
-const SoloComponent = ({ classes, selected, startGame }) => {
+const SoloComponent = ({ classes, selected }) => {
     return (
         <div className={`flex center alignCenter column`} style={selected === 1 ? {display: 'flex'} : {display: 'none'}}>
-            <p className={classes.optionLabel} onClick={()=>{startGame('solo')}}>
+            <p className={classes.optionLabel} onClick={()=>{historyPush('/solo')}}>
                 Start
             </p>
         </div>
@@ -14,13 +16,19 @@ const SoloComponent = ({ classes, selected, startGame }) => {
 }
 
 const CreateComponent = ({ classes, selected }) => {
+    const [roomName, handleChange] = useState('')
+
     return (
         <div className={`flex center alignCenter column`} style={selected === 3 ? {display: 'flex'} : {display: 'none'}}>
             <p>
               Enter a new room name
             </p>
-            <input className={`${classes.input}`} />
-            <p className={classes.optionLabel}>
+            <input className={`${classes.input}`} onChange={(e)=>{
+              handleChange(e.target.value)
+            }}/>
+            <p className={classes.optionLabel} onClick={()=>{
+              if (roomName.length) createRoom(roomName)
+            }}>
               Create
             </p>
           </div>

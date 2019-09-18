@@ -8,9 +8,10 @@ import {canFit} from './canFit.js'
 import {initialBoardState, initialTetriState} from './initialState.js'
 import InGameInfos from '../styles/GameInfos.js'
 import GameOverInfos from '../styles/GameOverInfos.js'
+import { historyPush } from '../history.js';
 
 const Game = (props) => {
-	const {classes, returnMenu} = props
+	const {classes} = props
 	const [counter, increment] = useState(0)
 	const [gameOver, overGame] = useState(false)
 	const [board, updateBoard] = useState(initialBoardState())
@@ -196,7 +197,7 @@ const Game = (props) => {
 	return (
 		<div>
 			<div className='navigationBar fullWidth flex center alignCenter' style={{height: '30px', backgroundColor: 'red'}}>
-				<p onClick={()=>{returnMenu()}}>RETURN MENU</p>
+				<p onClick={()=>{historyPush('/')}}>RETURN MENU</p>
 			</div>
 			{gameOver
 				? <div className='flex column center alignCenter' style={{height: '100hw'}}>

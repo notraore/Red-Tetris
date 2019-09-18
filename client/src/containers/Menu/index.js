@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { withStyles }  from '@material-ui/styles'
 import _ from 'lodash'
 import './Menu.css'
@@ -9,6 +9,7 @@ import {styles, colorArray} from '../../styles/Menu-styles.js'
 import Title from '../../components/Title.js'
 import {Option} from '../../components/Option.js'
 import {Join, Solo, Create, Settings} from '../../components/MenuSubSection'
+import { isInGame } from '../../sockets/emits'
 
 const _shuffleColor = (e) => {
   let randNum = _.random(0, 7)
@@ -21,19 +22,24 @@ const _shuffleColor = (e) => {
 }
 
 const App = (props) => {
-  const { classes, onOptionChange } = props
+  const { classes, username } = props
   const [selected, select] = useState(0)
+
+  useEffect(()=>{
+    isInGame()
+  })
 
   return (
     <div className="App" style={styles.container}>
       <div className={`${classes.centerSubContainer}`}>
+        <p>{`Player ID: ${username}`}</p>
         <Title/>
         <div
           className={`flex center alignCenter column ${classes.chosen}`}
           style={selected > 0 ? {display: 'flex'} : {display: 'none'}}
         >
           <Join selected={selected}/>
-          <Solo selected={selected} startGame={onOptionChange}/>
+          <Solo selected={selected}/>
           <Create selected={selected}/>
           <Settings selected={selected}/>
           <p onClick={()=>{select(0)}} className={classes.optionLabel}>

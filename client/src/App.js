@@ -1,42 +1,39 @@
-import React, { useState, Fragment } from 'react'
+import React, { Fragment, useReducer, useEffect, useState } from 'react'
 import Menu from './containers/Menu' 
 import Solo from './components/Game'
-import {Multi} from './containers/Multi'
+import Multi from './containers/Multi'
 import {SocketProvider} from './sockets/socketProvider'
 import {connect} from './sockets/events'
-
-connect()
+import { Router, Route } from 'react-router'
+import history from './history'
+import { userReducer, initialUserState } from './reducers/userReducer'
+import { socket } from './sockets'
 
 export const App = () => {
-	const [optionSelected, setOption] = useState('menu')
+	const [userInfos, dispatch] = useReducer(userReducer, initialUserState)
+	const [username, change] = useState('')
 
-	const onOptionChange = (value) => {
-		setOption(value)
-	}
-	
-	const returnMenu = () =>{
-		setOption('menu')
+	const setUser = () => {
+		dispatch({type:'CHANGE_USERNAME', payload: socket.id})
 	}
 
-	const renderOption = (option) => {
-		switch (option) {
-			case 'solo':
-				return <Solo returnMenu={returnMenu}/>
-			case 'menu':
-				return <Menu onOptionChange={onOptionChange}/>
-			case 'create':
-				return <Multi returnMenu={returnMenu}/>
-			// case 'join':
-			//  return <Menu onOptionChange={onOptionChange}/>
-			default:
-				return null
-		}
-	}
+	useEffect(()=>{
+		connect()
+		setUser()
+	}, [])
 	
+	useEffect(()=>{
+		change(userInfos.username)
+	}, [userInfos])
+
 	return(
 		<Fragment>
 			<SocketProvider>
-				{renderOption(optionSelected)}
+				<Router history={history}>
+					<Route exact path="/" component={()=> <Menu username={username}/>}/>
+					<Route path="/solo" component={()=> <Solo/>}/>
+					<Route path={`/multi`} component={()=> <Multi/>}/>
+				</Router>
 			</SocketProvider>
 		</Fragment>
 	)
