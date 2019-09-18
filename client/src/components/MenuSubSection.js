@@ -19,7 +19,7 @@ const CreateComponent = ({ classes, selected }) => {
             <p>
               Enter a new room name
             </p>
-            <input/>
+            <input className={`${classes.input}`} />
             <p className={classes.optionLabel}>
               Create
             </p>
@@ -46,7 +46,7 @@ const JoinComponent = ({ classes, selected }) => {
             <p>
               Enter existing room name
             </p>
-            <input onChange={(e)=>{
+            <input className={`${classes.input}`} onChange={(e)=>{
               handleChange(e.target.value)
             }}/>
             <p className={classes.optionLabel} onClick={()=>{

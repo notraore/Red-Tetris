@@ -14,11 +14,6 @@ export let colorArray = [
 export const styles = ({
     container: {
       backgroundColor: 'rgb(33, 35, 46)',
-      // backgroundImage: 'radial-gradient(circle, #920000, #7a0010, #600416, #460a17, #2b0c13, #21090f, #150509, #000000, #000000, #000000, #000000, #000000)',
-      // backgroundImage: 'radial-gradient(circle, #720f33, #651a3f, #562346, #462948, #382c45, #32293d, #2c2534, #26222c, #201b21, #191418, #100b0e, #000000)',
-      // backgroundImage: 'radial-gradient(circle, #000000, #080305, #0e060b, #110912, #130d17, #18131c, #1d1821, #221d26, #2d262c, #362f32, #3f393a, #474343)',
-      // backgroundImage: 'radial-gradient(circle, #000000, #0e0507, #170a0e, #1e0f12, #251216, #39151c, #4e1621, #631625, #8b0f28, #b30125, #da001c, #ff0000)',
-      // backgroundImage: 'radial-gradient(circle, #ffffff, #cacaca, #979797, #676767, #3b3b3b, #292929, #181818, #000000, #000000, #000000, #000000, #000000)',
       minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column',
@@ -27,6 +22,19 @@ export const styles = ({
       color: 'white',
       animation: 'gradientBackground 20s infinite',
       backgroundSize: '100% 100%',
+    },
+    input:{
+      height: '45px',
+      width: '250px',
+      fontSize: '28px',
+      textAlign: 'center',
+      backgroundColor: 'rgb(47, 49, 64)',
+      border: '3px solid rgb(71, 72, 99)',
+      color: 'white',
+      fontFamily: 'Orbitron, sans-serif',
+      '&:focus': {
+        outline: 'none'
+      }
     },
     centerSubContainer: {
       margin: '200px',
