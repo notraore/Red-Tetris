@@ -12,6 +12,7 @@ import { socket } from './sockets'
 export const App = () => {
 	const [userInfos, updateUserInfos] = useReducer(userReducer, initialUserState)
 	const [data, setData] = useState('')
+	const [rooms, setRooms] = useState('')
 
 	const updateUser = (data) => {
 		updateUserInfos({type:'UPDATE_INFOS', payload: data})
@@ -25,6 +26,14 @@ export const App = () => {
 		socket.emit('get data')
 		socket.on('receive data', (data)=>{
 			updateUser(data)
+		})
+	}, [])
+
+	useEffect(()=>{
+		socket.emit('getAllRooms')
+		socket.on('allRooms', (rooms) =>{
+			setRooms(rooms);
+			console.log(rooms);
 		})
 	}, [])
 

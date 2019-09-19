@@ -11,6 +11,15 @@ export const useSockets = (io) => {
 					socket.emit('receive data', userData)
         })
 
+        socket.on('getAllRooms', () => {
+            var allRooms = io.sockets.adapter.rooms;
+            if (allRooms)
+            {
+                console.log(allRooms);
+            }
+            socket.emit('allRooms', io.sockets.adapter.rooms);
+        })
+
         console.log('\x1b[36m%s\x1b[0m', 'CONNECTE A SOCKET IO !\n id User (socket): ', "\x1b[31m", socket.id)
         socket.on('join room', (roomName, res) => {
             var usersInRoom = io.sockets.adapter.rooms[roomName]

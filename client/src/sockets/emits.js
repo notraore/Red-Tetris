@@ -53,6 +53,12 @@ export const joinRoom = (name) => {
   })
 }
 
+// export const getAllRooms = (rooms) => {
+//   socket.emit('getAllRooms');
+//   socket.on('allRooms')
+//   console.log(f_room);
+// }
+
 export const createRoom = (name) => {
   socket.emit('create room', name, (isCreated, name)=>{
     if (!isCreated){
