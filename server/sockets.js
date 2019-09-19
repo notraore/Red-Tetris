@@ -11,6 +11,7 @@ export const useSockets = (io) => {
 					socket.emit('receive data', userData)
         })
 
+				console.log('gens connectes: ', Object.keys(io.sockets.sockets))
         console.log('\x1b[36m%s\x1b[0m', 'CONNECTE A SOCKET IO !\n id User (socket): ', "\x1b[31m", socket.id)
         socket.on('join room', (roomName, res) => {
             var usersInRoom = io.sockets.adapter.rooms[roomName]

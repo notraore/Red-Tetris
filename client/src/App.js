@@ -28,6 +28,10 @@ export const App = () => {
 		})
 	}, [])
 
+	useEffect(()=>{
+		console.log(userInfos.id)
+	})
+
 	return(
 		<Fragment>
 			<SocketProvider>
