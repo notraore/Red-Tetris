@@ -1,15 +1,17 @@
 export const initialUserState = {
     username: '',
+    id: null,
     playing: false
 }
 
 export const userReducer = (state = initialUserState, action) => {
     switch (action.type) {
-        case 'CHANGE_USERNAME':
-        console.log('dans reducer payload: ', action.payload)
+        case 'UPDATE_INFOS':
             return {
                 ...state,
-                username: action.payload
+                id: action.payload.id,
+                username: action.payload.username,
+                playing: action.payload.playing,
             }
         case 'CHANGE_GAME_STATUS':
             return {

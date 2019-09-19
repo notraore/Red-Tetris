@@ -2,8 +2,13 @@ export const useSockets = (io) => {
     io.on('connection', (socket)=>{
         
         socket.on('get data', ()=>{
-            var id = socket.id
-            socket.emit('receive data', id)
+					var usersRooms = socket.rooms
+					var userData = {
+						id: socket.id,
+						username: `PLAYER`,
+						playing: Object.keys(usersRooms).length > 1
+					}
+					socket.emit('receive data', userData)
         })
 
         console.log('\x1b[36m%s\x1b[0m', 'CONNECTE A SOCKET IO !\n id User (socket): ', "\x1b[31m", socket.id)

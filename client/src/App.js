@@ -10,32 +10,29 @@ import { userReducer, initialUserState } from './reducers/userReducer'
 import { socket } from './sockets'
 
 export const App = () => {
-	const [userInfos, dispatch] = useReducer(userReducer, initialUserState)
-	const [username, change] = useState('')
+	const [userInfos, updateUserInfos] = useReducer(userReducer, initialUserState)
 	const [data, setData] = useState('')
 
-	const setUser = () => {
-		dispatch({type:'CHANGE_USERNAME', payload: socket.id})
+	const updateUser = (data) => {
+		updateUserInfos({type:'UPDATE_INFOS', payload: data})
+	}
+
+	const updateUsername = (username) => {
+		updateUserInfos({type:'UPDATE_INFOS', payload: {...userInfos, username: username}})
 	}
 
 	useEffect(()=>{
-		// connect()
 		socket.emit('get data')
-		socket.on('receive data', (id)=>{
-			setData(id)
+		socket.on('receive data', (data)=>{
+			updateUser(data)
 		})
-		setUser()
 	}, [])
-	
-	useEffect(()=>{
-		change(data)
-	}, [data])
 
 	return(
 		<Fragment>
 			<SocketProvider>
 				<Router history={history}>
-					<Route exact path="/" component={()=> <Menu username={username}/>}/>
+					<Route exact path="/" component={()=> <Menu userInfos={userInfos} updateUsername={updateUsername}/>}/>
 					<Route path="/solo" component={()=> <Solo/>}/>
 					<Route path={`/multi`} component={()=> <Multi/>}/>
 				</Router>

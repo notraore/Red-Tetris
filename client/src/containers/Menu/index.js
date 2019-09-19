@@ -22,8 +22,10 @@ const _shuffleColor = (e) => {
 }
 
 const App = (props) => {
-  const { classes, username } = props
+  const { classes, userInfos, updateUsername } = props
   const [selected, select] = useState(0)
+  const [onHover, setHover] = useState(false)
+  const [usernameInput, changeUsernameInput] = useState(userInfos.username)
 
   useEffect(()=>{
     isInGame()
@@ -32,7 +34,7 @@ const App = (props) => {
   return (
     <div className="App" style={styles.container}>
       <div className={`${classes.centerSubContainer}`}>
-        <p>{`Player ID: ${username}`}</p>
+       
         <Title/>
         <div
           className={`flex center alignCenter column ${classes.chosen}`}
@@ -57,6 +59,49 @@ const App = (props) => {
           </div>
           <div className={`flex center ${classes.optionsContainer}`}>
             <Option selected={selected} name='Score' select={select} num={4} shuffle={_shuffleColor} />
+          </div>
+        </div>
+        <div
+          className={`flex center alignCenter ${classes.changeUsernameContainer}`}
+          onClick={(e)=>{
+            setHover(true)
+          }}
+        >
+          <p style={{margin: '5px'}}>
+            {`Username:\n`}
+          </p>
+          <div>
+            {onHover
+              ? <div
+                className={`flex row center alignCenter`}
+                style={{height: '50px', width: '400px'}}
+              >
+              <input
+                id='usernameInput'
+                className={`fullWidth ${classes.input}`}
+                value={usernameInput}
+                autoFocus
+                onKeyDown={(e)=>{
+                  if (e.keyCode === 13){
+                    if (usernameInput.length <= 10 && usernameInput.length > 0){
+                      updateUsername(usernameInput.toUpperCase())
+                      setHover(false)
+                    } else alert('Username should be 1 character minimum and 10 characters maximum')
+                  }
+                  if (e.keyCode === 27){
+                    setHover(false)
+                  }
+                }}
+                onChange={(e)=>{changeUsernameInput(e.target.value)}}
+              />
+            </div>
+              : <div
+                className={`flex center alignCenter`}
+                style={{fontSize: '34px', height: '50px', width: '400px', fontFamily: 'Orbitron, sans-serif'}}
+              >
+                {userInfos.username}
+              </div>
+            }
           </div>
         </div>
       </div>

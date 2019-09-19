@@ -36,6 +36,17 @@ export const styles = ({
         outline: 'none'
       }
     },
+    changeUsernameContainer: {
+      marginTop: '30px',
+      height: '100px',
+      width: '800px',
+      padding: '10px',
+      cursor: 'pointer',
+      '&:hover':{
+        backgroundColor: 'rgb(47, 49, 64)',
+        borderRadius: '10px'
+      }
+    },
     centerSubContainer: {
       margin: '200px',
       display: 'flex',
