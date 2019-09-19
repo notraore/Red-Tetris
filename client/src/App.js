@@ -12,19 +12,22 @@ import { socket } from './sockets'
 export const App = () => {
 	const [userInfos, dispatch] = useReducer(userReducer, initialUserState)
 	const [username, change] = useState('')
+	const [data, setData] = useState('')
 
 	const setUser = () => {
 		dispatch({type:'CHANGE_USERNAME', payload: socket.id})
 	}
 
 	useEffect(()=>{
-		connect()
+		// connect()
+		socket.emit('get data', setData)
+		socket.on('receive data')
 		setUser()
 	}, [])
 	
 	useEffect(()=>{
-		change(userInfos.username)
-	}, [userInfos])
+		change(data)
+	}, [data])
 
 	return(
 		<Fragment>
