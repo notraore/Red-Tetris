@@ -20,8 +20,10 @@ export const App = () => {
 
 	useEffect(()=>{
 		// connect()
-		socket.emit('get data', setData)
-		socket.on('receive data')
+		socket.emit('get data')
+		socket.on('receive data', (id)=>{
+			setData(id)
+		})
 		setUser()
 	}, [])
 	
