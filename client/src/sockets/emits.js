@@ -52,6 +52,18 @@ export const joinRoom = (name) => {
     }
   })
 }
+/*A REGLER */
+// export const getPlayerName = (playerName) => {
+//   socket.emit('getPlayer', playerName, (playerName) => {
+//     console.log(`Welcome "${playerName}" cfer`);
+//   })
+// }
+
+// export const getAllRooms = (rooms) => {
+//   socket.emit('getAllRooms');
+//   socket.on('allRooms')
+//   console.log(f_room);
+// }
 
 export const createRoom = (name) => {
   socket.emit('create room', name, (isCreated, name)=>{
