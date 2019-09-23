@@ -52,6 +52,12 @@ export const joinRoom = (name) => {
     }
   })
 }
+/*A REGLER */
+// export const getPlayerName = (playerName) => {
+//   socket.emit('getPlayer', playerName, (playerName) => {
+//     console.log(`Welcome "${playerName}" cfer`);
+//   })
+// }
 
 // export const getAllRooms = (rooms) => {
 //   socket.emit('getAllRooms');

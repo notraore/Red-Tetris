@@ -52,6 +52,7 @@ export const useSockets = (io) => {
                 console.log(`Room pas existante !\nCREATION DE LA ROOM "${roomName}", id:`, socket.id)
                 socket.join(roomName, ()=>{
                     console.log("CONNEXION A LA ROOM ETABLIE: mon id:", socket.id)
+                    console.log("Waiting for someone to join");
                 })
             } else {
                 console.log(`ROOM "${roomName}" DEJA EXISTANTE: mon id:`, socket.id)
@@ -73,6 +74,10 @@ export const useSockets = (io) => {
         socket.on('is in game', (res) => {
             var usersRooms = socket.rooms
             res(Object.keys(usersRooms).length > 1 ? Object.keys(usersRooms)[1] : null) // Envoie au front si l'user a créé et rejoint la room ou non
+        })
+
+        socket.on('getPlayer', (playerName) => {
+            playerName = socket.room;
         })
     })
 }
