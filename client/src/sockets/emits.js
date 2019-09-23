@@ -18,7 +18,7 @@ export const isInGame = () => {
     if (isInGame !== null){
       console.log('JEU DEJA EN COURS: ', isInGame, socket.id)
       historyPush(`/multi/${isInGame}/${socket.id}`)
-    }else {
+    } else {
       console.log('pas de jeu en cours')
     }
   })
