@@ -1,6 +1,11 @@
 export const useSockets = (io) => {
     io.on('connection', (socket)=>{
         
+        console.log("\x1b[32m", `${socket.id} connected`)
+
+        socket.on('disconnect', function(){
+            console.log("\x1b[31m", `${socket.id} disconnected`)
+        })
         socket.on('get data', ()=>{
 					var usersRooms = socket.rooms
 					var userData = {
@@ -10,19 +15,14 @@ export const useSockets = (io) => {
 					}
 					socket.emit('receive data', userData)
         })
-
-        socket.on('getAllRooms', () => {
-            var allRooms = io.sockets.adapter.rooms;
-            if (allRooms)
-            {
-                console.log(allRooms);
-            }
-            socket.emit('allRooms', io.sockets.adapter.rooms);
+        socket.on('set username', (username) => {
+            socket.username = username
+            socket.emit('username set', socket.username)
+            console.log("\x1b[36m", `${socket.id} username is now ${socket.username}`)
         })
-				console.log('gens connectes: ', Object.keys(io.sockets.sockets))
-        console.log('\x1b[36m%s\x1b[0m', 'CONNECTE A SOCKET IO !\n id User (socket): ', "\x1b[31m", socket.id)
         socket.on('join room', (roomName, res) => {
-            var usersInRoom = io.sockets.adapter.rooms[roomName]
+            var allRooms = io.sockets.adapter.rooms
+            var usersInRoom = allRooms[roomName]
             var canJoinRoom = !(typeof usersInRoom === 'undefined') && usersInRoom.length < 2
     
             if (typeof usersInRoom !== 'undefined') console.log(`gens dans la room ${roomName}:`, usersInRoom.length)
@@ -30,7 +30,9 @@ export const useSockets = (io) => {
             if (canJoinRoom && !socket.rooms.hasOwnProperty(roomName)){ // si la room est pas full join la room
                 console.log(`Room pas full !\nCONNECTION A LA ROOM "${roomName}", id:`, socket.id)
                 socket.join(roomName, ()=>{
-                    console.log("CONNEXION A LA ROOM ETABLIE: mon id:", socket.id)
+                    if (allRooms) socket.emit('allRooms', allRooms);
+                    io.in(roomName).emit('room update', allRooms[roomName])
+                    // console.log("CONNEXION A LA ROOM ETABLIE: mon id:", socket.id)
                 })
             } else {
                 if (socket.rooms.hasOwnProperty(roomName)){ // si l'user est deja dans la room
@@ -44,13 +46,16 @@ export const useSockets = (io) => {
         })
     
         socket.on('create room', (roomName, res) => {
-            var usersInRoom = io.sockets.adapter.rooms[roomName]
+            var allRooms = io.sockets.adapter.rooms
+            var usersInRoom = allRooms[roomName]
             var canCreateRoom = typeof usersInRoom === 'undefined' || usersInRoom.length === 0
     
             if (canCreateRoom){
                 console.log(canCreateRoom)
                 console.log(`Room pas existante !\nCREATION DE LA ROOM "${roomName}", id:`, socket.id)
                 socket.join(roomName, ()=>{
+                    if (allRooms) socket.emit('allRooms', allRooms);
+                    io.in(roomName).emit('room update', allRooms[roomName].sockets)
                     console.log("CONNEXION A LA ROOM ETABLIE: mon id:", socket.id)
                     console.log("Waiting for someone to join");
                 })

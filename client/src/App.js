@@ -7,19 +7,19 @@ import {connect} from './sockets/events'
 import { Router, Route } from 'react-router'
 import history from './history'
 import { userReducer, initialUserState } from './reducers/userReducer'
+import { roomReducer, initialRoomState } from './reducers/roomReducer'
 import { socket } from './sockets'
 
 export const App = () => {
-	const [userInfos, updateUserInfos] = useReducer(userReducer, initialUserState)
-	const [data, setData] = useState('')
-	const [rooms, setRooms] = useState('')
+	const [userInfos, setUserInfos] = useReducer(userReducer, initialUserState)
+	// const [roomInfos, setRoomInfos] = useReducer(roomReducer, initialRoomState)
 
 	const updateUser = (data) => {
-		updateUserInfos({type:'UPDATE_INFOS', payload: data})
+		setUserInfos({type:'UPDATE_INFOS', payload: data})
 	}
 
 	const updateUsername = (username) => {
-		updateUserInfos({type:'UPDATE_INFOS', payload: {...userInfos, username: username}})
+		socket.emit('set username', username)
 	}
 
 	useEffect(()=>{
@@ -27,13 +27,8 @@ export const App = () => {
 		socket.on('receive data', (data)=>{
 			updateUser(data)
 		})
-	}, [])
-
-	useEffect(()=>{
-		socket.emit('getAllRooms')
-		socket.on('allRooms', (rooms) =>{
-			setRooms(rooms);
-			console.log(rooms);
+		socket.on('username set', (username)=>{
+			setUserInfos({type:'UPDATE_INFOS', payload: {...userInfos, username: username}})
 		})
 	}, [])
 
@@ -43,7 +38,7 @@ export const App = () => {
 				<Router history={history}>
 					<Route exact path="/" component={()=> <Menu userInfos={userInfos} updateUsername={updateUsername}/>}/>
 					<Route path="/solo" component={()=> <Solo/>}/>
-					<Route path={`/multi`} component={()=> <Multi/>}/>
+					<Route path={`/multi`} component={()=> <Multi userInfos={userInfos}/>}/>
 				</Router>
 			</SocketProvider>
 		</Fragment>
