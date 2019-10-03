@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { withStyles }  from '@material-ui/styles'
+import Popup from '../../components/Popup'
 import _ from 'lodash'
 import './Menu.css'
 import '../../styles/animation/text-animations.css'
@@ -9,7 +10,6 @@ import {styles, colorArray} from '../../styles/Menu-styles.js'
 import Title from '../../components/Title.js'
 import {Option} from '../../components/Option.js'
 import {Join, Solo, Create, Settings} from '../../components/MenuSubSection'
-import { isInGame } from '../../sockets/emits'
 
 const _shuffleColor = (e) => {
   let randNum = _.random(0, 7)
@@ -21,20 +21,19 @@ const _shuffleColor = (e) => {
   }
 }
 
-const App = (props) => {
-  const { classes, userInfos, updateUsername } = props
+const App = ({ classes, userInfos, updateUsername, popupInfo, disablePopup }) => {
+
   const [selected, select] = useState(0)
   const [onHover, setHover] = useState(false)
   const [usernameInput, changeUsernameInput] = useState(userInfos.username)
 
-  useEffect(()=>{
-    isInGame()
-  })
-
   return (
     <div className="App" style={styles.container}>
+      {popupInfo !== null
+        ? <Popup infos={popupInfo} closePopup={disablePopup}/>
+        : null
+      }
       <div className={`${classes.centerSubContainer}`}>
-       
         <Title/>
         <div
           className={`flex center alignCenter column ${classes.chosen}`}

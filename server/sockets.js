@@ -1,45 +1,86 @@
+import {sendInfo} from './utils.js'
+import _ from 'lodash'
+
 export const useSockets = (io) => {
+		var users = {}
+		var nameTab = [
+			'Titi',
+			'Bidule',
+			'Machin',
+			'Truc',
+			'Minuche',
+			'Wele',
+			'Caca'
+		]
     io.on('connection', (socket)=>{
         
-        console.log("\x1b[32m", `${socket.id} connected`)
-
+		console.log("\x1b[32m", `${socket.id} connected`)
+		if (!users.hasOwnProperty(socket.id)){
+						var randUser = nameTab[_.random(0, 6)]
+						socket.username = randUser
+						socket.emit('username set', randUser)
+            users[socket.id] = randUser
+        }		
         socket.on('disconnect', function(){
-            console.log("\x1b[31m", `${socket.id} disconnected`)
+					delete users[socket.id]
+          console.log("\x1b[31m", `${socket.id} disconnected`)
         })
         socket.on('get data', ()=>{
-					var usersRooms = socket.rooms
-					var userData = {
-						id: socket.id,
-						username: `PLAYER`,
-						playing: Object.keys(usersRooms).length > 1
-					}
-					socket.emit('receive data', userData)
+            var usersRooms = socket.rooms
+            var userData = {
+                id: socket.id,
+                username: socket.username,
+                playing: Object.keys(usersRooms).length > 1
+            }
+            socket.emit('receive data', userData)
         })
         socket.on('set username', (username) => {
             socket.username = username
-            socket.emit('username set', socket.username)
-            console.log("\x1b[36m", `${socket.id} username is now ${socket.username}`)
-        })
+						socket.emit('username set', socket.username)
+						users[socket.id] = socket.username
+						// sendInfo(socket, 'Information', `Your username is now ${socket.username}`)
+            // console.log("\x1b[36m", `${socket.id} username is now ${socket.username}`)
+				})
+				socket.on('room infos', (roomName) => {
+					var allRooms = io.sockets.adapter.rooms
+          var usersInRoom = allRooms[roomName]
+					var usernamesInRoom = []
+
+					if (usersInRoom && usersInRoom.sockets){
+						usersInRoom.map((id)=>{
+							usernamesInRoom.push(users[id])
+						})
+					}
+
+					console.log('usernames in room: ', usernamesInRoom)
+					socket.emit('room infos', usersInRoom)
+				})
         socket.on('join room', (roomName, res) => {
             var allRooms = io.sockets.adapter.rooms
             var usersInRoom = allRooms[roomName]
-            var canJoinRoom = !(typeof usersInRoom === 'undefined') && usersInRoom.length < 2
+						var canJoinRoom = !(typeof usersInRoom === 'undefined') && usersInRoom.length < 3
+						var usernamesInRoom = []
+
+						if (usersInRoom && usersInRoom.sockets){
+							Object.keys(usersInRoom.sockets).map((id)=>{
+								usernamesInRoom.push(users[id])
+							})
+						}
     
             if (typeof usersInRoom !== 'undefined') console.log(`gens dans la room ${roomName}:`, usersInRoom.length)
             
             if (canJoinRoom && !socket.rooms.hasOwnProperty(roomName)){ // si la room est pas full join la room
                 console.log(`Room pas full !\nCONNECTION A LA ROOM "${roomName}", id:`, socket.id)
                 socket.join(roomName, ()=>{
-                    if (allRooms) socket.emit('allRooms', allRooms);
-                    io.in(roomName).emit('room update', allRooms[roomName])
-                    // console.log("CONNEXION A LA ROOM ETABLIE: mon id:", socket.id)
+                    socket.emit('room joined', {roomName: roomName, username: users[socket.id]})
+                    io.in(roomName).emit('room update', usernamesInRoom)
                 })
-            } else {
+							} else {
                 if (socket.rooms.hasOwnProperty(roomName)){ // si l'user est deja dans la room
                     console.log(`Jsuis deja dans cette room "${roomName}" BOULET`)
                     canJoinRoom = false
                 } else { // si la room est full
-                    console.log(`JE PEUX PAS ME CONNECTER LA ROOM "${roomName}" EST FULL OU N'EXISTE PAS: mon id:`, socket.id)
+                    sendInfo(socket, 'Information', `Room ${roomName} is not available.`)
                 }
             }
             res(canJoinRoom, roomName) // Envoie au front si l'user a rejoint la room ou non
@@ -49,18 +90,21 @@ export const useSockets = (io) => {
             var allRooms = io.sockets.adapter.rooms
             var usersInRoom = allRooms[roomName]
             var canCreateRoom = typeof usersInRoom === 'undefined' || usersInRoom.length === 0
-    
+						var usernamesInRoom = []
+
+						if (usersInRoom && usersInRoom.sockets){
+							Object.keys(usersInRoom.sockets).map((id)=>{
+								usernamesInRoom.push(users[id])
+							})
+						}
+
             if (canCreateRoom){
-                console.log(canCreateRoom)
-                console.log(`Room pas existante !\nCREATION DE LA ROOM "${roomName}", id:`, socket.id)
                 socket.join(roomName, ()=>{
-                    if (allRooms) socket.emit('allRooms', allRooms);
-                    io.in(roomName).emit('room update', allRooms[roomName].sockets)
-                    console.log("CONNEXION A LA ROOM ETABLIE: mon id:", socket.id)
-                    console.log("Waiting for someone to join");
+                    socket.emit('room joined', {roomName: roomName, username: users[socket.id]})
+                    io.in(roomName).emit('room update', usernamesInRoom)
                 })
             } else {
-                console.log(`ROOM "${roomName}" DEJA EXISTANTE: mon id:`, socket.id)
+                    sendInfo(socket, 'Information', `Room "${roomName}" already exists.`)
             }
             res(canCreateRoom, roomName) // Envoie au front si l'user a créé et rejoint la room ou non
         })
@@ -73,6 +117,7 @@ export const useSockets = (io) => {
             var usersRooms = socket.rooms
             var curRoom = Object.keys(usersRooms)[1] 
             socket.leave(curRoom)
+            sendInfo(socket, 'Exit info', 'You leaved the room.')
             console.log("\x1b[31m", `EXIT ROOM ${curRoom}`)
         })
     
