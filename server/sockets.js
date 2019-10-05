@@ -112,6 +112,17 @@ export const useSockets = (io) => {
         socket.on('is in room', (roomName, res) => {
             res(socket.rooms.hasOwnProperty(roomName), roomName) // Envoie au front si l'user est deja dans la room
         })
+
+        socket.on("RandomTetri", () => {
+            const tetriminos = ["I", "O", "T", "L", "Z", "S", "J"];
+            const randTab = [];
+            for (var i = 0; i < 256; i++)
+            {
+                var rand = tetriminos[Math.floor(Math.random() * tetriminos.length)];
+                randTab[i] = rand;
+            }
+            socket.emit("sendRandTetris", randTab);
+        })
     
         socket.on('leave room', () => {
             var usersRooms = socket.rooms

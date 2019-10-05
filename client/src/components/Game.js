@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import pieces from './pieces.json'
 import tab from './pieces.1.json'
 import { withStyles }  from '@material-ui/styles'
 import {GameStyle} from '../styles/Game-style.js'
@@ -9,21 +8,46 @@ import {initialBoardState, initialTetriState} from './initialState.js'
 import InGameInfos from '../styles/GameInfos.js'
 import GameOverInfos from '../styles/GameOverInfos.js'
 import { historyPush } from '../history.js';
+import { socket } from '../sockets';
+import _ from 'lodash'
+
 
 const Game = (props) => {
+
+	// setData(RandomTetri());
 	const {classes} = props
+	const [data, setData] = useState([]);
 	const [counter, increment] = useState(0)
 	const [gameOver, overGame] = useState(false)
 	const [board, updateBoard] = useState(initialBoardState())
-	const [curTetri, moveTetri] = useState(initialTetriState(0))
+	const [curTetri, moveTetri] = useState(initialTetriState(0, data));
 	const [score, updateScore] = useState(0)
 	const [canMove, setCanMove] = useState(true)
-	const [nextTetri, next] = useState(tab[pieces.pieces[1]])
+	const [nextTetri, setNext] = useState(tab["J"])
+
 	const [rows, setRows] = useState(0);
 	const [level, setLevel] = useState(0);
 	const [dropTime, setDropTime] = useState(1000);
 	const refInterval = useRef(false)
 	const keyDown = useRef(false)
+
+	const RandomTetri = () => {
+		const ret = [];
+		socket.emit("RandomTetri");
+		socket.on("sendRandTetris", (ret) => {
+			setData(ret);
+		})
+	}
+
+	useEffect(() =>{
+		RandomTetri();
+	}, []);
+
+	useEffect(() =>{
+		if (!_.isEmpty(data))
+			setNext(tab[data[1]]);
+		console.log(data);
+	}, [data]);
 
 	useEffect(() => {
 		if (JSON.stringify(board) === JSON.stringify(initialBoardState()) && counter > 0){
@@ -31,12 +55,13 @@ const Game = (props) => {
 			updateScore(0)
 			setLevel(0)
 			setRows(0)
-			setDropTime(1000)
-			moveTetri(initialTetriState(0))
-			next(tab[pieces.pieces[1]])
+			setDropTime(1000);
+			RandomTetri();
+			moveTetri(initialTetriState(0), data);
+			setNext(tab[data[1]]);
 			overGame(false)
 		}
-	}, [board, counter])
+	}, [board, counter, data, nextTetri])
 
 	const resetGame = () => {
 		updateBoard(initialBoardState())
@@ -45,6 +70,7 @@ const Game = (props) => {
 	const setGameLoop = useCallback((speed) => {
 		return setInterval(() => {
 			moveTetri((tetri)=>{
+				console.log(tetri);
 				if (!canFit(board.tab, {...tetri, y: tetri.y + 1})){
 					setCanMove(true)
 					keyDown.current = null
@@ -59,9 +85,10 @@ const Game = (props) => {
 						})
 						return old
 					})
-					const t = initialTetriState(counter + 1)
+					const t = initialTetriState(counter + 1, data);
 					increment((i)=>{
-						next(tab[pieces.pieces[i+2]])
+						console.log("tab ", tab[data[i+2]]);
+						setNext(tab[data[i+2]])
 						return i+1
 					})
 					if (t === false || !canFit(board.tab, t)){
@@ -72,7 +99,7 @@ const Game = (props) => {
 				else return {...tetri, y: tetri.y + 1}
 			})
 		}, speed)
-	}, [board.tab, counter])
+	}, [board.tab, counter, data])
 
 	const keydownFunc = useCallback(event => {//DROITE
 		if ((keyDown.current && (keyDown.current.keyCode === 38 || keyDown.current.keyCode === 32 || keyDown.current.keyCode === 40)) || !canMove) return
@@ -183,7 +210,6 @@ const Game = (props) => {
 		})
 		if (lines.length){
 			removeLine(lines, tab)
-
 			displayUpdate(rows, lines.length);
 		}
 	}
@@ -193,7 +219,6 @@ const Game = (props) => {
 	})
 
 	const tetri = curTetri.form
-
 	return (
 		<div>
 			<div className='navigationBar fullWidth flex center alignCenter' style={{height: '30px', backgroundColor: 'red'}}>

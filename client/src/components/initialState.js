@@ -1,8 +1,10 @@
 import tab from './pieces.1.json'
-import pieces from './pieces.json'
+import { isEmpty } from 'lodash'
 
-export const initialTetriState = (count) => {
-	const name = pieces.pieces[count]
+export const initialTetriState = (count, data) => {
+	let name = "T";
+	if (!isEmpty(data))
+		name = data[count];
 	const tetri = {
 		maxWidth: tab[name].position[0].maxWidth,
 		maxHeight: tab[name].position[0].maxHeight,
