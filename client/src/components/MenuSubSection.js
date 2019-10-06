@@ -4,6 +4,9 @@ import { withStyles }  from '@material-ui/styles'
 import { joinRoom } from '../sockets/emits.js'
 import { createRoom } from '../sockets/emits.js'
 import { historyPush } from '../history.js';
+import leader from '../datas/leaderboard.json';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
 
 const SoloComponent = ({ classes, selected }) => {
     return (
@@ -36,13 +39,44 @@ const CreateComponent = ({ classes, selected }) => {
 }
 
 const SettingsComponent = ({ selected }) => {
+    const [leadData, setLeadData] = useState([]);
     return (
         <div className={`flex center alignCenter column`} style={selected === 4 ? {display: 'flex'} : {display: 'none'}}>
-            <p>
-              Leaderboard:
-            </p>
-            {/* <input/> */}
-          </div>
+            <p>Leaderboard:</p>
+            {leader.map((leaderTab) => {
+              return (
+              <div >
+                <TableRow>
+                    <TableCell>#Rank</TableCell>
+                    <TableCell align="right">USERNAME</TableCell>
+                    <TableCell align="right">SCORE</TableCell>
+                    <TableCell align="right">LEVEL</TableCell>
+                    <TableCell align="right">ROWS</TableCell>
+                </TableRow>
+                <TableRow >
+                    <TableCell >#1</TableCell>
+                    <TableCell align="right">{leaderTab.id}</TableCell>
+                    <TableCell align="right">{leaderTab.score}</TableCell>
+                    <TableCell align="right">{leaderTab.level}</TableCell>
+                    <TableCell align="right">{leaderTab.rows}</TableCell>
+                </TableRow>
+                 <TableRow >
+                    <TableCell >#3</TableCell>
+                    <TableCell align="right">{leaderTab.id}</TableCell>
+                    <TableCell align="right">{leaderTab.score}</TableCell>
+                    <TableCell align="right">{leaderTab.level}</TableCell>
+                    <TableCell align="right">{leaderTab.rows}</TableCell>
+                </TableRow>
+                 <TableRow >
+                    <TableCell >#3</TableCell>
+                    <TableCell align="right">{leaderTab.id}</TableCell>
+                    <TableCell align="right">{leaderTab.score}</TableCell>
+                    <TableCell align="right">{leaderTab.level}</TableCell>
+                    <TableCell align="right">{leaderTab.rows}</TableCell>
+                </TableRow>
+              </div>)
+            })}
+        </div>
     )
 }
 

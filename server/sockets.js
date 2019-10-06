@@ -116,7 +116,7 @@ export const useSockets = (io) => {
         socket.on("RandomTetri", () => {
             const tetriminos = ["I", "O", "T", "L", "Z", "S", "J"];
             const randTab = [];
-            for (var i = 0; i < 256; i++)
+            for (var i = 0; i < 128; i++) //Creer une liste de 128 caractere de maniere aléatoire
             {
                 var rand = tetriminos[Math.floor(Math.random() * tetriminos.length)];
                 randTab[i] = rand;

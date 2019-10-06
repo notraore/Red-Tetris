@@ -15,12 +15,14 @@ const Multi = ({classes, history, location, userInfos}) => {
     useEffect(()=>{
         socket.on('room infos', (data)=>{
             console.log('room infos', data)
-        })
+        });
+    },[])
+    useEffect(()=> {
         socket.on('room update', (data)=>{
             setRoomInfos(data)
             console.log('update users in room: ', data)
         })
-    }, [])
+    }, [roomInfos])
 
     useEffect(()=>{
         const tab = location.pathname.split('/')
@@ -31,7 +33,7 @@ const Multi = ({classes, history, location, userInfos}) => {
         checkGameInfos(tab[2], tab[3])//verifie si la partie existe sinon redirection
         setGameName(tab[2])
         socket.emit('room infos', gameName)
-    }, [location, history])
+    }, [location, history, ])
 
     return (
      <div className='fullWidth' style={{backgroundColor: 'pink'}}>

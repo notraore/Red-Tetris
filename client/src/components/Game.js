@@ -9,7 +9,11 @@ import InGameInfos from '../styles/GameInfos.js'
 import GameOverInfos from '../styles/GameOverInfos.js'
 import { historyPush } from '../history.js';
 import { socket } from '../sockets';
-import _ from 'lodash'
+import { styles } from '../styles/Menu-styles.js'
+
+import { isEmpty } from 'lodash'
+import leader from '../datas/leaderboard.json';
+
 
 
 const Game = (props) => {
@@ -23,7 +27,7 @@ const Game = (props) => {
 	const [curTetri, moveTetri] = useState(initialTetriState(0, data));
 	const [score, updateScore] = useState(0)
 	const [canMove, setCanMove] = useState(true)
-	const [nextTetri, setNext] = useState(tab["J"])
+	const [nextTetri, setNext] = useState(tab["J"]);
 
 	const [rows, setRows] = useState(0);
 	const [level, setLevel] = useState(0);
@@ -41,16 +45,19 @@ const Game = (props) => {
 
 	useEffect(() =>{
 		RandomTetri();
+		// var leaderTmp = JSON.parse(leader);
+		// console.log("var", leaderTmp)
 	}, []);
 
 	useEffect(() =>{
-		if (!_.isEmpty(data))
+		if (!isEmpty(data))
 			setNext(tab[data[1]]);
 		console.log(data);
 	}, [data]);
 
 	useEffect(() => {
 		if (JSON.stringify(board) === JSON.stringify(initialBoardState()) && counter > 0){
+
 			increment(0)
 			updateScore(0)
 			setLevel(0)
@@ -220,7 +227,7 @@ const Game = (props) => {
 
 	const tetri = curTetri.form
 	return (
-		<div>
+		<div className="App" style={styles.container}>
 			<div className='navigationBar fullWidth flex center alignCenter' style={{height: '30px', backgroundColor: 'red'}}>
 				<p onClick={()=>{historyPush('/')}}>RETURN MENU</p>
 			</div>
