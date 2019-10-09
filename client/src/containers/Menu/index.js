@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { withStyles }  from '@material-ui/styles'
 import Popup from '../../components/Popup'
 import _ from 'lodash'

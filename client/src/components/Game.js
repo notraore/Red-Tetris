@@ -12,7 +12,7 @@ import { socket } from '../sockets';
 import { styles } from '../styles/Menu-styles.js'
 
 import { isEmpty } from 'lodash'
-import leader from '../datas/leaderboard.json';
+//import leader from '../datas/leaderboard.json';
 
 
 
@@ -36,7 +36,6 @@ const Game = (props) => {
 	const keyDown = useRef(false)
 
 	const RandomTetri = () => {
-		const ret = [];
 		socket.emit("RandomTetri");
 		socket.on("sendRandTetris", (ret) => {
 			setData(ret);

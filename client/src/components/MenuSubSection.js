@@ -39,13 +39,13 @@ const CreateComponent = ({ classes, selected }) => {
 }
 
 const SettingsComponent = ({ selected }) => {
-    const [leadData, setLeadData] = useState([]);
+    // const [leadData, setLeadData] = useState([]);
     return (
         <div className={`flex center alignCenter column`} style={selected === 4 ? {display: 'flex'} : {display: 'none'}}>
             <p>Leaderboard:</p>
-            {leader.map((leaderTab) => {
+            {leader.map((leaderTab, id) => {
               return (
-              <div >
+              <div key={id}>
                 <TableRow>
                     <TableCell>#Rank</TableCell>
                     <TableCell align="right">USERNAME</TableCell>

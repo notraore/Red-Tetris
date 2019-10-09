@@ -1,39 +1,45 @@
 import React, { useEffect, useState } from 'react'
 import { historyPush } from '../../history'
-import {styles, colorArray} from '../../styles/Menu-styles.js'
-import { checkGameInfos, leaveRoom, getPlayerName } from '../../sockets/emits.js'
+import { styles } from '../../styles/Menu-styles.js'
+import { checkGameInfos, leaveRoom } from '../../sockets/emits.js'
 import { withRouter } from 'react-router'
 import Loader from 'react-dots-loader'
 import 'react-dots-loader/index.css'
-import { socket } from '../../sockets';
+import { socket } from '../../sockets'
 
-const name = getPlayerName();
 const Multi = ({classes, history, location, userInfos}) => {
     const [gameName, setGameName] = useState('')
     const [roomInfos, setRoomInfos] = useState([])
 
-    useEffect(()=>{
-        socket.on('room infos', (data)=>{
-            console.log('room infos', data)
-        });
-    },[])
     useEffect(()=> {
-        socket.on('room update', (data)=>{
+			socket.on('room update', (data)=>{
             setRoomInfos(data)
             console.log('update users in room: ', data)
-        })
-    }, [roomInfos])
+				})
+    }, [])
+
+		useEffect(()=>{
+			if (gameName.length) {
+				socket.emit('room infos')
+			}
+		}, [gameName])
 
     useEffect(()=>{
-        const tab = location.pathname.split('/')
-        console.log(history, location, location.pathname.split('/'))
-        if (tab.length !== 3){
-            console.log('MAUVAIS LIEN')
+				const tab = location.pathname.split('/')
+				if (location.pathname === '/' || tab.length < 2){
+					historyPush('/menu')
+				}else {
+					console.log(location.pathname)
+					var room = tab[2].split('[')[0]
+					var username = tab[2].split('[')[1].slice(0, -1)
+
+					console.log('room: ', room, 'username: ', username)
+					checkGameInfos(room, username)
+					setGameName(room)
+				}
+        return () => {
         }
-        checkGameInfos(tab[2], tab[3])//verifie si la partie existe sinon redirection
-        setGameName(tab[2])
-        socket.emit('room infos', gameName)
-    }, [location, history, ])
+    }, [location, history])
 
     return (
      <div className='fullWidth' style={{backgroundColor: 'pink'}}>
@@ -46,12 +52,11 @@ const Multi = ({classes, history, location, userInfos}) => {
         <div className="App" style={styles.container}>
         <p align="center">Waiting for player(s) to join your room</p><Loader color="navy"/>
         <p>Room : {gameName}</p>
-        <p>Your name is : {userInfos.username}</p>
-        <p>Other players in this room : {
-            roomInfos && roomInfos.map((name)=>{
-                return <p key={name.id}>{name}</p>
+        <div>Players in this room : {
+            roomInfos && roomInfos.map((name, id)=>{
+                return <p key={id}>{name}</p>
             })
-        }</p>
+        }</div>
         </div>
         </div>
     )

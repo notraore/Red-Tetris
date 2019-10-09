@@ -3,6 +3,7 @@ import _ from 'lodash'
 
 export const useSockets = (io) => {
 		var users = {}
+		var rooms = {}
 		var nameTab = [
 			'Titi',
 			'Bidule',
@@ -36,46 +37,29 @@ export const useSockets = (io) => {
         })
         socket.on('set username', (username) => {
             socket.username = username
-						socket.emit('username set', socket.username)
-						users[socket.id] = socket.username
-						// sendInfo(socket, 'Information', `Your username is now ${socket.username}`)
-            // console.log("\x1b[36m", `${socket.id} username is now ${socket.username}`)
-				})
-				socket.on('room infos', (roomName) => {
-					var allRooms = io.sockets.adapter.rooms
-          var usersInRoom = allRooms[roomName]
-					var usernamesInRoom = []
-
-					if (usersInRoom && usersInRoom.sockets){
-						usersInRoom.map((id)=>{
-							usernamesInRoom.push(users[id])
-						})
-					}
-
-					console.log('usernames in room: ', usernamesInRoom)
-					socket.emit('room infos', usersInRoom)
+                socket.emit('username set', socket.username)
+                users[socket.id] = socket.username
+                // sendInfo(socket, 'Information', `Your username is now ${socket.username}`)
+                // console.log("\x1b[36m", `${socket.id} username is now ${socket.username}`)
+			})
+        socket.on('room infos', () => {
+          socket.emit('room update', rooms[Object.keys(socket.rooms)[1]])
 				})
         socket.on('join room', (roomName, res) => {
             var allRooms = io.sockets.adapter.rooms
             var usersInRoom = allRooms[roomName]
 						var canJoinRoom = !(typeof usersInRoom === 'undefined') && usersInRoom.length < 3
-						var usernamesInRoom = []
-
-						if (usersInRoom && usersInRoom.sockets){
-							Object.keys(usersInRoom.sockets).map((id)=>{
-								usernamesInRoom.push(users[id])
-							})
-						}
     
             if (typeof usersInRoom !== 'undefined') console.log(`gens dans la room ${roomName}:`, usersInRoom.length)
             
             if (canJoinRoom && !socket.rooms.hasOwnProperty(roomName)){ // si la room est pas full join la room
                 console.log(`Room pas full !\nCONNECTION A LA ROOM "${roomName}", id:`, socket.id)
                 socket.join(roomName, ()=>{
+                    rooms[roomName].push(users[socket.id])
                     socket.emit('room joined', {roomName: roomName, username: users[socket.id]})
-                    io.in(roomName).emit('room update', usernamesInRoom)
+                    io.in(roomName).emit('room update', rooms[roomName])
                 })
-							} else {
+			} else {
                 if (socket.rooms.hasOwnProperty(roomName)){ // si l'user est deja dans la room
                     console.log(`Jsuis deja dans cette room "${roomName}" BOULET`)
                     canJoinRoom = false
@@ -90,18 +74,12 @@ export const useSockets = (io) => {
             var allRooms = io.sockets.adapter.rooms
             var usersInRoom = allRooms[roomName]
             var canCreateRoom = typeof usersInRoom === 'undefined' || usersInRoom.length === 0
-						var usernamesInRoom = []
-
-						if (usersInRoom && usersInRoom.sockets){
-							Object.keys(usersInRoom.sockets).map((id)=>{
-								usernamesInRoom.push(users[id])
-							})
-						}
 
             if (canCreateRoom){
                 socket.join(roomName, ()=>{
+                    rooms[roomName] = []
+                    rooms[roomName].push(users[socket.id])
                     socket.emit('room joined', {roomName: roomName, username: users[socket.id]})
-                    io.in(roomName).emit('room update', usernamesInRoom)
                 })
             } else {
                     sendInfo(socket, 'Information', `Room "${roomName}" already exists.`)
@@ -126,10 +104,12 @@ export const useSockets = (io) => {
     
         socket.on('leave room', () => {
             var usersRooms = socket.rooms
-            var curRoom = Object.keys(usersRooms)[1] 
-            socket.leave(curRoom)
+						var roomName = Object.keys(usersRooms)[1]
+						var index = rooms[roomName].indexOf(users[socket.id])
+						socket.leave(roomName)
+						rooms[roomName].splice(index, 1)
+            io.in(roomName).emit('room update', rooms[roomName])
             sendInfo(socket, 'Exit info', 'You leaved the room.')
-            console.log("\x1b[31m", `EXIT ROOM ${curRoom}`)
         })
     
         socket.on('is in game', (res) => {
