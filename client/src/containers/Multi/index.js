@@ -1,65 +1,60 @@
-import React, { useEffect, useState } from 'react'
-import { historyPush } from '../../history'
+import React, { useEffect } from 'react'
 import { styles } from '../../styles/Menu-styles.js'
-import { checkGameInfos, leaveRoom } from '../../sockets/emits.js'
-import { withRouter } from 'react-router'
+import { leaveRoom } from '../../sockets/emits.js'
 import Loader from 'react-dots-loader'
 import 'react-dots-loader/index.css'
 import { socket } from '../../sockets'
+import { useStateValue } from '../../context/GlobalState.js'
+import { UPDATE_GAME } from '../../context/reducer.js'
 
 const Multi = ({classes, history, location, userInfos}) => {
-    const [gameName, setGameName] = useState('')
-    const [roomInfos, setRoomInfos] = useState([])
+		const [gameState, dispatch] = useStateValue()
 
     useEffect(()=> {
 			socket.on('room update', (data)=>{
-            setRoomInfos(data)
-            console.log('update users in room: ', data)
-				})
+				dispatch({type: UPDATE_GAME, payload: {...gameState, opponents: data}})
+			})
+			socket.emit('room infos')
+
+			return () => socket.off('room update')
     }, [])
-
-		useEffect(()=>{
-			if (gameName.length) {
-				socket.emit('room infos')
-			}
-		}, [gameName])
-
-    useEffect(()=>{
-				const tab = location.pathname.split('/')
-				if (location.pathname === '/' || tab.length < 2){
-					historyPush('/menu')
-				}else {
-					console.log(location.pathname)
-					var room = tab[2].split('[')[0]
-					var username = tab[2].split('[')[1].slice(0, -1)
-
-					console.log('room: ', room, 'username: ', username)
-					checkGameInfos(room, username)
-					setGameName(room)
-				}
-        return () => {
-        }
-    }, [location, history])
 
     return (
      <div className='fullWidth' style={{backgroundColor: 'pink'}}>
-        <div className='navigationBar fullWidth flex center alignCenter' style={{height: '30px', backgroundColor: 'red'}} onClick={()=>{
+        <div
+					className='navigationBar fullWidth flex center alignCenter'
+					style={{height: '30px', backgroundColor: 'red'}}
+					onClick={()=>{
             leaveRoom()
-            console.log('ROOM LEAVED')
-            historyPush('/')}}>
+					}}
+				>
             <p>RETURN MENU</p>
         </div>
         <div className="App" style={styles.container}>
-        <p align="center">Waiting for player(s) to join your room</p><Loader color="navy"/>
-        <p>Room : {gameName}</p>
-        <div>Players in this room : {
-            roomInfos && roomInfos.map((name, id)=>{
+        <p align="center">
+					Waiting for player(s) to join your room
+				</p>
+				<Loader color="navy"/>
+        <p>Room : {gameState.room}</p>
+				<div>Players in this room : 
+					{
+            gameState.opponents && gameState.opponents.map((name, id)=>{
                 return <p key={id}>{name}</p>
             })
-        }</div>
+        	}
+				</div>
+				{ gameState.isHost
+						?	<div
+								style={{width: '200px', height: '50px', backgroundColor: 'red', color: 'white'}}
+								onClick={()=>{console.log('START GAME')}}
+							>
+								START
+							</div>
+						: null
+				}
         </div>
-        </div>
+      </div>
     )
 }
 
-export default withRouter(Multi)
+export default Multi

@@ -1,60 +1,75 @@
-import React, { Fragment, useReducer, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Menu from './containers/Menu' 
-import Solo from './components/Game'
+// import Solo from './components/Game'
 import Multi from './containers/Multi'
-import { Router, Route } from 'react-router'
-import history from './history'
-import { userReducer, initialUserState } from './reducers/userReducer'
 import { socket } from './sockets'
 import { historyPush } from "./history"
+import { useStateValue } from './context/GlobalState.js'
+import { UPDATE_GAME } from './context/reducer.js'
 
-export const App = () => {
-	const [userInfos, setUserInfos] = useReducer(userReducer, initialUserState)
+export const App = props => {
 	const [popupInfo, setPopupInfo] = useState(null)
-
-	const updateUser = (data) => {
-		setUserInfos({type:'UPDATE_INFOS', payload: data})
-	}
-
-	const updateUsername = (username) => {
-		socket.emit('set username', username)
-	}
+  const [gameState, dispatch] = useStateValue()
 
 	const disablePopup = () => {
 		setPopupInfo(null)
 	}
 
-	useEffect(()=>{
-		socket.emit('get data')
-		socket.on('receive data', (data)=>{
-			updateUser(data)
+	const setListenners = () => {
+		socket.on('get user infos', (data)=>{
+			dispatch({type: UPDATE_GAME, payload: data})
 		})
 		socket.on('room joined', (data)=>{
 			historyPush(`${data.roomName}[${data.username}]`)
+			dispatch({
+				type: UPDATE_GAME,
+				payload: {
+					...gameState,
+					isInGame: true,
+					room: data.roomName,
+					isHost: data.host
+				}
+			})
+		})
+		socket.on('room leaved', (data)=>{
+			historyPush('')
+			dispatch({
+				type: UPDATE_GAME,
+				payload: {
+					...gameState,
+					room: null,
+					opponents: null,
+					isInGame: false,
+					isHost: false
+				}
+			})
 		})
 		socket.on('username set', (username)=>{
-			setUserInfos({type:'UPDATE_INFOS', payload: {...userInfos, username: username}})
+			dispatch({
+				type: UPDATE_GAME, payload:
+				{...gameState, player: username}
+			})
 		})
 		socket.on('info popup', (info)=>{
 			setPopupInfo(info)
 		})
+	}
+
+	useEffect(()=>{
+		if (gameState.isInGame === false) socket.emit('user connect')
+	}, [gameState.isInGame])
+
+	useEffect(()=>{
+		setListenners()
+		socket.emit('user connect')
 	}, [])
 
 	return(
-		<Fragment>
-				<Router history={history}>
-					<Route path="/" component={()=> <Menu
-						userInfos={userInfos}
-						updateUsername={updateUsername}
-						popupInfo={popupInfo}
-						disablePopup={disablePopup}/>}
-					/>
-					<Route path="/solo" component={()=> <Solo/>}/>
-					{/* <Multi path="/multi" userInfos={userInfos}/> */}
-				</Router>
-		</Fragment>
+		gameState.isInGame
+			? <Multi/>
+			: <Menu
+				popupInfo={popupInfo}
+				disablePopup={disablePopup}
+			/>
 	)
-	// return(
-	// 	<Multi userInfos={userInfos}/>
-	// )
 }

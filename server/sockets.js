@@ -26,14 +26,14 @@ export const useSockets = (io) => {
 					delete users[socket.id]
           console.log("\x1b[31m", `${socket.id} disconnected`)
         })
-        socket.on('get data', ()=>{
+        socket.on('user connect', ()=>{
             var usersRooms = socket.rooms
             var userData = {
-                id: socket.id,
-                username: socket.username,
-                playing: Object.keys(usersRooms).length > 1
+                playerId: socket.id,
+                player: socket.username,
+                isInGame: Object.keys(usersRooms).length > 1
             }
-            socket.emit('receive data', userData)
+            socket.emit('get user infos', userData)
         })
         socket.on('set username', (username) => {
             socket.username = username
@@ -56,7 +56,7 @@ export const useSockets = (io) => {
                 console.log(`Room pas full !\nCONNECTION A LA ROOM "${roomName}", id:`, socket.id)
                 socket.join(roomName, ()=>{
                     rooms[roomName].push(users[socket.id])
-                    socket.emit('room joined', {roomName: roomName, username: users[socket.id]})
+                    socket.emit('room joined', {roomName: roomName, username: users[socket.id], host: false})
                     io.in(roomName).emit('room update', rooms[roomName])
                 })
 			} else {
@@ -79,7 +79,7 @@ export const useSockets = (io) => {
                 socket.join(roomName, ()=>{
                     rooms[roomName] = []
                     rooms[roomName].push(users[socket.id])
-                    socket.emit('room joined', {roomName: roomName, username: users[socket.id]})
+                    socket.emit('room joined', {roomName: roomName, username: users[socket.id], host: true})
                 })
             } else {
                     sendInfo(socket, 'Information', `Room "${roomName}" already exists.`)
@@ -106,6 +106,7 @@ export const useSockets = (io) => {
             var usersRooms = socket.rooms
 						var roomName = Object.keys(usersRooms)[1]
 						var index = rooms[roomName].indexOf(users[socket.id])
+						socket.emit('room leaved')
 						socket.leave(roomName)
 						rooms[roomName].splice(index, 1)
             io.in(roomName).emit('room update', rooms[roomName])

@@ -1,17 +1,6 @@
 import { socket } from "./index"
 import { historyPush } from "../history"
 
-// export const isInGame = () => {
-//   socket.emit('is in game', (isInGame)=>{
-//     if (isInGame !== null){
-//       console.log('JEU DEJA EN COURS: ', isInGame, socket.id)
-//       historyPush(`/multi/${isInGame}/${socket.id}`)
-//     } else {
-//       console.log('pas de jeu en cours')
-//     }
-//   })
-// }
-
 export const leaveRoom = () => {
   socket.emit('leave room')
 }
