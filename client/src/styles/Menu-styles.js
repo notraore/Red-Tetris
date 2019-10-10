@@ -47,6 +47,12 @@ export const styles = ({
         borderRadius: '10px'
       }
     },
+    startButton: {
+      width: '200px',
+      height: '50px',
+      backgroundColor: 'red',
+      color: 'white'
+    },
     centerSubContainer: {
       margin: '200px',
       display: 'flex',

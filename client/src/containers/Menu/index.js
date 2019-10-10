@@ -10,6 +10,7 @@ import {styles, colorArray} from '../../styles/Menu-styles.js'
 import Title from '../../components/Title.js'
 import {Option} from '../../components/Option.js'
 import {Join, Solo, Create, Settings} from '../../components/MenuSubSection'
+import { socket } from '../../sockets'
 
 const _shuffleColor = (e) => {
   let randNum = _.random(0, 7)
@@ -21,11 +22,22 @@ const _shuffleColor = (e) => {
   }
 }
 
-const App = ({ classes, userInfos, updateUsername, popupInfo, disablePopup }) => {
+const Menu = props => {
+  const {
+    classes,
+    popupInfo,
+    disablePopup,
+    gameState,
+    // dispatch
+  } = props
 
   const [selected, select] = useState(0)
   const [onHover, setHover] = useState(false)
-  const [usernameInput, changeUsernameInput] = useState(userInfos.username)
+  const [usernameInput, changeUsernameInput] = useState('')
+
+  useEffect(()=>{
+    console.log(gameState)
+  }, [gameState])
 
   return (
     <div className="App" style={styles.container}>
@@ -83,7 +95,7 @@ const App = ({ classes, userInfos, updateUsername, popupInfo, disablePopup }) =>
                 onKeyDown={(e)=>{
                   if (e.keyCode === 13){
                     if (usernameInput.length <= 10 && usernameInput.length > 0){
-                      updateUsername(usernameInput.toUpperCase())
+                      socket.emit('set username', usernameInput.toUpperCase())
                       setHover(false)
                     } else alert('Username should be 1 character minimum and 10 characters maximum')
                   }
@@ -98,7 +110,7 @@ const App = ({ classes, userInfos, updateUsername, popupInfo, disablePopup }) =>
                 className={`flex center alignCenter`}
                 style={{fontSize: '34px', height: '50px', width: '400px', fontFamily: 'Orbitron, sans-serif'}}
               >
-                {userInfos.username}
+                {gameState.player}
               </div>
             }
           </div>
@@ -108,4 +120,4 @@ const App = ({ classes, userInfos, updateUsername, popupInfo, disablePopup }) =>
   );
 }
 
-export default withStyles(styles)(App)
+export default withStyles(styles)(Menu)

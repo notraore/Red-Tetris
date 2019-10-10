@@ -1,17 +1,6 @@
 import { socket } from "./index"
 import { historyPush } from "../history"
 
-// export const isInGame = () => {
-//   socket.emit('is in game', (isInGame)=>{
-//     if (isInGame !== null){
-//       console.log('JEU DEJA EN COURS: ', isInGame, socket.id)
-//       historyPush(`/multi/${isInGame}/${socket.id}`)
-//     } else {
-//       console.log('pas de jeu en cours')
-//     }
-//   })
-// }
-
 export const leaveRoom = () => {
   socket.emit('leave room')
 }
@@ -39,18 +28,6 @@ export const joinRoom = (name) => {
       console.log('DEJA DANS LA ROOM BOULET')
     }
   })
-}
-
-export const getPlayerName = (playerName) => {
-  socket.emit('getPlayer', playerName, (playerName) => {
-    console.log(`Welcome "${playerName}" cfer`);
-  })
-}
-
-export const getAllRooms = (rooms) => {
-  socket.emit('getAllRooms');
-  socket.on('allRooms')
-  // console.log(f_room);
 }
 
 export const createRoom = (name) => {
