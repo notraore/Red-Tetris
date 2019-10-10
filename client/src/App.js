@@ -1,58 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useReducer } from 'react'
 import Menu from './containers/Menu' 
 // import Solo from './components/Game'
 import Multi from './containers/Multi'
 import { socket } from './sockets'
 import { historyPush } from "./history"
-import { useStateValue } from './context/GlobalState.js'
-import { UPDATE_GAME } from './context/reducer.js'
+import { gameReducer, initialState } from './reducers/reducer.js'
 
 export const App = props => {
 	const [popupInfo, setPopupInfo] = useState(null)
-  const [gameState, dispatch] = useStateValue()
+  const [gameState, dispatch] = useReducer(gameReducer, initialState)
 
 	const disablePopup = () => {
 		setPopupInfo(null)
 	}
 
+	const updateGameState = (action) => {
+		dispatch(action)
+	}
+
 	const setListenners = () => {
-		socket.on('get user infos', (data)=>{
-			dispatch({type: UPDATE_GAME, payload: data})
-		})
+		socket.on('get user infos', dispatch)
 		socket.on('room joined', (data)=>{
-			historyPush(`${data.roomName}[${data.username}]`)
-			dispatch({
-				type: UPDATE_GAME,
-				payload: {
-					...gameState,
-					isInGame: true,
-					room: data.roomName,
-					isHost: data.host
-				}
-			})
+			historyPush(`${data.room}[${data.player}]`)
+			dispatch(data)
 		})
-		socket.on('room leaved', (data)=>{
-			historyPush('')
-			dispatch({
-				type: UPDATE_GAME,
-				payload: {
-					...gameState,
-					room: null,
-					opponents: null,
-					isInGame: false,
-					isHost: false
-				}
-			})
-		})
-		socket.on('username set', (username)=>{
-			dispatch({
-				type: UPDATE_GAME, payload:
-				{...gameState, player: username}
-			})
-		})
-		socket.on('info popup', (info)=>{
-			setPopupInfo(info)
-		})
+		socket.on('room leaved', dispatch)
+		socket.on('username set', dispatch)
+		socket.on('info popup', setPopupInfo)
 	}
 
 	useEffect(()=>{
@@ -66,8 +40,13 @@ export const App = props => {
 
 	return(
 		gameState.isInGame
-			? <Multi/>
+			? <Multi
+				gameState={gameState}
+				dispatch={updateGameState}
+			/>
 			: <Menu
+				gameState={gameState}
+				dispatch={updateGameState}
 				popupInfo={popupInfo}
 				disablePopup={disablePopup}
 			/>

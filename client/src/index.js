@@ -4,10 +4,9 @@ import './index.css';
 import './styles/fonts.css'
 import './styles/patterns.css'
 import { App } from './App.js'
-import { StateProvider } from './context/GlobalState'
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<StateProvider><App /></StateProvider>, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

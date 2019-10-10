@@ -10,7 +10,6 @@ import {styles, colorArray} from '../../styles/Menu-styles.js'
 import Title from '../../components/Title.js'
 import {Option} from '../../components/Option.js'
 import {Join, Solo, Create, Settings} from '../../components/MenuSubSection'
-import { useStateValue } from '../../context/GlobalState.js'
 import { socket } from '../../sockets'
 
 const _shuffleColor = (e) => {
@@ -27,12 +26,13 @@ const Menu = props => {
   const {
     classes,
     popupInfo,
-    disablePopup
+    disablePopup,
+    gameState,
+    // dispatch
   } = props
 
   const [selected, select] = useState(0)
   const [onHover, setHover] = useState(false)
-  const [gameState, dispatch] = useStateValue()
   const [usernameInput, changeUsernameInput] = useState('')
 
   useEffect(()=>{

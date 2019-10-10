@@ -4,18 +4,13 @@ import { leaveRoom } from '../../sockets/emits.js'
 import Loader from 'react-dots-loader'
 import 'react-dots-loader/index.css'
 import { socket } from '../../sockets'
-import { useStateValue } from '../../context/GlobalState.js'
-import { UPDATE_GAME } from '../../context/reducer.js'
+import { withStyles } from '@material-ui/styles';
 
-const Multi = ({classes, history, location, userInfos}) => {
-		const [gameState, dispatch] = useStateValue()
+const Multi = ({ classes, gameState, dispatch }) => {
 
     useEffect(()=> {
-			socket.on('room update', (data)=>{
-				dispatch({type: UPDATE_GAME, payload: {...gameState, opponents: data}})
-			})
+			socket.on('room update', dispatch)
 			socket.emit('room infos')
-
 			return () => socket.off('room update')
     }, [])
 
@@ -45,7 +40,7 @@ const Multi = ({classes, history, location, userInfos}) => {
 				</div>
 				{ gameState.isHost
 						?	<div
-								style={{width: '200px', height: '50px', backgroundColor: 'red', color: 'white'}}
+								className={classes.startButton}
 								onClick={()=>{console.log('START GAME')}}
 							>
 								START
@@ -57,4 +52,4 @@ const Multi = ({classes, history, location, userInfos}) => {
     )
 }
 
-export default Multi
+export default withStyles(styles)(Multi)
