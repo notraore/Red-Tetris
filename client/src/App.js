@@ -28,7 +28,6 @@ export const App = props => {
 		socket.on('username set', dispatch)
 		socket.on('info popup', setPopupInfo)
 	}
-
 	useEffect(()=>{
 		if (gameState.isInGame === false) socket.emit('user connect')
 	}, [gameState.isInGame])

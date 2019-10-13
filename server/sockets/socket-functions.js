@@ -13,6 +13,8 @@ export var nameTab = [
 	'Caca'
 ]
 
+const playerTabs = [];
+
 export const getAllRooms = (io) => {
 	return io.sockets.adapter.rooms
 }
@@ -34,8 +36,9 @@ export const sendRoomData = (socket) => {
 	socket.emit('get user infos', {
 		type: 'UPDATE_GAME',
 		playerId: socket.id,
-		player: socket.username,
-		isInGame: Object.keys(usersRooms).length > 1
+		player: users[socket.id],
+		isInGame: Object.keys(usersRooms).length > 1,
+		playerTab: playerTabs
 	})
 }
    
@@ -48,11 +51,14 @@ export const joinRoom = (socket, room, action, io) => {
 		if (typeof rooms[room] === 'undefined'){
 			rooms[room] = []
 		}
+
 		rooms[room].push(users[socket.id])
 		socket.emit('room joined', action)
+		playerTabs.push({id: socket.id, username: users[socket.id], gameHost: true})
 		emitUpdateInRoom(io, room, {
 			type: 'ROOM_UPDATE',
-			opponents: rooms[room]
+			opponents: rooms[room],
+			playerTab: playerTabs
 		})
 	})
 }
@@ -66,6 +72,7 @@ export const leaveRoom = (socket, io) => {
 	io.in(room).emit('room update', {
 		type: 'ROOM_UPDATE',
 		opponents: rooms[room]
+
 	})
 	sendInfo(socket, 'Exit info', 'You leaved the room.')}
 }
@@ -74,13 +81,15 @@ export const createRoom = (socket, room, res, io) => {
 	var players = getUsersInRoom(io, room)
 	var canCreateRoom = typeof players === 'undefined' ||
 	players.length === 0
-
+	playerTabs.push({id: socket.id, username: users[socket.id], gameHost: true})
+	console.log(playerTabs);
 	if (canCreateRoom){
 		joinRoom(socket, room, {
 			type: 'ROOM_JOINED',
 			room: room,
 			player: users[socket.id],
-			host: true
+			host: true,
+			playerTab: playerTabs
 		}, io)
 	} else {
 		sendInfo(socket, 'Information', `Room "${room}" already exists.`)
@@ -96,12 +105,14 @@ export const checkRoomAndJoin = (socket, room, res, io) => {
 
 	if (canJoin && !alreadyInRoom){
 		console.log(`CONNECTION A LA ROOM "${room}", id:`, socket.id)
+		playerTabs.push({id: socket.id, username: users[socket.id], gameHost: false})
 		joinRoom(socket, room, {
 			type: 'ROOM_JOINED',
 			room: room,
 			player: users[socket.id],
 			host: false,
-			opponents: rooms[room]
+			opponents: rooms[room],
+			playerTab: playerTabs
 		}, io)
 	} else {
 		if (alreadyInRoom){

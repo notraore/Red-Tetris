@@ -1,6 +1,7 @@
 export const initialRoomState = {
     name: null,
     players: null,
+    hoster: null,
     full: false
 }
 
@@ -11,6 +12,7 @@ export const roomReducer = (state = initialRoomState, action) => {
                 ...state,
                 name: action.payload.name,
                 players: action.payload.players,
+                hoster: action.payload.players,
                 full: action.payload.full
             }
         default:

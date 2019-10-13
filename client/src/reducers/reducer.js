@@ -8,9 +8,9 @@ export const initialState = {
 	room: null,
 	player: null,
 	playerId: null,
-	opponents: null,
 	isInGame: false,
-	isHost: false
+	isHost: false,
+	playTab: []
 }
 
 export const gameReducer = (state = initialState, action) => {
@@ -20,15 +20,15 @@ export const gameReducer = (state = initialState, action) => {
 				...state,
 				room: action.room,
 				player: action.player,
-				opponents: action.opponents,
 				playerId: action.playerId,
 				isInGame: action.isInGame,
-				isHost: action.isHost
+				isHost: action.player.isHost,
+				playTab: action.playerTab
 			}
 		case SET_USERNAME:
 			return {
 				...state,
-				player: action.player
+				player: action.player.username
 			}
 		case ROOM_JOINED:
 			return {
@@ -36,13 +36,13 @@ export const gameReducer = (state = initialState, action) => {
 				room: action.room,
 				opponents: action.opponents,
 				isInGame: true,
-				isHost: action.host
+				isHost: action.player.isHost,
+				playTab: action.playerTab
 			}
 		case ROOM_LEAVED:
 			return {
 				...state,
 				room: null,
-				opponents: null,
 				isInGame: false,
 				isHost: false
 			}
@@ -50,6 +50,7 @@ export const gameReducer = (state = initialState, action) => {
 			return {
 				...state,
 				opponents: action.opponents,
+				playTab: action.playerTab
 			}
 		default:
 			return state
