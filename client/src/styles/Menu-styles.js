@@ -23,6 +23,10 @@ export const styles = ({
       animation: 'gradientBackground 20s infinite',
       backgroundSize: '100% 100%',
     },
+    listUsernameLabel: {
+      fontFamily: 'Orbitron, sans-serif',
+      padding: '15px 0px'
+    },
     input:{
       height: '45px',
       width: '250px',

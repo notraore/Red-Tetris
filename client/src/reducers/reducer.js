@@ -1,4 +1,4 @@
-export const UPDATE_GAME = 'UPDATE_GAME'
+export const GET_USER_INFOS = 'GET_USER_INFOS'
 export const SET_USERNAME = 'SET_USERNAME'
 export const ROOM_LEAVED = 'ROOM_LEAVED'
 export const ROOM_JOINED = 'ROOM_JOINED'
@@ -15,15 +15,12 @@ export const initialState = {
 
 export const gameReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case UPDATE_GAME:
+		case GET_USER_INFOS:
 			return {
 				...state,
-				room: action.room,
 				player: action.player,
 				playerId: action.playerId,
 				isInGame: action.isInGame,
-				isHost: action.player.isHost,
-				playTab: action.playerTab
 			}
 		case SET_USERNAME:
 			return {
@@ -34,7 +31,6 @@ export const gameReducer = (state = initialState, action) => {
 			return {
 				...state,
 				room: action.room,
-				opponents: action.opponents,
 				isInGame: true,
 				isHost: action.player.isHost,
 				playTab: action.playerTab
@@ -49,7 +45,6 @@ export const gameReducer = (state = initialState, action) => {
 		case ROOM_UPDATE:
 			return {
 				...state,
-				opponents: action.opponents,
 				playTab: action.playerTab
 			}
 		default:

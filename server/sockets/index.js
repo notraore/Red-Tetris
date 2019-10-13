@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { users, rooms, setDefaultUsername, sendRoomData,
+import { users, rooms, rooms2, setDefaultUsername, getUserInfos,
 leaveRoom, createRoom, checkRoomAndJoin } from './socket-functions'
 
 export const useSockets = (io) => {
@@ -12,13 +12,13 @@ export const useSockets = (io) => {
 		}
 
 		socket.on('disconnect', function(){
-			// leaveRoom(socket, io) UPDATE SI ON RAFRAICHIT LA PAGE EN PLEIN JEU
+			// UPDATE SI ON RAFRAICHIT LA PAGE EN PLEIN JEU
 			delete users[socket.id]
 			console.log("\x1b[31m", `${socket.id} disconnected`)
 		})
 
 		socket.on('user connect', ()=>{
-			sendRoomData(socket)
+			getUserInfos(socket)
 		})	
 
 		socket.on('set username', (username) => {
@@ -33,7 +33,7 @@ export const useSockets = (io) => {
 		socket.on('room infos', () => {
 			socket.emit('room update', {
 				type: 'ROOM_UPDATE',
-				opponents: rooms[Object.keys(socket.rooms)[1]]
+				playerTab: rooms2[Object.keys(socket.rooms)[1]]
 			})
 		})
 
