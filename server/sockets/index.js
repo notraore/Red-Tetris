@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { users, rooms, setDefaultUsername, getUserInfos,
-leaveRoom, createRoom, checkRoomAndJoin } from './socket-functions'
+leaveRoom, createRoom, checkRoomAndJoin, isHost } from './socket-functions'
 
 export const useSockets = (io) => {
 	io.on('connection', (socket)=>{
@@ -32,9 +32,10 @@ export const useSockets = (io) => {
 		})
 
 		socket.on('room infos', () => {
+			var room = Object.keys(socket.rooms)[1]
 			socket.emit('room update', {
 				type: 'ROOM_UPDATE',
-				playerTab: rooms[Object.keys(socket.rooms)[1]]
+				playerTab: rooms[room],
 			})
 		})
 

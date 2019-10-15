@@ -17,6 +17,18 @@ export const getAllRooms = (io) => {
 	return io.sockets.adapter.rooms
 }
 
+export const isHost = (id, room) => {
+	var isHost = false
+
+	rooms[room].forEach((user)=>{
+		if (user.id === id){
+			isHost = user.gameHost
+		}
+	})
+
+	return isHost
+}
+
 export const getUsersInRoom = (io, room) => {
 	var allRooms = getAllRooms(io)
 	return allRooms[room]
@@ -48,7 +60,7 @@ export const joinRoom = (socket, room, action, io) => {
 		socket.emit('room joined', action)
 		emitUpdateInRoom(io, room, {
 			type: 'ROOM_UPDATE',
-			playerTab: rooms[room]
+			playerTab: rooms[room],
 		})
 	})
 }
@@ -58,8 +70,6 @@ export const changeHost = (user, curRoom, id) => {
 	const len = Object.keys(rooms[curRoom]).length
 	if (user && user.gameHost === true && len >= 1)
 		{
-			console.log('dans le if len >=1 et gamehost true: len:',
-			 len, 'room:', rooms[curRoom], 'id:', id)
 			rooms[curRoom][id - 1]
 				? rooms[curRoom][id - 1].gameHost = true
 				: rooms[curRoom][id + 1].gameHost = true
@@ -104,7 +114,7 @@ export const createRoom = (socket, room, res, io) => {
 			type: 'ROOM_JOINED',
 			room: room,
 			player: users[socket.id],
-			host: true,
+			isHost: true,
 			playerTab: rooms[room]
 		}, io)
 	} else {
@@ -126,7 +136,7 @@ export const checkRoomAndJoin = (socket, room, res, io) => {
 			type: 'ROOM_JOINED',
 			room: room,
 			player: users[socket.id],
-			host: false,
+			isHost: false,
 			playerTab: rooms[room]
 		}, io)
 	} else {

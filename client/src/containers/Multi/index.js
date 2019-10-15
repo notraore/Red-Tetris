@@ -7,6 +7,15 @@ import { socket } from '../../sockets'
 import { withStyles } from '@material-ui/styles';
 
 const Multi = ({ classes, gameState, dispatch }) => {
+	var userId = gameState.playerId
+	var curUser = {}
+
+	gameState.playTab.forEach((user)=>{
+		if (user && user.id === userId){
+			curUser = user
+		}
+	})
+
 	useEffect(()=> {
 		socket.on('room update', dispatch)
 		socket.emit('room infos')
@@ -42,11 +51,11 @@ const Multi = ({ classes, gameState, dispatch }) => {
 							{user.username}{user.gameHost ? ' ♛' : ''}
 						</div>
 					</div>
-						: <div/>
+						: <div key={index}/>
 					})
 			}
 			</div>
-			{ gameState.isHost
+			{ curUser.gameHost
 					?	<div
 							className={classes.startButton}
 							onClick={()=>{console.log('START GAME')}}

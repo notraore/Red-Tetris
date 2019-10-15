@@ -46,7 +46,8 @@ export const gameReducer = (state = initialState, action) => {
 		console.log('ROOM UPDATE!!: ', action)
 			return {
 				...state,
-				playTab: action.playerTab
+				playTab: action.playerTab,
+				isHost: action.isHost
 			}
 		default:
 			return state
