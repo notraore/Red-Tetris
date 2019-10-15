@@ -43,6 +43,7 @@ export const gameReducer = (state = initialState, action) => {
 				isHost: false
 			}
 		case ROOM_UPDATE:
+		console.log('ROOM UPDATE!!: ', action)
 			return {
 				...state,
 				playTab: action.playerTab

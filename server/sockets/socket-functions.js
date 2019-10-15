@@ -53,27 +53,41 @@ export const joinRoom = (socket, room, action, io) => {
 	})
 }
    
+
+export const changeHost = (user, curRoom, id) => {
+	const len = Object.keys(rooms[curRoom]).length
+	if (user && user.gameHost === true && len >= 1)
+		{
+			console.log('dans le if len >=1 et gamehost true: len:',
+			 len, 'room:', rooms[curRoom], 'id:', id)
+			rooms[curRoom][id - 1]
+				? rooms[curRoom][id - 1].gameHost = true
+				: rooms[curRoom][id + 1].gameHost = true
+		}
+}
+
 export const leaveRoom = (socket, io) => {
-	var room = Object.keys(socket.rooms)[1]
-	var index = 0
-	if (room) {
-			rooms[room].map((user, id)=>{
+	var curRoom = null
+
+	Object.keys(rooms).map((room)=>{
+		rooms[room].map((user)=>{
 			if (user.id === socket.id){
-				index = id
-				if (user.gameHost === true &&
-					rooms[room].length > 1){
-				 id >= 1
-				 	? rooms[room][id - 1].gameHost = true
-				 	: rooms[room][id + 1].gameHost = true
-			 }
+				curRoom = room
+			}
+		})
+	})
+	if (curRoom) {
+		rooms[curRoom].map((user, id)=>{
+			if (user.id === socket.id){
+			delete rooms[curRoom][id]
+			changeHost(user, curRoom, id)
+			 socket.leave(curRoom)
 			}
 		})
 		socket.emit('room leaved', {type: 'ROOM_LEAVED'})
-		socket.leave(room)
-		rooms[room].splice(index, 1)
-		io.in(room).emit('room update', {
+		io.in(curRoom).emit('room update', {
 			type: 'ROOM_UPDATE',
-			playerTab: rooms[room]
+			playerTab: rooms[curRoom]
 		})
 		sendInfo(socket, 'Exit info', 'You leaved the room.')
 	}

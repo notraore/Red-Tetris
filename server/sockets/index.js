@@ -13,6 +13,7 @@ export const useSockets = (io) => {
 
 		socket.on('disconnect', function(){
 			// UPDATE SI ON RAFRAICHIT LA PAGE EN PLEIN JEU
+			leaveRoom(socket, io)
 			delete users[socket.id]
 			console.log("\x1b[31m", `${socket.id} disconnected`)
 		})

@@ -36,12 +36,14 @@ const Multi = ({ classes, gameState, dispatch }) => {
 				</div> 
 			{ 
 				gameState.playTab && gameState.playTab.map((user, index) => {
-					return <div className={`flex center alignCenter row`} key={index}>
+					return user
+						? <div className={`flex center alignCenter row`} key={index}>
 						<div className={classes.listUsernameLabel}>
 							{user.username}{user.gameHost ? ' ♛' : ''}
 						</div>
 					</div>
-				})
+						: <div/>
+					})
 			}
 			</div>
 			{ gameState.isHost
