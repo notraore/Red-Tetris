@@ -20,6 +20,19 @@ export const useSockets = (io) => {
 
 		socket.on('user connect', ()=>{
 			getUserInfos(socket)
+		})
+
+		socket.on('start game', (room)=>{
+			io.in(room).emit('host started game')
+		})	
+
+		socket.on('emit board state', (board, room)=>{
+			rooms[room].map((player)=>{
+				if (player.id === socket.id){
+					player.shadow = board
+				}	
+			})
+			io.in(room).emit('receive player shadow', {type: 'UPDATE_OPPONENTS', playTab: rooms[room]})
 		})	
 
 		socket.on('set username', (username) => {
