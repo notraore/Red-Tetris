@@ -46,7 +46,7 @@ const Multi = ({ classes, gameState, dispatch }) => {
 				</div>
 				<div className="App" style={styles.container}>
 					<p align="center">
-						Waiting for player(s) to join your room
+						Waiting for host to start the game
 					</p>
 					<Loader color="navy"/>
 					<p>Room : {gameState.room}</p>

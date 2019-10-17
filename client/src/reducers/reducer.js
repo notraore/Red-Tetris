@@ -38,7 +38,7 @@ export const gameReducer = (state = initialState, action) => {
 		case SET_USERNAME:
 			return {
 				...state,
-				player: action.player.username
+				player: action.player
 			}
 		case ROOM_JOINED:
 			return {

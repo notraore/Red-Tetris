@@ -5,6 +5,7 @@ import Multi from './containers/Multi'
 import { socket } from './sockets'
 import { historyPush } from "./history"
 import { gameReducer, initialState } from './reducers/reducer.js'
+import Game from './containers/Game/Game.js'
 
 export const App = props => {
 	const [popupInfo, setPopupInfo] = useState(null)
@@ -43,11 +44,17 @@ export const App = props => {
 				gameState={gameState}
 				dispatch={updateGameState}
 			/>
-			: <Menu
-				gameState={gameState}
-				dispatch={updateGameState}
-				popupInfo={popupInfo}
-				disablePopup={disablePopup}
-			/>
+			: gameState.gameStarted && gameState.nbPlayer === 1
+				? <Game
+					gameState={gameState}
+					dispatch={updateGameState}
+					solo
+				/>
+				: <Menu
+					gameState={gameState}
+					dispatch={updateGameState}
+					popupInfo={popupInfo}
+					disablePopup={disablePopup}
+				/>
 	)
 }

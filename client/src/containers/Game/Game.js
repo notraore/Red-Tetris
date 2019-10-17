@@ -14,7 +14,7 @@ import { leaveRoom } from '../../sockets/emits.js'
 import { isEmpty } from 'lodash'
 //import leader from '../datas/leaderboard.json';
 
-const Game = ({classes, gameState, dispatch}) => {
+const Game = ({classes, gameState, dispatch, solo}) => {
 
 	const [data, setData] = useState([]);
 	const [counter, increment] = useState(0)
@@ -40,7 +40,7 @@ const Game = ({classes, gameState, dispatch}) => {
 		socket.on("sendRandTetris", (ret) => {
 			setData(ret);
 		})
-		socket.on('receive player shadow', dispatch)
+		if (!solo) socket.on('receive player shadow', dispatch)
 		// var leaderTmp = JSON.parse(leader);
 		// console.log("var", leaderTmp)
 		return () => socket.off('sendRandTetris')
@@ -53,7 +53,7 @@ const Game = ({classes, gameState, dispatch}) => {
 
 	useEffect(() =>{
 		console.log('EMIT BOARD STATE')
-		socket.emit('emit board state', board.tab, gameState.room)
+		if (!solo) socket.emit('emit board state', board.tab, gameState.room)
 	}, [counter])
 
 	useEffect(() => {

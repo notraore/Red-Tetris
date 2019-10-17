@@ -6,10 +6,10 @@ import { createRoom } from '../sockets/emits.js'
 import { historyPush } from '../history.js';
 import leader from '../datas/leaderboard.json';
 
-const SoloComponent = ({ classes, selected }) => {
+const SoloComponent = ({ classes, selected, dispatch }) => {
     return (
         <div className={`flex center alignCenter column`} style={selected === 1 ? {display: 'flex'} : {display: 'none'}}>
-            <p className={classes.optionLabel} onClick={()=>{historyPush('/solo')}}>
+            <p className={classes.optionLabel} onClick={()=>{dispatch({type: 'START_GAME', nbPlayer: 1})}}>
                 Start
             </p>
         </div>
