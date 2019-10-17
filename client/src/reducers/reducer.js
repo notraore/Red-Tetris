@@ -3,14 +3,21 @@ export const SET_USERNAME = 'SET_USERNAME'
 export const ROOM_LEAVED = 'ROOM_LEAVED'
 export const ROOM_JOINED = 'ROOM_JOINED'
 export const ROOM_UPDATE = 'ROOM_UPDATE'
+export const START_GAME = 'START_GAME'
+export const END_GAME = 'END_GAME'
+export const UPDATE_OPPONENTS = 'UPDATE_OPPONENTS'
 
 export const initialState = {
 	room: null,
+	nbPlayer: null,
 	player: null,
 	playerId: null,
 	isInGame: false,
+	gameStarted: false,
+	isWaiting: false,
 	isHost: false,
-	playTab: []
+	playTab: [],
+	shadows: null
 }
 
 export const gameReducer = (state = initialState, action) => {
@@ -22,10 +29,16 @@ export const gameReducer = (state = initialState, action) => {
 				playerId: action.playerId,
 				isInGame: action.isInGame,
 			}
+		case UPDATE_OPPONENTS:
+		console.log('DANS UPDATE OPPONENT: ', action)
+			return {
+				...state,
+				playTab: action.playTab
+			}
 		case SET_USERNAME:
 			return {
 				...state,
-				player: action.player.username
+				player: action.player
 			}
 		case ROOM_JOINED:
 			return {
@@ -33,7 +46,8 @@ export const gameReducer = (state = initialState, action) => {
 				room: action.room,
 				isInGame: true,
 				isHost: action.player.isHost,
-				playTab: action.playerTab
+				playTab: action.playerTab,
+				isWaiting: true
 			}
 		case ROOM_LEAVED:
 			return {
@@ -48,6 +62,18 @@ export const gameReducer = (state = initialState, action) => {
 				...state,
 				playTab: action.playerTab,
 				isHost: action.isHost
+			}
+		case START_GAME:
+			return {
+				...state,
+				gameStarted: true,
+				nbPlayer: action.nbPlayer
+			}
+		case END_GAME:
+			return {
+				...state,
+				gameStarted: false,
+				isWaiting: false
 			}
 		default:
 			return state

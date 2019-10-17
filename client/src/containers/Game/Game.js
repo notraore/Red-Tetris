@@ -1,25 +1,21 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import tab from './pieces.1.json'
+import tab from '../../components/pieces.1.json'
 import { withStyles }  from '@material-ui/styles'
-import {GameStyle} from '../styles/Game-style.js'
-import {blockSize, Block, colorTab} from './Block.js'
-import {canFit} from './canFit.js'
-import {initialBoardState, initialTetriState} from './initialState.js'
-import InGameInfos from '../styles/GameInfos.js'
-import GameOverInfos from '../styles/GameOverInfos.js'
-import { historyPush } from '../history.js';
-import { socket } from '../sockets';
-import { styles } from '../styles/Menu-styles.js'
+import {GameStyle} from '../../styles/Game-style.js'
+import {blockSize, Block, colorTab, ShadowBlock} from '../../components/Block.js'
+import {canFit} from '../../components/canFit.js'
+import {initialBoardState, initialTetriState} from '../../components/initialState.js'
+import InGameInfos from '../../styles/GameInfos.js'
+import GameOverInfos from '../../styles/GameOverInfos.js'
+import { socket } from '../../sockets';
+import { styles } from '../../styles/Menu-styles.js'
+import { leaveRoom } from '../../sockets/emits.js'
 
 import { isEmpty } from 'lodash'
 //import leader from '../datas/leaderboard.json';
 
+const Game = ({classes, gameState, dispatch, solo}) => {
 
-
-const Game = (props) => {
-
-	// setData(RandomTetri());
-	const {classes} = props
 	const [data, setData] = useState([]);
 	const [counter, increment] = useState(0)
 	const [gameOver, overGame] = useState(false)
@@ -27,42 +23,47 @@ const Game = (props) => {
 	const [curTetri, moveTetri] = useState(initialTetriState(0, data));
 	const [score, updateScore] = useState(0)
 	const [canMove, setCanMove] = useState(true)
-	const [nextTetri, setNext] = useState(tab["J"]);
+	const [nextTetri, setNext] = useState(null);
 
-	const [rows, setRows] = useState(0);
-	const [level, setLevel] = useState(0);
-	const [dropTime, setDropTime] = useState(1000);
+	const [rows, setRows] = useState(0)
+	const [level, setLevel] = useState(0)
+	const [dropTime, setDropTime] = useState(1000)
 	const refInterval = useRef(false)
 	const keyDown = useRef(false)
 
-	const RandomTetri = () => {
-		socket.emit("RandomTetri");
+	useEffect(() =>{
+		socket.emit("RandomTetri")
+	}, [gameOver])
+
+	useEffect(() =>{
+		console.log("dans GAME: gamestate:", gameState)
 		socket.on("sendRandTetris", (ret) => {
 			setData(ret);
 		})
-	}
-
-	useEffect(() =>{
-		RandomTetri();
+		if (!solo) socket.on('receive player shadow', dispatch)
 		// var leaderTmp = JSON.parse(leader);
 		// console.log("var", leaderTmp)
+		return () => socket.off('sendRandTetris')
 	}, []);
 
 	useEffect(() =>{
 		if (!isEmpty(data))
-			setNext(tab[data[1]]);
-		console.log(data);
-	}, [data]);
+			setNext(tab[data[1]])
+	}, [data])
+
+	useEffect(() =>{
+		console.log('EMIT BOARD STATE')
+		if (!solo) socket.emit('emit board state', board.tab, gameState.room)
+	}, [counter])
 
 	useEffect(() => {
-		if (JSON.stringify(board) === JSON.stringify(initialBoardState()) && counter > 0){
-
+		if (JSON.stringify(board) === JSON.stringify(initialBoardState()) &&
+		 counter > 0){
 			increment(0)
 			updateScore(0)
 			setLevel(0)
 			setRows(0)
 			setDropTime(1000);
-			RandomTetri();
 			moveTetri(initialTetriState(0), data);
 			setNext(tab[data[1]]);
 			overGame(false)
@@ -76,7 +77,6 @@ const Game = (props) => {
 	const setGameLoop = useCallback((speed) => {
 		return setInterval(() => {
 			moveTetri((tetri)=>{
-				console.log(tetri);
 				if (!canFit(board.tab, {...tetri, y: tetri.y + 1})){
 					setCanMove(true)
 					keyDown.current = null
@@ -93,7 +93,6 @@ const Game = (props) => {
 					})
 					const t = initialTetriState(counter + 1, data);
 					increment((i)=>{
-						console.log("tab ", tab[data[i+2]]);
 						setNext(tab[data[i+2]])
 						return i+1
 					})
@@ -228,7 +227,7 @@ const Game = (props) => {
 	return (
 		<div className="App" style={styles.container}>
 			<div className='navigationBar fullWidth flex center alignCenter' style={{height: '30px', backgroundColor: 'red'}}>
-				<p onClick={()=>{historyPush('/')}}>RETURN MENU</p>
+				<p onClick={()=>{dispatch({type: 'END_GAME'});leaveRoom()}}>RETURN MENU</p>
 			</div>
 			{gameOver
 				? <div className='flex column center alignCenter' style={{height: '100hw'}}>
@@ -293,7 +292,7 @@ const Game = (props) => {
 							<div style={{fontSize: '40px', fontWeight: 'bold', color: 'navy', marginTop: '20px'}}>Next:</div>
 							<div className={'relative'} style={{top: '10px', padding: '10px'}}>
 								{
-									nextTetri.position[0].form.map((line, index)=>{
+									nextTetri && nextTetri.position[0].form.map((line, index)=>{
 										return <div style={{display: 'flex'}} key={index}>
 											{
 												line.map((col, index) => {
@@ -310,11 +309,34 @@ const Game = (props) => {
 								}
 							</div>
 							<div className={'relative'} style={{}}>
-							<InGameInfos text={`Score: ${score}`}/>
-							<InGameInfos text={`Level: ${level}`}/>
-							<InGameInfos text={`Rows: ${rows}`}/>
-							<InGameInfos text={`Speed: x${1000 - dropTime}`}/>
-						</div>
+								<InGameInfos text={`Score: ${score}`}/>
+								<InGameInfos text={`Level: ${level}`}/>
+								<InGameInfos text={`Rows: ${rows}`}/>
+								<InGameInfos text={`Speed: x${1000 - dropTime}`}/>
+							</div>
+							<div className={'flex row '}>
+								{	gameState.playTab && gameState.playTab.map((player, index)=>{
+									if (player && player.id !== gameState.playerId) return <div key={index} className={`relative`} style={{padding: '2px'}}>
+										{
+											player.shadow && player.shadow.map((line, index)=>{
+												return <div style={{display: 'flex'}} key={index}>
+													{
+														line.map((col, index) => {
+															return <div key={index}>
+																{col > 0
+																	? <ShadowBlock color={colorTab[col - 1]}/>
+																	: <ShadowBlock empty/>
+																}
+															</div>
+														})
+													}
+												</div>
+											})
+										}
+									</div>
+									else return null
+								})}
+							</div>
 						</div>
 				</div>}
 		</div>

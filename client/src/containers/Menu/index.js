@@ -28,7 +28,7 @@ const Menu = props => {
     popupInfo,
     disablePopup,
     gameState,
-    // dispatch
+    dispatch
   } = props
 
   const [selected, select] = useState(0)
@@ -36,7 +36,7 @@ const Menu = props => {
   const [usernameInput, changeUsernameInput] = useState('')
 
   useEffect(()=>{
-    console.log(gameState)
+    console.log(gameState, dispatch)
   }, [gameState])
 
   return (
@@ -52,7 +52,7 @@ const Menu = props => {
           style={selected > 0 ? {display: 'flex'} : {display: 'none'}}
         >
           <Join selected={selected}/>
-          <Solo selected={selected}/>
+          <Solo selected={selected}  dispatch={dispatch}/>
           <Create selected={selected}/>
           <Settings selected={selected}/>
           <p onClick={()=>{select(0)}} className={classes.optionLabel}>
@@ -95,7 +95,7 @@ const Menu = props => {
                 onKeyDown={(e)=>{
                   if (e.keyCode === 13){
                     if (usernameInput.length <= 10 && usernameInput.length > 0){
-                      socket.emit('set username', usernameInput.toUpperCase())
+                      socket.emit('set username', usernameInput)
                       setHover(false)
                     } else alert('Username should be 1 character minimum and 10 characters maximum')
                   }

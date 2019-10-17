@@ -4,10 +4,13 @@ import path from 'path'
 import socketIo from 'socket.io'
 import {useSockets} from './sockets'
 
+const SOCKET_TIMEOUT = 60000
 var app = express()
 var fs = require('fs');
 var server = http.Server(app)
-var io = socketIo(server)
+var io = socketIo(server, {
+    pingTimeout: SOCKET_TIMEOUT
+})
 
 app.use(express.static(path.join(__dirname, '../client/build')));
 
