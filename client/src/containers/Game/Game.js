@@ -8,7 +8,6 @@ import FinishComponent from './FinishPage.js'
 import InGameComponent from './InGamePage.js'
 import { socket } from '../../sockets';
 import { styles } from '../../styles/Menu-styles.js'
-import { leaveRoom } from '../../sockets/emits.js'
 import { checkLine, gameLoop, reset } from './checkFunctions.js'
 import { checkPlayerInputs } from './playerInputs'
 import { isEmpty } from 'lodash'
@@ -38,7 +37,6 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 	}, [gameOver])
 
 	useEffect(() =>{
-		console.log("dans GAME: gamestate:", gameState)
 		socket.on("sendRandTetris", (ret) => {
 			setData(ret);
 		})
@@ -52,13 +50,12 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 	}, [data])
 
 	useEffect(() =>{
-		console.log('EMIT BOARD STATE')
 		if (!solo) socket.emit('emit board state', board.tab, gameState.room)
 	}, [counter])
 
 	useEffect(() => {
 		if (JSON.stringify(board) === JSON.stringify(initialBoardState()) &&
-		 counter > 0){
+		 (counter > 0 || curTetri.y > 0)){
 			reset(increment, updateScore, setLevel, setRows, setDropTime,
 				moveTetri, initialTetriState, data, tab, overGame, setNext)
 		}
@@ -135,7 +132,6 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 
 
 	useEffect(() => {
-		console.log(window.innerHeight)
 		setScreenY(window.innerHeight)
 		setScreenX(window.innerWidth)
 	}, [window.innerHeight, window.innerWidth])
@@ -144,15 +140,6 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 
 	return (
 		<div className="App fullHeight fullWidth flex center alignCenter" style={styles.container}>
-			{/* <div
-				className='navigationBar fullWidth flex center alignCenter'
-				style={{height: '30px', backgroundColor: 'red'}}
-			>
-				<p style={{zIndex: 10}} onClick={()=>{dispatch({type: 'END_GAME'});leaveRoom()}}>
-					RETURN MENU
-				</p>
-			</div> */}
-			{/* <div className=' fullHeight fullWidth'> */}
 				{gameOver
 					? <FinishComponent
 						level={level}
@@ -171,10 +158,12 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 						nextTetri={nextTetri}
 						curTetri={curTetri}
 						tetri={tetri}
-						dropTime={dropTime} 
+						dropTime={dropTime}
+						solo={solo}
+						reset={resetGame}
+						dispatch={dispatch}
 					/>
 				}
-			{/* </div>/ */}
 		</div>
 	)
 }

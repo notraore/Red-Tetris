@@ -89,7 +89,7 @@ export const leaveRoom = (socket, io) => {
 	if (curRoom) {
 		rooms[curRoom].map((user, id)=>{
 			if (user.id === socket.id){
-			delete rooms[curRoom][id]
+			rooms[curRoom].splice(id, 1)
 			changeHost(user, curRoom, id)
 			 socket.leave(curRoom)
 			}

@@ -35,5 +35,19 @@ export const GameStyle = () => ({
         width: `${blockSize}px`,
         height: `${blockSize}px`,
         border: '1px solid pink'
+    },
+    button: {
+        fontSize: '20px',
+        color: 'white',
+        backgroundColor: 'pink',
+        border: '2px solid pink',
+        borderRadius: '10px',
+        padding: '10px 0px',
+        cursor: 'pointer',
+        margin: 5,
+        '&:hover': {
+            backgroundColor: 'inherit',
+            color: 'pink'
+        }
     }
 })

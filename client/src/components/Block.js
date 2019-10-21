@@ -1,6 +1,4 @@
 import React from 'react'
-export const blockSize = window.innerHeight / 25
-export const shadowBlockSize = 10
 
 export const colorTab = ([
 	'red',

@@ -44,11 +44,11 @@ export const App = props => {
 				gameState={gameState}
 				dispatch={updateGameState}
 			/>
-			: gameState.gameStarted && gameState.nbPlayer === 1
+			: gameState.gameStarted
 				? <Game
 					gameState={gameState}
 					dispatch={updateGameState}
-					solo
+					solo={gameState.nbPlayer === 1}
 				/>
 				: <Menu
 					gameState={gameState}

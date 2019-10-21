@@ -33,7 +33,7 @@ const Multi = ({ classes, gameState, dispatch }) => {
 	return (
 	 <div className='fullWidth fullHeight'>
 		{gameState.gameStarted
-			? <Game gameState={gameState} dispatch={dispatch}/>
+			? <Game gameState={gameState} dispatch={dispatch} solo={gameState.playTab && Object.keys(gameState.playTab).length === 1}/>
 			: <div>
 					<div
 					className='navigationBar fullWidth flex center alignCenter'
