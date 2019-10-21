@@ -17,13 +17,15 @@ import { expect } from 'chai'
 
 /* Block.js */
 import { colorTab } from './components/block.js'
-import {blockSize} from './components/block.js'
-import {shadowBlockSize} from './components/block.js'
+// import {blockSize} from './components/block.js'
+// import {shadowBlockSize} from './components/block.js'
 
 /* canFit.js */
 // import {canFit} from './components/canFit.js'
 
-/* initialState.js */
+/*
+**'/reducers.js
+*/
 import { initialBoardState } from './components/initialState.js'
 import { initialState } from './reducers/reducer.js'
 import { initialRoomState } from './reducers/roomReducer.js'
@@ -39,12 +41,12 @@ describe('Game propriety', () => {
 		expect(colorTab).includes('cyan');
 		expect(colorTab).includes('green');
 	})
-	test("Is block size 40 ?", () => {
-		expect(blockSize).to.equal(40);
-	})
-		test("Is shadow block size is 10 ?", () => {
-		expect(shadowBlockSize).to.equal(10);
-	})
+	// test("Is block size 40 ?", () => {
+	// 	expect(blockSize).to.equal(40);
+	// })
+	// 	test("Is shadow block size is 10 ?", () => {
+	// 	expect(shadowBlockSize).to.equal(10);
+	// })
 })
 
 describe('Functions', () => {
