@@ -1,5 +1,15 @@
 const blockSize = 40
 export const GameStyle = () => ({
+    gameInfo: {
+        margin: '10px 0px',
+        alignItem: 'center',
+        // fontWeight: 'bold',
+        fontSize: '20px',
+        color: 'pink',
+        border: '2px solid pink',
+        borderRadius: '10px',
+        padding: '5px 0px'
+    },
     gameOverContainer: {
         height: '500px',
         width: '500px',

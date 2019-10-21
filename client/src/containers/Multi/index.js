@@ -31,7 +31,7 @@ const Multi = ({ classes, gameState, dispatch }) => {
 	}, [])
 
 	return (
-	 <div className='fullWidth' style={{backgroundColor: 'pink'}}>
+	 <div className='fullWidth fullHeight'>
 		{gameState.gameStarted
 			? <Game gameState={gameState} dispatch={dispatch}/>
 			: <div>

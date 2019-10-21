@@ -35,12 +35,8 @@ const Menu = props => {
   const [onHover, setHover] = useState(false)
   const [usernameInput, changeUsernameInput] = useState('')
 
-  useEffect(()=>{
-    console.log(gameState, dispatch)
-  }, [gameState])
-
   return (
-    <div className="App" style={styles.container}>
+    <div className="App flex center alignCenter" style={styles.container}>
       {popupInfo !== null
         ? <Popup infos={popupInfo} closePopup={disablePopup}/>
         : null

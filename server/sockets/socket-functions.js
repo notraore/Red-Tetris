@@ -68,7 +68,7 @@ export const joinRoom = (socket, room, action, io) => {
 
 export const changeHost = (user, curRoom, id) => {
 	const len = Object.keys(rooms[curRoom]).length
-	if (user && user.gameHost === true && len >= 1)
+	if (user && user.gameHost === true && len > 1)
 		{
 			rooms[curRoom][id - 1]
 				? rooms[curRoom][id - 1].gameHost = true
@@ -127,8 +127,7 @@ export const checkRoomAndJoin = (socket, room, res, io) => {
 	var players = getUsersInRoom(io, room)
 	var alreadyInRoom = socket.rooms.hasOwnProperty(room)
 	var canJoin = !(typeof players === 'undefined') &&
-			players.length < 3
-
+			players.length < 4
 	if (canJoin && !alreadyInRoom){
 		console.log(`CONNECTION A LA ROOM "${room}", id:`, socket.id)
 		rooms[room].push({id: socket.id, username: users[socket.id], gameHost: false})

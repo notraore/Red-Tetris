@@ -23,6 +23,8 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 	const [curTetri, moveTetri] = useState(initialTetriState(0, data));
 	const [score, updateScore] = useState(0)
 	const [canMove, setCanMove] = useState(true)
+	const [screenY, setScreenY] = useState(0)
+	const [screenX, setScreenX] = useState(0)
 	const [nextTetri, setNext] = useState(null);
 
 	const [rows, setRows] = useState(0)
@@ -131,36 +133,48 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 			checkLine(board, displayUpdate, rows, updateBoard)
 	})
 
+
+	useEffect(() => {
+		console.log(window.innerHeight)
+		setScreenY(window.innerHeight)
+		setScreenX(window.innerWidth)
+	}, [window.innerHeight, window.innerWidth])
+
 	const tetri = curTetri.form
+
 	return (
-		<div className="App" style={styles.container}>
-			<div
+		<div className="App fullHeight fullWidth flex center alignCenter" style={styles.container}>
+			{/* <div
 				className='navigationBar fullWidth flex center alignCenter'
 				style={{height: '30px', backgroundColor: 'red'}}
 			>
-				<p onClick={()=>{dispatch({type: 'END_GAME'});leaveRoom()}}>
+				<p style={{zIndex: 10}} onClick={()=>{dispatch({type: 'END_GAME'});leaveRoom()}}>
 					RETURN MENU
 				</p>
-			</div>
-			{gameOver
-				? <FinishComponent
-					level={level}
-					score={score}
-					rows={rows}
-					resetGame={resetGame}
-				/>
-				: <InGameComponent
-					level={level}
-					score={score}
-					rows={rows}
-					board={board}
-					gameState={gameState}
-					nextTetri={nextTetri}
-					curTetri={curTetri}
-					tetri={tetri}
-					dropTime={dropTime} 
-				/>
-			}
+			</div> */}
+			{/* <div className=' fullHeight fullWidth'> */}
+				{gameOver
+					? <FinishComponent
+						level={level}
+						score={score}
+						rows={rows}
+						resetGame={resetGame}
+					/>
+					: <InGameComponent
+						winHeight={screenY}
+						winWidth={screenX}
+						level={level}
+						score={score}
+						rows={rows}
+						board={board}
+						gameState={gameState}
+						nextTetri={nextTetri}
+						curTetri={curTetri}
+						tetri={tetri}
+						dropTime={dropTime} 
+					/>
+				}
+			{/* </div>/ */}
 		</div>
 	)
 }
