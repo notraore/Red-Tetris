@@ -1,5 +1,15 @@
 const blockSize = 40
 export const GameStyle = () => ({
+    gameInfo: {
+        margin: '10px 0px',
+        alignItem: 'center',
+        // fontWeight: 'bold',
+        fontSize: '20px',
+        color: 'pink',
+        border: '2px solid pink',
+        borderRadius: '10px',
+        padding: '5px 0px'
+    },
     gameOverContainer: {
         height: '500px',
         width: '500px',
@@ -25,5 +35,19 @@ export const GameStyle = () => ({
         width: `${blockSize}px`,
         height: `${blockSize}px`,
         border: '1px solid pink'
+    },
+    button: {
+        fontSize: '20px',
+        color: 'white',
+        backgroundColor: 'pink',
+        border: '2px solid pink',
+        borderRadius: '10px',
+        padding: '10px 0px',
+        cursor: 'pointer',
+        margin: 5,
+        '&:hover': {
+            backgroundColor: 'inherit',
+            color: 'pink'
+        }
     }
 })

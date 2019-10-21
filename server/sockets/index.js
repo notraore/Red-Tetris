@@ -14,7 +14,10 @@ export const useSockets = (io) => {
 		socket.on('disconnect', function(){
 			// UPDATE SI ON RAFRAICHIT LA PAGE EN PLEIN JEU
 			leaveRoom(socket, io)
-			delete users[socket.id]
+			if (users){
+			Object.keys(users).map((user, index)=>{
+				if (user.id === socket.id) users.splice(index, 1)
+			})}
 			console.log("\x1b[31m", `${socket.id} disconnected`)
 		})
 
@@ -27,12 +30,14 @@ export const useSockets = (io) => {
 		})	
 
 		socket.on('emit board state', (board, room)=>{
-			rooms[room].map((player)=>{
-				if (player.id === socket.id){
-					player.shadow = board
-				}	
-			})
-			io.in(room).emit('receive player shadow', {type: 'UPDATE_OPPONENTS', playTab: rooms[room]})
+			if (rooms[room]){
+				rooms[room].map((player)=>{
+					if (player.id === socket.id){
+						player.shadow = board
+					}	
+				})
+				io.in(room).emit('receive player shadow', {type: 'UPDATE_OPPONENTS', playTab: rooms[room]})
+			}
 		})	
 
 		socket.on('set username', (username) => {

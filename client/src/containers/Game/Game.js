@@ -8,7 +8,6 @@ import FinishComponent from './FinishPage.js'
 import InGameComponent from './InGamePage.js'
 import { socket } from '../../sockets';
 import { styles } from '../../styles/Menu-styles.js'
-import { leaveRoom } from '../../sockets/emits.js'
 import { checkLine, gameLoop, reset } from './checkFunctions.js'
 import { checkPlayerInputs } from './playerInputs'
 import { isEmpty } from 'lodash'
@@ -23,6 +22,8 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 	const [curTetri, moveTetri] = useState(initialTetriState(0, data));
 	const [score, updateScore] = useState(0)
 	const [canMove, setCanMove] = useState(true)
+	const [screenY, setScreenY] = useState(0)
+	const [screenX, setScreenX] = useState(0)
 	const [nextTetri, setNext] = useState(null);
 
 	const [rows, setRows] = useState(0)
@@ -36,7 +37,6 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 	}, [gameOver])
 
 	useEffect(() =>{
-		console.log("dans GAME: gamestate:", gameState)
 		socket.on("sendRandTetris", (ret) => {
 			setData(ret);
 		})
@@ -50,13 +50,12 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 	}, [data])
 
 	useEffect(() =>{
-		console.log('EMIT BOARD STATE')
 		if (!solo) socket.emit('emit board state', board.tab, gameState.room)
 	}, [counter])
 
 	useEffect(() => {
 		if (JSON.stringify(board) === JSON.stringify(initialBoardState()) &&
-		 counter > 0){
+		 (counter > 0 || curTetri.y > 0)){
 			reset(increment, updateScore, setLevel, setRows, setDropTime,
 				moveTetri, initialTetriState, data, tab, overGame, setNext)
 		}
@@ -131,36 +130,40 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 			checkLine(board, displayUpdate, rows, updateBoard)
 	})
 
+
+	useEffect(() => {
+		setScreenY(window.innerHeight)
+		setScreenX(window.innerWidth)
+	}, [window.innerHeight, window.innerWidth])
+
 	const tetri = curTetri.form
+
 	return (
-		<div className="App" style={styles.container}>
-			<div
-				className='navigationBar fullWidth flex center alignCenter'
-				style={{height: '30px', backgroundColor: 'red'}}
-			>
-				<p onClick={()=>{dispatch({type: 'END_GAME'});leaveRoom()}}>
-					RETURN MENU
-				</p>
-			</div>
-			{gameOver
-				? <FinishComponent
-					level={level}
-					score={score}
-					rows={rows}
-					resetGame={resetGame}
-				/>
-				: <InGameComponent
-					level={level}
-					score={score}
-					rows={rows}
-					board={board}
-					gameState={gameState}
-					nextTetri={nextTetri}
-					curTetri={curTetri}
-					tetri={tetri}
-					dropTime={dropTime} 
-				/>
-			}
+		<div className="App fullHeight fullWidth flex center alignCenter" style={styles.container}>
+				{gameOver
+					? <FinishComponent
+						level={level}
+						score={score}
+						rows={rows}
+						resetGame={resetGame}
+					/>
+					: <InGameComponent
+						winHeight={screenY}
+						winWidth={screenX}
+						level={level}
+						score={score}
+						rows={rows}
+						board={board}
+						gameState={gameState}
+						nextTetri={nextTetri}
+						curTetri={curTetri}
+						tetri={tetri}
+						dropTime={dropTime}
+						solo={solo}
+						reset={resetGame}
+						dispatch={dispatch}
+					/>
+				}
 		</div>
 	)
 }

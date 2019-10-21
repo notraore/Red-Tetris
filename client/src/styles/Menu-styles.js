@@ -14,7 +14,6 @@ export let colorArray = [
 export const styles = ({
     container: {
       backgroundColor: 'rgb(33, 35, 46)',
-      minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -22,6 +21,8 @@ export const styles = ({
       color: 'white',
       animation: 'gradientBackground 20s infinite',
       backgroundSize: '100% 100%',
+      overflow: 'hidden',
+      height: '100%'
     },
     listUsernameLabel: {
       fontFamily: 'Orbitron, sans-serif',
@@ -43,7 +44,6 @@ export const styles = ({
     changeUsernameContainer: {
       marginTop: '30px',
       height: '100px',
-      width: '800px',
       padding: '10px',
       cursor: 'pointer',
       '&:hover':{
@@ -58,11 +58,9 @@ export const styles = ({
       color: 'white'
     },
     centerSubContainer: {
-      margin: '200px',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      padding: '50px'
     },
     optionsContainer: {
       display: 'flex',
