@@ -7,7 +7,7 @@ import { historyPush } from "./history"
 import { gameReducer, initialState } from './reducers/reducer.js'
 import Game from './containers/Game/Game.js'
 
-export const App = props => {
+const App = props => {
 	const [popupInfo, setPopupInfo] = useState(null)
   const [gameState, dispatch] = useReducer(gameReducer, initialState)
 
