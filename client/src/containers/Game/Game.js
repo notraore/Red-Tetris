@@ -40,8 +40,16 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 		socket.on("sendRandTetris", (ret) => {
 			setData(ret);
 		})
+		socket.on("user game over", dispatch)
+		socket.on("player game over", (name)=>{
+			alert(`${name} loose`)
+		})
 		if (!solo) socket.on('receive player shadow', dispatch)
-		return () => socket.off('sendRandTetris')
+		return () => {
+			socket.off('sendRandTetris')
+			socket.off("user game over")
+			socket.off("player game over")
+		}
 	}, []);
 
 	useEffect(() =>{
@@ -65,11 +73,16 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 		updateBoard(initialBoardState())
 	}
 
+	const setGameOver = () => {
+		if (!solo) socket.emit('user game over', gameState.room)
+		overGame(true)
+	}
+
 	const setGameLoop = useCallback((speed) => {
 		return setInterval(() => {
 			gameLoop(moveTetri, canFit, setCanMove, keyDown,
 				clearInterval, updateBoard, initialTetriState, increment,
-				 setNext, overGame, board, refInterval, counter, data, tab)
+				 setNext, setGameOver, board, refInterval, counter, data, tab)
 		}, speed)
 	}, [board.tab, counter, data])
 
@@ -146,7 +159,10 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 						score={score}
 						rows={rows}
 						resetGame={resetGame}
-					/>
+						gameState={gameState}
+						winHeight={screenY}
+						solo={solo}
+						/>
 					: <InGameComponent
 						winHeight={screenY}
 						winWidth={screenX}

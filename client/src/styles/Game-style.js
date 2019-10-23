@@ -9,7 +9,20 @@ export const GameStyle = () => ({
         border: '2px solid pink',
         borderRadius: '10px',
         padding: '5px 0px'
-    },
+		},
+		finishGameTitle: {
+			fontSize: '30px',
+			color: 'white',
+			fontWeight: 'bold',
+			padding: '5px 0px',
+			fontFamily: 'Orbitron, sans-serif',
+		},
+		finishGameInfo: {
+			fontSize: '20px',
+			color: 'white',
+			padding: '5px 0px',
+			fontFamily: 'Orbitron, sans-serif',
+		},
     gameOverContainer: {
         height: '500px',
         width: '500px',

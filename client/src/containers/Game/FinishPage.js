@@ -1,21 +1,50 @@
 import React from 'react'
 import { withStyles } from '@material-ui/styles'
 import {GameStyle} from '../../styles/Game-style.js'
-import GameOverInfos from '../../styles/GameOverInfos.js'
+import {Block, colorTab} from '../../components/Block.js'
 
-const FinishComponent = ({classes, level, score, rows, resetGame}) => {
+const FinishComponent = ({classes, level, score, rows, resetGame, gameState, solo, winHeight}) => {
+	var shadowBlockSize = Math.trunc(winHeight / 80)
 	return (
 		<div className='flex column center alignCenter' style={{height: '100hw'}}>
 			<div className={`flex column center alignCenter ${classes.gameOverContainer}`}>
-				<GameOverInfos text={`Sorry, you lose`} size={'1.0rem'}/>
-				<GameOverInfos text={`Level: ${level}`} size={'1.3rem'}/>
-				<GameOverInfos text={`Score: ${score}`} size={'1.3rem'}/>
-				<GameOverInfos text={`Rows: ${rows}`} size={'1.3rem'}/>
-				<div className={`flex column center alignCenter ${classes.restartButton}`}>
+				<div className={classes.finishGameTitle}>Sorry, you lose</div>
+				<div className={classes.finishGameInfo}>Score: {score === 0 ? '-' : score}</div>
+				<div className={classes.finishGameInfo}>Level: {level}</div>
+				<div className={classes.finishGameInfo}>Rows: {rows === 0 ? '-' : rows}</div>
+				<div className={classes.finishGameTitle}>still in game:</div>
+				<div className={'flex row center'} style={{marginTop: '10px'}}>
+					{	gameState.playTab && gameState.playTab.map((player, index)=>{
+						if (player && player.id !== gameState.playerId) return <div key={index} className={`relative`} style={{padding: '2px'}}>
+							<div className={classes.finishGameInfo}>{player.username}</div>
+							{
+								player.shadow && player.shadow.map((line, index)=>{
+									return <div style={{display: 'flex'}} key={index}>
+												{
+													line.map((col, index) => {
+														return <div key={index}>
+															{col > 0
+																? <Block  blockSize={shadowBlockSize} color={colorTab[col - 1]}/>
+																: <Block  blockSize={shadowBlockSize} empty/>
+															}
+														</div>
+													})
+												}
+											</div>
+										})
+									}
+								</div>
+						else return null
+					})}
+				</div>
+			{solo
+				?	<div className={`flex column center alignCenter ${classes.restartButton}`}>
 					<div className={classes.restartLabel} onClick={()=>{resetGame()}}>
 						RESTART
 					</div>
 				</div>
+				: null	
+			}
 			</div>
 		</div>
 	)

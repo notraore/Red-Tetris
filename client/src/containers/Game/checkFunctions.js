@@ -25,7 +25,7 @@ export const checkLine = (board, displayUpdate, rows, updateBoard) => {
 
 export const gameLoop = (moveTetri, canFit, setCanMove, keyDown,
 	 clearInterval, updateBoard, initialTetriState, increment,
-	  setNext, overGame, board, refInterval, counter, data, tab) => {
+	  setNext, setGameOver, board, refInterval, counter, data, tab) => {
 	moveTetri((tetri)=>{
 		if (!canFit(board.tab, {...tetri, y: tetri.y + 1})){
 			setCanMove(true)
@@ -47,7 +47,7 @@ export const gameLoop = (moveTetri, canFit, setCanMove, keyDown,
 				return i+1
 			})
 			if (t === false || !canFit(board.tab, t)){
-				overGame(true)
+				setGameOver()
 				return tetri
 			} else return t
 		}

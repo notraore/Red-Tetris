@@ -25,8 +25,25 @@ export const useSockets = (io) => {
 			getUserInfos(socket)
 		})
 
+		socket.on('user game over', (room)=>{
+			console.log("user game over")
+			rooms[room].map((player)=>{
+				if (player.id === socket.id){
+					player.waiting = true
+					player.playing = false
+					socket.emit('user game over', {type: 'OVER_GAME'})
+					io.in(room).emit('player game over', player.username)
+				}
+			})
+		})
+
 		socket.on('start game', (room)=>{
+			rooms[room].map((player)=>{
+				player.waiting = false
+				player.playing = true
+			})
 			io.in(room).emit('host started game')
+			console.log(rooms[room])
 		})	
 
 		socket.on('emit board state', (board, room)=>{
@@ -36,7 +53,10 @@ export const useSockets = (io) => {
 						player.shadow = board
 					}	
 				})
-				io.in(room).emit('receive player shadow', {type: 'UPDATE_OPPONENTS', playTab: rooms[room]})
+				io.in(room).emit(
+					'receive player shadow',
+					{type: 'UPDATE_OPPONENTS', playTab: rooms[room]}
+				)
 			}
 		})	
 
