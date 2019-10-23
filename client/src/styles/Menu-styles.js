@@ -41,6 +41,16 @@ export const styles = ({
         outline: 'none'
       }
     },
+    userOnlineLabel:{
+      marginBottom: '10px',
+      fontFamily: 'Orbitron, sans-serif',
+      fontSize: '20px',
+      cursor: 'pointer',
+      fontWeight: 'bold',
+      '&:hover': {
+        color: 'green'
+      }
+    },
     changeUsernameContainer: {
       marginTop: '30px',
       height: '100px',

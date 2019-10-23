@@ -2,6 +2,15 @@ import _ from 'lodash'
 import { users, rooms, setDefaultUsername, getUserInfos,
 leaveRoom, createRoom, checkRoomAndJoin, isHost } from './socket-functions'
 
+const stillPlaying = () =>{
+	rooms[room].map((player)=>{
+		if (player.playing === true){
+			return false
+		}
+	})
+	return true
+}
+
 export const useSockets = (io) => {
 	io.on('connection', (socket)=>{
 				
@@ -14,25 +23,25 @@ export const useSockets = (io) => {
 		socket.on('disconnect', function(){
 			// UPDATE SI ON RAFRAICHIT LA PAGE EN PLEIN JEU
 			leaveRoom(socket, io)
-			if (users){
-			Object.keys(users).map((user, index)=>{
-				if (user.id === socket.id) users.splice(index, 1)
-			})}
 			console.log("\x1b[31m", `${socket.id} disconnected`)
+			io.emit('user disconnected', {type: 'USER_CONNECTED', onlineUsers: users})
 		})
 
-		socket.on('user connect', ()=>{
+		socket.on('user connect', () => {
 			getUserInfos(socket)
+			io.emit('user connected', {type: 'USER_CONNECTED', onlineUsers: users})
 		})
 
 		socket.on('user game over', (room)=>{
-			console.log("user game over")
 			rooms[room].map((player)=>{
 				if (player.id === socket.id){
 					player.waiting = true
 					player.playing = false
 					socket.emit('user game over', {type: 'OVER_GAME'})
 					io.in(room).emit('player game over', player.username)
+				}
+				if (!stillPlaying()){
+					io.in(room).emit('player win', player.username)
 				}
 			})
 		})

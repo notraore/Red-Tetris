@@ -6,6 +6,7 @@ export const ROOM_UPDATE = 'ROOM_UPDATE'
 export const START_GAME = 'START_GAME'
 export const END_GAME = 'END_GAME'
 export const UPDATE_OPPONENTS = 'UPDATE_OPPONENTS'
+export const USER_CONNECTED = 'USER_CONNECTED'
 
 export const initialState = {
 	room: null,
@@ -17,7 +18,8 @@ export const initialState = {
 	isWaiting: false,
 	isHost: false,
 	playTab: [],
-	shadows: null
+	shadows: null,
+	onlineUsers: null,
 }
 
 export const gameReducer = (state = initialState, action) => {
@@ -28,9 +30,14 @@ export const gameReducer = (state = initialState, action) => {
 				player: action.player,
 				playerId: action.playerId,
 				isInGame: action.isInGame,
+				onlineUsers: action.onlineUsers,
+			}
+		case USER_CONNECTED:
+			return {
+				...state,
+				onlineUsers: action.onlineUsers,
 			}
 		case UPDATE_OPPONENTS:
-		console.log('DANS UPDATE OPPONENT: ', action)
 			return {
 				...state,
 				playTab: action.playTab

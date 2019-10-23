@@ -1,6 +1,7 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect} from 'react'
 import { withStyles }  from '@material-ui/styles'
 import Popup from '../../components/Popup'
+import OnlineListPopup from '../../components/OnlineListPopup'
 import _ from 'lodash'
 import './Menu.css'
 import '../../styles/animation/text-animations.css'
@@ -33,6 +34,7 @@ const Menu = props => {
 
   const [selected, select] = useState(0)
   const [onHover, setHover] = useState(false)
+  const [onlineList, setOnlineList] = useState(false)
   const [usernameInput, changeUsernameInput] = useState('')
 
   return (
@@ -41,8 +43,18 @@ const Menu = props => {
         ? <Popup infos={popupInfo} closePopup={disablePopup}/>
         : null
       }
+      {onlineList
+        ? <OnlineListPopup users={gameState.onlineUsers} close={setOnlineList}/>
+        : null
+      }
       <div className={`${classes.centerSubContainer}`}>
         <Title/>
+        {gameState && gameState.onlineUsers
+          ? <div className={classes.userOnlineLabel} onClick={()=>{setOnlineList(true)}}>
+              Users online: {Object.keys(gameState.onlineUsers).length}
+            </div>
+          : null
+        }
         <div
           className={`flex center alignCenter column ${classes.chosen}`}
           style={selected > 0 ? {display: 'flex'} : {display: 'none'}}

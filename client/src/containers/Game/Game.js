@@ -44,6 +44,9 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 		socket.on("player game over", (name)=>{
 			alert(`${name} loose`)
 		})
+		socket.on("player win", (name)=>{
+			alert(`${name} WIN !!`)
+		})
 		if (!solo) socket.on('receive player shadow', dispatch)
 		return () => {
 			socket.off('sendRandTetris')

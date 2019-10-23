@@ -21,6 +21,9 @@ export const App = props => {
 
 	const setListenners = () => {
 		socket.on('get user infos', dispatch)
+		socket.on('user connected', dispatch)
+		socket.on('user disconnected', dispatch)
+		socket.on('get online users', dispatch)
 		socket.on('room joined', (data)=>{
 			historyPush(`${data.room}[${data.player}]`)
 			dispatch(data)

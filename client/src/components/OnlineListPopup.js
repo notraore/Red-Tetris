@@ -37,18 +37,27 @@ const styles = () => ({
     }
 })
 
-const Popup = ({classes, infos, closePopup}) => {
+const Popup = ({classes, users, close}) => {
+		console.log(users)
     return (
-        <div  style={{zIndex: 100}} className={`${classes.back} absolute fullWidth fullHeight flex center alignCenter`}>
-            <div className={`flex center column  alignCenter ${classes.container}`}>
-                <div className={classes.title}>
-                    {infos.title}
+        <div style={{zIndex: 100}} className={`${classes.back} fullHeight absolute fullWidth flex center alignCenter`}>
+            <div style={{padding: '10px'}} className={`flex center column  alignCenter ${classes.container}`}>
+                {/* <div className={classes.title}>
+                  Users Online
+                </div> */}
+                <div style={{minHeight: '100px', width: '200px'}} className={classes.description}>
+									{users
+										? Object.values(users).map((user, id)=>{
+											return <div style={{position: 'relative', left: '20px'}} key={id} className='flex row alignCenter'>
+													<div style={{color: 'green', padding: '0px 5px'}}>•</div>
+													<div >{user}</div>
+												</div>
+										})
+										: null
+									}
                 </div>
-                <div className={classes.description}>
-                    {infos.description}
-                </div>
-                <button className={`flex center alignCenter ${classes.button}`} onClick={()=>{closePopup()}}>
-                    OK
+                <button className={`flex center alignCenter ${classes.button}`} onClick={()=>{close(false)}}>
+                  OK
                 </button>
             </div>
         </div>

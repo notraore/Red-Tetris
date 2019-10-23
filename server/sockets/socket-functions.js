@@ -48,6 +48,7 @@ export const getUserInfos = (socket) => {
 		playerId: socket.id,
 		player: users[socket.id],
 		isInGame: Object.keys(usersRooms).length > 1,
+		onlineUsers: users
 	})
 }
    
@@ -79,11 +80,16 @@ export const leaveRoom = (socket, io) => {
 	var curRoom = null
 
 	Object.keys(rooms).map((room)=>{
-		rooms[room].map((user)=>{
+		rooms[room].map((user, index)=>{
 			if (user.id === socket.id){
 				curRoom = room
 			}
 		})
+	})
+	Object.keys(users).map((user)=>{
+		if (user === socket.id){
+			delete users[socket.id]
+		}
 	})
 	if (curRoom) {
 		rooms[curRoom].map((user, id)=>{
