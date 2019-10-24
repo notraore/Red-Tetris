@@ -23,9 +23,7 @@ const Multi = ({ classes, gameState, dispatch }) => {
 
 	useEffect(()=> {
 		socket.on('room update', dispatch)
-		socket.on('host started game', () => {
-			dispatch({type: 'START_GAME', nbPlayer: Object.keys(gameState.playTab).length})
-		})
+		socket.on('host started game', dispatch)
 		socket.emit('room infos')
 		return () => socket.off('room update')
 	}, [])
@@ -63,7 +61,7 @@ const Multi = ({ classes, gameState, dispatch }) => {
 							return user
 								? <div className={`flex center alignCenter row`} key={index}>
 								<div className={classes.listUsernameLabel}>
-									{user.username}{user.gameHost ? ' ♛' : ''}
+									{user.username}{user.gameHost ? ' ♛' : ''}{user.id === gameState.playerId ? ' (you)' : ''}
 								</div>
 							</div>
 								: <div key={index}/>

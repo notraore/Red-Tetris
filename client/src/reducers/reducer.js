@@ -7,6 +7,7 @@ export const START_GAME = 'START_GAME'
 export const END_GAME = 'END_GAME'
 export const UPDATE_OPPONENTS = 'UPDATE_OPPONENTS'
 export const USER_CONNECTED = 'USER_CONNECTED'
+export const PLAYER_WIN = 'PLAYER_WIN'
 
 export const initialState = {
 	room: null,
@@ -63,6 +64,11 @@ export const gameReducer = (state = initialState, action) => {
 				isInGame: false,
 				isHost: false
 			}
+		case PLAYER_WIN:
+			return {
+				...state,
+				playTab: action.playerTab,
+			}
 		case ROOM_UPDATE:
 		console.log('ROOM UPDATE!!: ', action)
 			return {
@@ -74,13 +80,15 @@ export const gameReducer = (state = initialState, action) => {
 			return {
 				...state,
 				gameStarted: true,
+				playTab: action.playerTab,
 				nbPlayer: action.nbPlayer
 			}
 		case END_GAME:
 			return {
 				...state,
-				gameStarted: false,
-				isWaiting: false
+				gameStarted: true,
+				playTab: action.playerTab,
+				isWaiting: true
 			}
 		default:
 			return state

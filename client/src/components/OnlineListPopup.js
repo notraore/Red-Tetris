@@ -37,8 +37,7 @@ const styles = () => ({
     }
 })
 
-const Popup = ({classes, users, close}) => {
-		console.log(users)
+const Popup = ({classes, users, close, playerId}) => {
     return (
         <div style={{zIndex: 100}} className={`${classes.back} fullHeight absolute fullWidth flex center alignCenter`}>
             <div style={{padding: '10px'}} className={`flex center column  alignCenter ${classes.container}`}>
@@ -47,10 +46,10 @@ const Popup = ({classes, users, close}) => {
                 </div> */}
                 <div style={{minHeight: '100px', width: '200px'}} className={classes.description}>
 									{users
-										? Object.values(users).map((user, id)=>{
+										? Object.values(users).map((username, id)=>{
 											return <div style={{position: 'relative', left: '20px'}} key={id} className='flex row alignCenter'>
 													<div style={{color: 'green', padding: '0px 5px'}}>•</div>
-													<div >{user}</div>
+													<div >{`${username} ${playerId === Object.keys(users)[id] ? '(you)' : ''}`}</div>
 												</div>
 										})
 										: null

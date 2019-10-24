@@ -44,7 +44,7 @@ const Menu = props => {
         : null
       }
       {onlineList
-        ? <OnlineListPopup users={gameState.onlineUsers} close={setOnlineList}/>
+        ? <OnlineListPopup users={gameState.onlineUsers} close={setOnlineList} playerId={gameState.playerId}/>
         : null
       }
       <div className={`${classes.centerSubContainer}`}>

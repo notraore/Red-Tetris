@@ -84,6 +84,7 @@ const InGameComponent = ({classes, winHeight, winWidth, dispatch, reset, solo, b
 							<div className={'flex row center'} style={{marginTop: '10px'}}>
 								{	gameState.playTab && gameState.playTab.map((player, index)=>{
 									if (player && player.id !== gameState.playerId) return <div key={index} className={`relative`} style={{padding: '2px'}}>
+										<div className={classes.finishGameInfo}>{player.username}</div>
 										{
 											player.shadow && player.shadow.map((line, index)=>{
 												return <div style={{display: 'flex'}} key={index}>
@@ -99,6 +100,15 @@ const InGameComponent = ({classes, winHeight, winWidth, dispatch, reset, solo, b
 													}
 												</div>
 											})
+										}
+										{player.playing
+											? null
+											:	<div
+													className={'absolute flex center alignCenter'}
+													style={{top: '32px', width: (shadowBlockSize + 1) * 10, height: (shadowBlockSize + 1) * 20, backgroundColor: 'rgba(33,35,46,0.79)'}}
+												>
+												<p>Over</p>
+											</div>
 										}
 									</div>
 									else return null

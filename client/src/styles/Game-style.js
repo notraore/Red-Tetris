@@ -24,8 +24,9 @@ export const GameStyle = () => ({
 			fontFamily: 'Orbitron, sans-serif',
 		},
     gameOverContainer: {
-        height: '500px',
-        width: '500px',
+        height: '600px',
+        width: '650px',
+        borderRadius: '10px',
         backgroundColor: 'pink'
     },
     restartLabel: {

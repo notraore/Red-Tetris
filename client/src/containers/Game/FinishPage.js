@@ -8,7 +8,7 @@ const FinishComponent = ({classes, level, score, rows, resetGame, gameState, sol
 	return (
 		<div className='flex column center alignCenter' style={{height: '100hw'}}>
 			<div className={`flex column center alignCenter ${classes.gameOverContainer}`}>
-				<div className={classes.finishGameTitle}>Sorry, you lose</div>
+				<div className={classes.finishGameTitle}>Game finished !</div>
 				<div className={classes.finishGameInfo}>Score: {score === 0 ? '-' : score}</div>
 				<div className={classes.finishGameInfo}>Level: {level}</div>
 				<div className={classes.finishGameInfo}>Rows: {rows === 0 ? '-' : rows}</div>
@@ -32,7 +32,19 @@ const FinishComponent = ({classes, level, score, rows, resetGame, gameState, sol
 												}
 											</div>
 										})
-									}
+								}
+								{player.playing
+									? null
+									:	<div
+											className={'absolute flex center alignCenter'}
+											style={player.win ? {top: '32px', width: (shadowBlockSize + 1) * 10, height: (shadowBlockSize + 1) * 20, backgroundColor: 'rgba(137, 226, 40, 0.57)'} : {top: '32px', width: (shadowBlockSize + 1) * 10, height: (shadowBlockSize + 1) * 20, backgroundColor: 'rgba(235, 26, 26, 0.48)'}}
+										>
+											{player.win
+												? <p>Win</p>
+												: <p>Over</p>
+											}
+									</div>
+								}
 								</div>
 						else return null
 					})}

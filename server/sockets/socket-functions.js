@@ -67,36 +67,39 @@ export const joinRoom = (socket, room, action, io) => {
 }
    
 export const changeHost = (user, curRoom, id) => {
+	console.log('dans change host')
 	const len = Object.keys(rooms[curRoom]).length
 	if (user && user.gameHost === true && len > 1)
-		{
-			rooms[curRoom][id - 1]
-				? rooms[curRoom][id - 1].gameHost = true
-				: rooms[curRoom][id + 1].gameHost = true
-		}
+	{
+		console.log('game host true')
+		rooms[curRoom][id - 1]
+			? rooms[curRoom][id - 1].gameHost = true
+			: rooms[curRoom][id + 1].gameHost = true
+	}
 }
 
-export const leaveRoom = (socket, io) => {
+export const leaveRoom = (socket, io, refresh) => {
 	var curRoom = null
 
 	Object.keys(rooms).map((room)=>{
-		rooms[room].map((user, index)=>{
+		rooms[room].map((user)=>{
 			if (user.id === socket.id){
 				curRoom = room
 			}
 		})
 	})
-	Object.keys(users).map((user)=>{
+	if (!curRoom || refresh){Object.keys(users).map((user)=>{
 		if (user === socket.id){
 			delete users[socket.id]
 		}
-	})
+	})}
 	if (curRoom) {
+		console.log('ya cur room')
 		rooms[curRoom].map((user, id)=>{
 			if (user.id === socket.id){
-			rooms[curRoom].splice(id, 1)
-			changeHost(user, curRoom, id)
-			 socket.leave(curRoom)
+				changeHost(user, curRoom, id)
+				rooms[curRoom].splice(id, 1)
+				socket.leave(curRoom)
 			}
 		})
 		socket.emit('room leaved', {type: 'ROOM_LEAVED'})
@@ -113,7 +116,14 @@ export const createRoom = (socket, room, res, io) => {
 	var canCreateRoom = typeof players === 'undefined' ||
 	players.length === 0
 	rooms[room] = []
-	rooms[room].push({id: socket.id, username: users[socket.id], gameHost: true, waiting: true, playing: false})
+	rooms[room].push({
+		id: socket.id,
+		username: users[socket.id],
+		gameHost: true,
+		waiting: true,
+		playing: false,
+		win: false
+	})
 	if (canCreateRoom){
 		joinRoom(socket, room, {
 			type: 'ROOM_JOINED',
@@ -132,7 +142,7 @@ export const checkRoomAndJoin = (socket, room, res, io) => {
 	var players = getUsersInRoom(io, room)
 	var alreadyInRoom = socket.rooms.hasOwnProperty(room)
 	var canJoin = !(typeof players === 'undefined') &&
-			players.length < 4
+			players.length < 5
 	if (canJoin && !alreadyInRoom){
 		console.log(`CONNECTION A LA ROOM "${room}", id:`, socket.id)
 		rooms[room].push({id: socket.id, username: users[socket.id], gameHost: false, waiting: true, playing: false})
@@ -141,7 +151,9 @@ export const checkRoomAndJoin = (socket, room, res, io) => {
 			room: room,
 			player: users[socket.id],
 			isHost: false,
-			playerTab: rooms[room]
+			playerTab: rooms[room],
+			playing: false,
+			win: false
 		}, io)
 	} else {
 		if (alreadyInRoom){

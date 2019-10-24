@@ -2,13 +2,11 @@ import _ from 'lodash'
 import { users, rooms, setDefaultUsername, getUserInfos,
 leaveRoom, createRoom, checkRoomAndJoin, isHost } from './socket-functions'
 
-const stillPlaying = () =>{
-	rooms[room].map((player)=>{
-		if (player.playing === true){
-			return false
-		}
-	})
-	return true
+const stillPlaying = (room) =>{
+	for (var id in rooms[room]){
+		if (rooms[room][id].playing === true) return true
+	}
+	return false
 }
 
 export const useSockets = (io) => {
@@ -22,7 +20,7 @@ export const useSockets = (io) => {
 
 		socket.on('disconnect', function(){
 			// UPDATE SI ON RAFRAICHIT LA PAGE EN PLEIN JEU
-			leaveRoom(socket, io)
+			leaveRoom(socket, io, true)
 			console.log("\x1b[31m", `${socket.id} disconnected`)
 			io.emit('user disconnected', {type: 'USER_CONNECTED', onlineUsers: users})
 		})
@@ -37,11 +35,13 @@ export const useSockets = (io) => {
 				if (player.id === socket.id){
 					player.waiting = true
 					player.playing = false
-					socket.emit('user game over', {type: 'OVER_GAME'})
+					socket.emit('user game over', {type: 'END_GAME', playerTab: rooms[room]})
 					io.in(room).emit('player game over', player.username)
 				}
-				if (!stillPlaying()){
-					io.in(room).emit('player win', player.username)
+				if (!stillPlaying(room)){
+					console.log('!stillplaying: Game end')
+					player.win = true
+					io.in(room).emit('player win', {type: 'PLAYER_WIN', playerTab: rooms[room]})
 				}
 			})
 		})
@@ -51,8 +51,7 @@ export const useSockets = (io) => {
 				player.waiting = false
 				player.playing = true
 			})
-			io.in(room).emit('host started game')
-			console.log(rooms[room])
+			io.in(room).emit('host started game', {type: 'START_GAME', nbPlayer: Object.keys(rooms[room]).length, playerTab: rooms[room]})
 		})	
 
 		socket.on('emit board state', (board, room)=>{
@@ -103,14 +102,14 @@ export const useSockets = (io) => {
 				const randTab = [];
 				for (var i = 0; i < 128; i++)
 				{
-						var rand = tetriminos[Math.floor(Math.random() * tetriminos.length)];
-						randTab[i] = rand;
+					var rand = tetriminos[Math.floor(Math.random() * tetriminos.length)];
+					randTab[i] = rand;
 				}
 				socket.emit("sendRandTetris", randTab);
 		})
 		
 		socket.on('leave room', () => {
-			leaveRoom(socket, io)
+			leaveRoom(socket, io, false)
 		})
 	})
 }
