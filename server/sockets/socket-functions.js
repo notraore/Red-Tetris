@@ -17,18 +17,6 @@ export const getAllRooms = (io) => {
 	return io.sockets.adapter.rooms
 }
 
-export const isHost = (id, room) => {
-	var isHost = false
-
-	rooms[room].forEach((user)=>{
-		if (user.id === id){
-			isHost = user.gameHost
-		}
-	})
-
-	return isHost
-}
-
 export const getUsersInRoom = (io, room) => {
 	var allRooms = getAllRooms(io)
 	return allRooms[room]
@@ -61,20 +49,19 @@ export const joinRoom = (socket, room, action, io) => {
 		socket.emit('room joined', action)
 		emitUpdateInRoom(io, room, {
 			type: 'ROOM_UPDATE',
-			playerTab: rooms[room],
+			playerTab: rooms[room].playerTab,
+			gameStarted: rooms[room].gameStarted
 		})
 	})
 }
    
 export const changeHost = (user, curRoom, id) => {
-	console.log('dans change host')
-	const len = Object.keys(rooms[curRoom]).length
+	const len = Object.keys(rooms[curRoom].playerTab).length
 	if (user && user.gameHost === true && len > 1)
 	{
-		console.log('game host true')
-		rooms[curRoom][id - 1]
-			? rooms[curRoom][id - 1].gameHost = true
-			: rooms[curRoom][id + 1].gameHost = true
+		rooms[curRoom].playerTab[id - 1]
+			? rooms[curRoom].playerTab[id - 1].gameHost = true
+			: rooms[curRoom].playerTab[id + 1].gameHost = true
 	}
 }
 
@@ -82,7 +69,7 @@ export const leaveRoom = (socket, io, refresh) => {
 	var curRoom = null
 
 	Object.keys(rooms).map((room)=>{
-		rooms[room].map((user)=>{
+		rooms[room].playerTab.map((user)=>{
 			if (user.id === socket.id){
 				curRoom = room
 			}
@@ -95,17 +82,17 @@ export const leaveRoom = (socket, io, refresh) => {
 	})}
 	if (curRoom) {
 		console.log('ya cur room')
-		rooms[curRoom].map((user, id)=>{
+		rooms[curRoom].playerTab.map((user, id)=>{
 			if (user.id === socket.id){
 				changeHost(user, curRoom, id)
-				rooms[curRoom].splice(id, 1)
+				rooms[curRoom].playerTab.splice(id, 1)
 				socket.leave(curRoom)
 			}
 		})
 		socket.emit('room leaved', {type: 'ROOM_LEAVED'})
 		io.in(curRoom).emit('room update', {
 			type: 'ROOM_UPDATE',
-			playerTab: rooms[curRoom]
+			playerTab: rooms[curRoom].playerTab,
 		})
 		sendInfo(socket, 'Exit info', 'You leaved the room.')
 	}
@@ -115,8 +102,9 @@ export const createRoom = (socket, room, res, io) => {
 	var players = getUsersInRoom(io, room)
 	var canCreateRoom = typeof players === 'undefined' ||
 	players.length === 0
-	rooms[room] = []
-	rooms[room].push({
+	rooms[room] = {}
+	rooms[room].playerTab = []
+	rooms[room].playerTab.push({
 		id: socket.id,
 		username: users[socket.id],
 		gameHost: true,
@@ -130,7 +118,8 @@ export const createRoom = (socket, room, res, io) => {
 			room: room,
 			player: users[socket.id],
 			isHost: true,
-			playerTab: rooms[room]
+			gameStarted: rooms[room].gameStarted,
+			playerTab: rooms[room].playerTab,
 		}, io)
 	} else {
 		sendInfo(socket, 'Information', `Room "${room}" already exists.`)
@@ -145,15 +134,14 @@ export const checkRoomAndJoin = (socket, room, res, io) => {
 			players.length < 5
 	if (canJoin && !alreadyInRoom){
 		console.log(`CONNECTION A LA ROOM "${room}", id:`, socket.id)
-		rooms[room].push({id: socket.id, username: users[socket.id], gameHost: false, waiting: true, playing: false})
+		rooms[room].playerTab.push({id: socket.id, username: users[socket.id], gameHost: false, waiting: true, playing: false})
 		joinRoom(socket, room, {
 			type: 'ROOM_JOINED',
 			room: room,
 			player: users[socket.id],
 			isHost: false,
-			playerTab: rooms[room],
-			playing: false,
-			win: false
+			gameStarted: rooms[room].gameStarted,
+			playerTab: rooms[room].playerTab
 		}, io)
 	} else {
 		if (alreadyInRoom){

@@ -8,6 +8,7 @@ export const END_GAME = 'END_GAME'
 export const UPDATE_OPPONENTS = 'UPDATE_OPPONENTS'
 export const USER_CONNECTED = 'USER_CONNECTED'
 export const PLAYER_WIN = 'PLAYER_WIN'
+export const RETURN_LOBBY = 'RETURN_LOBBY'
 
 export const initialState = {
 	room: null,
@@ -21,6 +22,9 @@ export const initialState = {
 	playTab: [],
 	shadows: null,
 	onlineUsers: null,
+	endOfGame: false,
+	winScore: null,
+
 }
 
 export const gameReducer = (state = initialState, action) => {
@@ -53,8 +57,9 @@ export const gameReducer = (state = initialState, action) => {
 				...state,
 				room: action.room,
 				isInGame: true,
-				isHost: action.player.isHost,
+				isHost: action.isHost,
 				playTab: action.playerTab,
+				gameStarted: typeof action.isHost === 'boolean' ? action.gameStarted : state.gameStarted,
 				isWaiting: true
 			}
 		case ROOM_LEAVED:
@@ -68,20 +73,31 @@ export const gameReducer = (state = initialState, action) => {
 			return {
 				...state,
 				playTab: action.playerTab,
+				endOfGame: true,
+				winScore: action.winScore
 			}
 		case ROOM_UPDATE:
-		console.log('ROOM UPDATE!!: ', action)
+		console.log('ROOM UPDATE!!: ', action, 'isHost: ', state.isHost)
 			return {
 				...state,
 				playTab: action.playerTab,
-				isHost: action.isHost
+				gameStarted: typeof action.isHost === 'boolean' ? action.gameStarted : state.gameStarted,
+				isHost: typeof action.isHost === 'boolean' ? action.isHost : state.isHost 
 			}
 		case START_GAME:
 			return {
 				...state,
+				endOfGame: false,
 				gameStarted: true,
 				playTab: action.playerTab,
 				nbPlayer: action.nbPlayer
+			}
+		case RETURN_LOBBY:
+			return {
+				...state,
+				isInGame: true,
+				isWaiting: true,
+				gameStarted: false
 			}
 		case END_GAME:
 			return {

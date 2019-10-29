@@ -1,10 +1,10 @@
 import _ from 'lodash'
 import { users, rooms, setDefaultUsername, getUserInfos,
-leaveRoom, createRoom, checkRoomAndJoin, isHost } from './socket-functions'
+leaveRoom, createRoom, checkRoomAndJoin } from './socket-functions'
 
 const stillPlaying = (room) =>{
-	for (var id in rooms[room]){
-		if (rooms[room][id].playing === true) return true
+	for (var id in rooms[room].playerTab){
+		if (rooms[room].playerTab[id].playing === true) return true
 	}
 	return false
 }
@@ -30,40 +30,48 @@ export const useSockets = (io) => {
 			io.emit('user connected', {type: 'USER_CONNECTED', onlineUsers: users})
 		})
 
-		socket.on('user game over', (room)=>{
-			rooms[room].map((player)=>{
+		socket.on('user game over', (room, score)=>{
+			rooms[room].playerTab.map((player)=>{
 				if (player.id === socket.id){
 					player.waiting = true
 					player.playing = false
-					socket.emit('user game over', {type: 'END_GAME', playerTab: rooms[room]})
+					socket.emit('user game over', {type: 'END_GAME', playerTab: rooms[room].playerTab})
 					io.in(room).emit('player game over', player.username)
 				}
 				if (!stillPlaying(room)){
 					console.log('!stillplaying: Game end')
 					player.win = true
-					io.in(room).emit('player win', {type: 'PLAYER_WIN', playerTab: rooms[room]})
+					io.in(room).emit('player win', {type: 'PLAYER_WIN', playerTab: rooms[room].playerTab, winScore: {winner: player.username, id: player.id, score: score}})
 				}
 			})
 		})
 
 		socket.on('start game', (room)=>{
-			rooms[room].map((player)=>{
+			rooms[room].gameStarted = true
+			rooms[room].playerTab.map((player)=>{
 				player.waiting = false
 				player.playing = true
 			})
-			io.in(room).emit('host started game', {type: 'START_GAME', nbPlayer: Object.keys(rooms[room]).length, playerTab: rooms[room]})
+			io.in(room).emit('host started game',
+				{
+					type: 'START_GAME',
+					nbPlayer: Object.keys(rooms[room].playerTab).length,
+					playerTab: rooms[room].playerTab,
+					gameStarted: rooms[room].gameStarted
+				}
+			)
 		})	
 
 		socket.on('emit board state', (board, room)=>{
-			if (rooms[room]){
-				rooms[room].map((player)=>{
+			if (rooms[room].playerTab){
+				rooms[room].playerTab.map((player)=>{
 					if (player.id === socket.id){
 						player.shadow = board
 					}	
 				})
 				io.in(room).emit(
 					'receive player shadow',
-					{type: 'UPDATE_OPPONENTS', playTab: rooms[room]}
+					{type: 'UPDATE_OPPONENTS', playTab: rooms[room].playerTab}
 				)
 			}
 		})	
@@ -81,8 +89,9 @@ export const useSockets = (io) => {
 			var room = Object.keys(socket.rooms)[1]
 			socket.emit('room update', {
 				type: 'ROOM_UPDATE',
-				playerTab: rooms[room],
-			})
+				playerTab: rooms[room].playerTab,
+				gameStarted: rooms[room].gameStarted
+		})
 		})
 
 		socket.on('join room', (room, res) => {

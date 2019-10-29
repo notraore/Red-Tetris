@@ -41,10 +41,6 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 			setData(ret);
 		})
 		socket.on("user game over", dispatch)
-		socket.on("player game over", (name)=>{
-			// alert(`${name} loose`)
-			console.log('lose gamestate: ', gameState)
-		})
 		socket.on("player win", dispatch)
 		if (!solo) socket.on('receive player shadow', dispatch)
 		return () => {
@@ -76,7 +72,7 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 	}
 
 	const setGameOver = () => {
-		if (!solo) socket.emit('user game over', gameState.room)
+		if (!solo) socket.emit('user game over', gameState.room, score)
 		overGame(true)
 	}
 
@@ -155,7 +151,7 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 
 	return (
 		<div className="App fullHeight fullWidth flex center alignCenter" style={styles.container}>
-				{gameOver
+				{gameOver || !gameState.gameStarted
 					? <FinishComponent
 						level={level}
 						score={score}
