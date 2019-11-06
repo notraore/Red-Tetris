@@ -92,8 +92,8 @@ const InGameComponent = ({classes, winHeight, winWidth, dispatch, reset, solo, b
 														line.map((col, index) => {
 															return <div key={index}>
 																{col > 0
-																	? <Block  blockSize={shadowBlockSize} color={colorTab[col - 1]}/>
-																	: <Block  blockSize={shadowBlockSize} empty/>
+																	? <Block blockSize={shadowBlockSize} color={colorTab[col - 1]}/>
+																	: <Block blockSize={shadowBlockSize} empty/>
 																}
 															</div>
 														})

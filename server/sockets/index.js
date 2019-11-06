@@ -31,19 +31,39 @@ export const useSockets = (io) => {
 		})
 
 		socket.on('user game over', (room, score)=>{
+			console.log('user game over')
 			rooms[room].playerTab.map((player)=>{
 				if (player.id === socket.id){
 					player.waiting = true
 					player.playing = false
 					socket.emit('user game over', {type: 'END_GAME', playerTab: rooms[room].playerTab})
 					io.in(room).emit('player game over', player.username)
-				}
-				if (!stillPlaying(room)){
-					console.log('!stillplaying: Game end')
-					player.win = true
-					io.in(room).emit('player win', {type: 'PLAYER_WIN', playerTab: rooms[room].playerTab, winScore: {winner: player.username, id: player.id, score: score}})
+					if (!stillPlaying(room)){
+						console.log('!stillplaying: Game end')
+						player.win = true
+						io.in(room).emit('player win', {type: 'PLAYER_WIN', playerTab: rooms[room].playerTab, winScore: {winner: player.username, id: player.id, score: score}})
+					}
 				}
 			})
+		})
+
+		socket.on('host restart game', (room) => {
+			rooms[room].gameStarted = true
+			rooms[room].playerTab.map((player)=>{
+				player.waiting = false
+				player.playing = true
+				player.win = false
+			})
+			io.in(room).emit('host restart game',
+				{
+					type: 'START_GAME',
+					nbPlayer: Object.keys(rooms[room].playerTab).length,
+					playerTab: rooms[room].playerTab,
+					gameStarted: true,
+					winScore: null
+				}
+			)
+			// io.in(room).emit('host restart game')
 		})
 
 		socket.on('start game', (room)=>{
@@ -51,13 +71,15 @@ export const useSockets = (io) => {
 			rooms[room].playerTab.map((player)=>{
 				player.waiting = false
 				player.playing = true
+				player.win = false
 			})
 			io.in(room).emit('host started game',
 				{
 					type: 'START_GAME',
 					nbPlayer: Object.keys(rooms[room].playerTab).length,
 					playerTab: rooms[room].playerTab,
-					gameStarted: rooms[room].gameStarted
+					gameStarted: rooms[room].gameStarted,
+					winScore: null
 				}
 			)
 		})	

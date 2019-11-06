@@ -35,6 +35,7 @@ const Multi = ({ classes, gameState, dispatch }) => {
 					gameState={gameState}
 					dispatch={dispatch}
 					solo={gameState.playTab && Object.keys(gameState.playTab).length === 1}
+					startGame={startGame}
 				/>
 			: <div>
 					<div

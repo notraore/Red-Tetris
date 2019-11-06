@@ -13,7 +13,7 @@ import { checkPlayerInputs } from './playerInputs'
 import { isEmpty } from 'lodash'
 //import leader from '../datas/leaderboard.json';
 
-const Game = ({classes, gameState, dispatch, solo}) => {
+const Game = ({classes, gameState, dispatch, solo, startGame}) => {
 
 	const [data, setData] = useState([]);
 	const [counter, increment] = useState(0)
@@ -41,10 +41,17 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 			setData(ret);
 		})
 		socket.on("user game over", dispatch)
+		socket.on("host restart game", (action)=>{
+			resetGame()
+			dispatch(action)
+			console.log(gameState)
+			// startGame()
+		})
 		socket.on("player win", dispatch)
 		if (!solo) socket.on('receive player shadow', dispatch)
 		return () => {
 			socket.off('sendRandTetris')
+			socket.off("host restart game")
 			socket.off("user game over")
 			socket.off("player game over")
 		}
@@ -137,10 +144,13 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 		});
 	}
 
+	const restartGame = ()=>{
+		socket.emit('host restart game', gameState.room)
+	}
+
 	useEffect(() => {
 			checkLine(board, displayUpdate, rows, updateBoard)
 	})
-
 
 	useEffect(() => {
 		setScreenY(window.innerHeight)
@@ -160,6 +170,8 @@ const Game = ({classes, gameState, dispatch, solo}) => {
 						gameState={gameState}
 						winHeight={screenY}
 						solo={solo}
+						startGame={startGame}
+						restartGame={restartGame}
 						/>
 					: <InGameComponent
 						winHeight={screenY}

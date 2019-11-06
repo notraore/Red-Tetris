@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/styles'
 import {GameStyle} from '../../styles/Game-style.js'
 import {Block, colorTab} from '../../components/Block.js'
 
-const FinishComponent = ({classes, level, score, rows, resetGame, gameState, solo, winHeight}) => {
+const FinishComponent = ({classes, level, score, rows, resetGame, gameState, solo, winHeight, restartGame}) => {
 	var shadowBlockSize = Math.trunc(winHeight / 80)
 	return (
 		<div className='flex column center alignCenter' style={{height: '100hw'}}>
@@ -74,7 +74,7 @@ const FinishComponent = ({classes, level, score, rows, resetGame, gameState, sol
 				: null
 			}
 			{gameState.endOfGame && gameState.isHost
-				?	<div className={classes.restartLabel} >
+				?	<div className={classes.restartLabel} onClick={()=>{restartGame()}}>
 					RESTART GAME
 				</div>
 				: null

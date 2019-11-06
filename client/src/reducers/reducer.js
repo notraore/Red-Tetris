@@ -70,6 +70,7 @@ export const gameReducer = (state = initialState, action) => {
 				isHost: false
 			}
 		case PLAYER_WIN:
+		console.log('reducer player win', action)
 			return {
 				...state,
 				playTab: action.playerTab,
@@ -85,10 +86,12 @@ export const gameReducer = (state = initialState, action) => {
 				isHost: typeof action.isHost === 'boolean' ? action.isHost : state.isHost 
 			}
 		case START_GAME:
+			console.log('reducer Start game')
 			return {
 				...state,
 				endOfGame: false,
 				gameStarted: true,
+				winScore: action.winScore,
 				playTab: action.playerTab,
 				nbPlayer: action.nbPlayer
 			}
