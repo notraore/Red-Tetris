@@ -161,7 +161,7 @@ const Game = ({classes, gameState, dispatch, solo, startGame}) => {
 
 	return (
 		<div className="App fullHeight fullWidth flex center alignCenter" style={styles.container}>
-				{gameOver || !gameState.gameStarted
+				{gameOver || !gameState.gameStarted || !gameState.playing
 					? <FinishComponent
 						level={level}
 						score={score}

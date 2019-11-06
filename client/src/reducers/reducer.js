@@ -24,7 +24,7 @@ export const initialState = {
 	onlineUsers: null,
 	endOfGame: false,
 	winScore: null,
-
+	playing: false
 }
 
 export const gameReducer = (state = initialState, action) => {
@@ -56,9 +56,11 @@ export const gameReducer = (state = initialState, action) => {
 			return {
 				...state,
 				room: action.room,
+				playing: action.playing,
 				isInGame: true,
 				isHost: action.isHost,
 				playTab: action.playerTab,
+				playing: action.gameStarted ? false : true,
 				gameStarted: typeof action.isHost === 'boolean' ? action.gameStarted : state.gameStarted,
 				isWaiting: true
 			}
@@ -91,6 +93,7 @@ export const gameReducer = (state = initialState, action) => {
 				...state,
 				endOfGame: false,
 				gameStarted: true,
+				playing: true,
 				winScore: action.winScore,
 				playTab: action.playerTab,
 				nbPlayer: action.nbPlayer
