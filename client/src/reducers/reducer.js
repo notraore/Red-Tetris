@@ -24,7 +24,8 @@ export const initialState = {
 	onlineUsers: null,
 	endOfGame: false,
 	winScore: null,
-	playing: false
+	playing: false,
+	pieces: null
 }
 
 export const gameReducer = (state = initialState, action) => {
@@ -85,7 +86,8 @@ export const gameReducer = (state = initialState, action) => {
 				...state,
 				playTab: action.playerTab,
 				gameStarted: typeof action.isHost === 'boolean' ? action.gameStarted : state.gameStarted,
-				isHost: typeof action.isHost === 'boolean' ? action.isHost : state.isHost 
+				isHost: typeof action.isHost === 'boolean' ? action.isHost : state.isHost,
+				pieces: action.pieces,
 			}
 		case START_GAME:
 			console.log('reducer Start game')
@@ -94,6 +96,7 @@ export const gameReducer = (state = initialState, action) => {
 				endOfGame: false,
 				gameStarted: true,
 				playing: true,
+				pieces: action.pieces,
 				winScore: action.winScore,
 				playTab: action.playerTab,
 				nbPlayer: action.nbPlayer

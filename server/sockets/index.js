@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { users, rooms, setDefaultUsername, getUserInfos,
-leaveRoom, createRoom, checkRoomAndJoin } from './socket-functions'
+leaveRoom, createRoom, checkRoomAndJoin, refillTetriList } from './socket-functions'
 
 const stillPlaying = (room) =>{
 	for (var id in rooms[room].playerTab){
@@ -39,9 +39,10 @@ export const useSockets = (io) => {
 					socket.emit('user game over', {type: 'END_GAME', playerTab: rooms[room].playerTab})
 					io.in(room).emit('player game over', player.username)
 					if (!stillPlaying(room)){
-						console.log('!stillplaying: Game end')
+						console.log('user win')
 						player.win = true
 						io.in(room).emit('player win', {type: 'PLAYER_WIN', playerTab: rooms[room].playerTab, winScore: {winner: player.username, id: player.id, score: score}})
+						rooms[room].pieces = null
 					}
 				}
 			})
@@ -54,16 +55,17 @@ export const useSockets = (io) => {
 				player.playing = true
 				player.win = false
 			})
+			refillTetriList(room, 2)
 			io.in(room).emit('host restart game',
 				{
 					type: 'START_GAME',
 					nbPlayer: Object.keys(rooms[room].playerTab).length,
 					playerTab: rooms[room].playerTab,
 					gameStarted: true,
-					winScore: null
+					winScore: null,
+					pieces: rooms[room].pieces
 				}
 			)
-			// io.in(room).emit('host restart game')
 		})
 
 		socket.on('start game', (room)=>{
@@ -79,7 +81,8 @@ export const useSockets = (io) => {
 					nbPlayer: Object.keys(rooms[room].playerTab).length,
 					playerTab: rooms[room].playerTab,
 					gameStarted: rooms[room].gameStarted,
-					winScore: null
+					winScore: null,
+					pieces: rooms[room].pieces
 				}
 			)
 		})	
@@ -98,6 +101,16 @@ export const useSockets = (io) => {
 			}
 		})	
 
+		socket.on('add pieces', (room) => {
+			refillTetriList(room, 1)
+			io.in(room).emit('room update', {
+				type: 'ROOM_UPDATE',
+				playerTab: rooms[room].playerTab,
+				gameStarted: rooms[room].gameStarted,
+				pieces: rooms[room].pieces
+			})
+		})
+
 		socket.on('set username', (username) => {
 			socket.username = username
 			socket.emit('username set', {
@@ -112,8 +125,9 @@ export const useSockets = (io) => {
 			socket.emit('room update', {
 				type: 'ROOM_UPDATE',
 				playerTab: rooms[room].playerTab,
-				gameStarted: rooms[room].gameStarted
-		})
+				gameStarted: rooms[room].gameStarted,
+				pieces: rooms[room].pieces
+			})
 		})
 
 		socket.on('join room', (room, res) => {
@@ -128,17 +142,6 @@ export const useSockets = (io) => {
 			createRoom(socket, room, res, io)
 		})
 
-		socket.on("RandomTetri", () => {
-				const tetriminos = ["I", "O", "T", "L", "Z", "S", "J"];
-				const randTab = [];
-				for (var i = 0; i < 128; i++)
-				{
-					var rand = tetriminos[Math.floor(Math.random() * tetriminos.length)];
-					randTab[i] = rand;
-				}
-				socket.emit("sendRandTetris", randTab);
-		})
-		
 		socket.on('leave room', () => {
 			leaveRoom(socket, io, false)
 		})

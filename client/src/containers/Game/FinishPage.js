@@ -73,10 +73,14 @@ const FinishComponent = ({classes, level, score, rows, resetGame, gameState, sol
 					</div>
 				: null
 			}
-			{gameState.endOfGame && gameState.isHost
-				?	<div className={classes.restartLabel} onClick={()=>{restartGame()}}>
-					RESTART GAME
-				</div>
+			{gameState.endOfGame
+				?	gameState.isHost
+					?	<div className={classes.restartLabel} onClick={()=>{restartGame()}}>
+							RESTART GAME
+						</div>
+					: <div className={classes.finishGameTitle} style={{marginTop: '5px'}}>
+						Waiting for host to restart...
+					</div>
 				: null
 			}
 			</div>

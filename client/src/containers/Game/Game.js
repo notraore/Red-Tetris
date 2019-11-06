@@ -19,12 +19,12 @@ const Game = ({classes, gameState, dispatch, solo, startGame}) => {
 	const [counter, increment] = useState(0)
 	const [gameOver, overGame] = useState(false)
 	const [board, updateBoard] = useState(initialBoardState())
-	const [curTetri, moveTetri] = useState(initialTetriState(0, data));
+	const [curTetri, moveTetri] = useState(initialTetriState(0, gameState.pieces));
 	const [score, updateScore] = useState(0)
 	const [canMove, setCanMove] = useState(true)
 	const [screenY, setScreenY] = useState(0)
 	const [screenX, setScreenX] = useState(0)
-	const [nextTetri, setNext] = useState(null);
+	const [nextTetri, setNext] = useState(tab[gameState.pieces[1]]);
 
 	const [rows, setRows] = useState(0)
 	const [level, setLevel] = useState(0)
@@ -33,17 +33,10 @@ const Game = ({classes, gameState, dispatch, solo, startGame}) => {
 	const keyDown = useRef(false)
 
 	useEffect(() =>{
-		socket.emit("RandomTetri")
-	}, [gameOver])
-
-	useEffect(() =>{
-		socket.on("sendRandTetris", (ret) => {
-			setData(ret);
-		})
 		socket.on("user game over", dispatch)
 		socket.on("host restart game", (action)=>{
-			resetGame()
 			dispatch(action)
+			resetGame()
 			console.log(gameState)
 			// startGame()
 		})
@@ -58,21 +51,19 @@ const Game = ({classes, gameState, dispatch, solo, startGame}) => {
 	}, []);
 
 	useEffect(() =>{
-		if (!isEmpty(data))
-			setNext(tab[data[1]])
-	}, [data])
-
-	useEffect(() =>{
 		if (!solo) socket.emit('emit board state', board.tab, gameState.room)
+		if (gameState.pieces && counter + 5  > gameState.pieces.length){
+			socket.emit('add pieces', gameState.room)
+		}
 	}, [counter])
 
 	useEffect(() => {
 		if (JSON.stringify(board) === JSON.stringify(initialBoardState()) &&
 		 (counter > 0 || curTetri.y > 0)){
 			reset(increment, updateScore, setLevel, setRows, setDropTime,
-				moveTetri, initialTetriState, data, tab, overGame, setNext)
+				moveTetri, initialTetriState, gameState.pieces, tab, overGame, setNext)
 		}
-	}, [board, counter, data, nextTetri])
+	}, [board, counter, gameState.pieces, nextTetri])
 
 	const resetGame = () => {
 		updateBoard(initialBoardState())
@@ -87,9 +78,9 @@ const Game = ({classes, gameState, dispatch, solo, startGame}) => {
 		return setInterval(() => {
 			gameLoop(moveTetri, canFit, setCanMove, keyDown,
 				clearInterval, updateBoard, initialTetriState, increment,
-				 setNext, setGameOver, board, refInterval, counter, data, tab)
+				 setNext, setGameOver, board, refInterval, counter, gameState.pieces, tab)
 		}, speed)
-	}, [board.tab, counter, data])
+	}, [board.tab, counter, gameState.pieces])
 
 	const keydownFunc = useCallback(event => {
 		var key = keyDown.current ? keyDown.current.keyCode : key

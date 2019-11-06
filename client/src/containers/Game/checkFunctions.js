@@ -43,6 +43,7 @@ export const gameLoop = (moveTetri, canFit, setCanMove, keyDown,
 			})
 			const t = initialTetriState(counter + 1, data);
 			increment((i)=>{
+				console.log('increment, data', data, 'i = ', i)
 				setNext(tab[data[i+2]])
 				return i+1
 			})

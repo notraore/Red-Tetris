@@ -17,6 +17,23 @@ export const getAllRooms = (io) => {
 	return io.sockets.adapter.rooms
 }
 
+
+export const addRandTetri = (room) => {
+	const tetriminos = ["I", "O", "T", "L", "Z", "S", "J"];
+	const randTab = tetriminos.sort(()=> Math.random() - 0.5)
+	if (!rooms[room].pieces) {
+		rooms[room].pieces = []
+	}
+	rooms[room].pieces = rooms[room].pieces.concat(randTab)
+	console.log('dans addrandtetri: ', rooms[room].pieces)
+}
+
+export const refillTetriList = (room, num) => {
+	for (var i = 0; i < num; i++){
+		addRandTetri(room)
+	}
+}
+
 export const getUsersInRoom = (io, room) => {
 	var allRooms = getAllRooms(io)
 	return allRooms[room]
@@ -113,6 +130,7 @@ export const createRoom = (socket, room, res, io) => {
 		win: false
 	})
 	if (canCreateRoom){
+		refillTetriList(room, 2)
 		joinRoom(socket, room, {
 			type: 'ROOM_JOINED',
 			room: room,
