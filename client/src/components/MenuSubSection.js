@@ -5,10 +5,10 @@ import { joinRoom } from '../sockets/emits.js'
 import { createRoom } from '../sockets/emits.js'
 import leader from '../datas/leaderboard.json';
 
-const SoloComponent = ({ classes, selected, dispatch }) => {
+const SoloComponent = ({ classes, selected, dispatch, pieces }) => {
     return (
         <div className={`flex center alignCenter column`} style={selected === 1 ? {display: 'flex'} : {display: 'none'}}>
-            <p className={classes.optionLabel} onClick={()=>{dispatch({type: 'START_GAME', nbPlayer: 1})}}>
+            <p className={classes.optionLabel} onClick={()=>{dispatch({type: 'START_GAME', nbPlayer: 1, pieces: pieces})}}>
                 Start
             </p>
         </div>

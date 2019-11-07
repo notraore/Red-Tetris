@@ -1,33 +1,35 @@
-export const removeLine = (num, tab, updateBoard, board) => {
-	let newTab = tab
-	num.map((n)=>{
-		newTab.splice(n, 1) 
-		newTab.splice(0, 0, [0,0,0,0,0,0,0,0,0,0])
-		return num
+export const removeLine = (num, updateBoard) => {
+	updateBoard((old)=>{
+		num.map((n)=>{
+			old.splice(n, 1) 
+			old.splice(0, 0, [0,0,0,0,0,0,0,0,0,0])
+			return num 
+		})
+		return old
 	})
-	updateBoard({tetriList: board.tetriList, tab:newTab})
 }
 
-export const checkLine = (board, displayUpdate, rows, updateBoard) => {
-	let tab = board.tab
+export const checkLine = (board, displayUpdate, rows, updateBoard, emitLinesToOpponents) => {
 	let lines = []
-	tab.map((line, y)=>{
-			if (line.every((num) => {return num > 0})){
+	board.map((line, y)=>{
+			if (line.every((num) => {return num > 0 && num < 8})){
 					lines.push(y)
 			}
-			return tab
+			return true
 	})
 	if (lines.length){
-			removeLine(lines, tab, updateBoard, board)
-			displayUpdate(rows, lines.length);
+			removeLine(lines, updateBoard)
+			displayUpdate(rows, lines.length)
+			emitLinesToOpponents(lines.length)
 	}
 }
 
 export const gameLoop = (moveTetri, canFit, setCanMove, keyDown,
 	 clearInterval, updateBoard, initialTetriState, increment,
-	  setNext, setGameOver, board, refInterval, counter, data, tab) => {
+	  setNext, setGameOver, board, refInterval, counter, data, tab, setLineAdd) => {
 	moveTetri((tetri)=>{
-		if (!canFit(board.tab, {...tetri, y: tetri.y + 1})){
+		if (!canFit(board, {...tetri, y: tetri.y + 3})) setLineAdd(false)
+		if (!canFit(board, {...tetri, y: tetri.y + 1})){
 			setCanMove(true)
 			keyDown.current = null
 			clearInterval(refInterval.current)
@@ -35,19 +37,19 @@ export const gameLoop = (moveTetri, canFit, setCanMove, keyDown,
 				tetri.form.forEach((line, y)=>{
 					line.forEach((col, x)=>{
 						if (tetri.form[y][x] > 0){
-							old.tab[tetri.y + y][tetri.x + x] = tetri.form[y][x]
+							old[tetri.y + y][tetri.x + x] = tetri.form[y][x]
 						}
 					})
 				})
 				return old
 			})
+			setLineAdd(true)
 			const t = initialTetriState(counter + 1, data);
 			increment((i)=>{
-				console.log('increment, data', data, 'i = ', i)
-				setNext(tab[data[i+2]])
+				if (data && data[i+2]) setNext(tab[data[i+2]])
 				return i+1
 			})
-			if (t === false || !canFit(board.tab, t)){
+			if (t === false || !canFit(board, t)){
 				setGameOver()
 				return tetri
 			} else return t
@@ -64,6 +66,7 @@ export const reset = (increment, updateScore, setLevel, setRows, setDropTime,
 	setRows(0)
 	setDropTime(1000);
 	moveTetri(initialTetriState(0), data);
-	setNext(tab[data[1]]);
+	if (data && data[1]) setNext(tab[data[1]])
+	else setNext(null)
 	overGame(false)
 }

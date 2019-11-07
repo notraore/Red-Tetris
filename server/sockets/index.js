@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { users, rooms, setDefaultUsername, getUserInfos,
-leaveRoom, createRoom, checkRoomAndJoin, refillTetriList } from './socket-functions'
+leaveRoom, createRoom, checkRoomAndJoin, refillTetriList, getRandTetris } from './socket-functions'
 
 const stillPlaying = (room) =>{
 	for (var id in rooms[room].playerTab){
@@ -102,13 +102,26 @@ export const useSockets = (io) => {
 		})	
 
 		socket.on('add pieces', (room) => {
-			refillTetriList(room, 1)
-			io.in(room).emit('room update', {
-				type: 'ROOM_UPDATE',
-				playerTab: rooms[room].playerTab,
-				gameStarted: rooms[room].gameStarted,
-				pieces: rooms[room].pieces
-			})
+			if (room) {
+				refillTetriList(room, 1)
+				io.in(room).emit('room update', {
+					type: 'ROOM_UPDATE',
+					playerTab: rooms[room].playerTab,
+					gameStarted: rooms[room].gameStarted,
+					pieces: rooms[room].pieces
+				})
+			} else {
+				var newPieces = getRandTetris()
+				socket.emit('solo update', {type: 'SOLO_UPDATE', newPieces: newPieces})
+			}
+		})
+
+		socket.on('get rand pieces', () => {
+			socket.emit('get rand pieces', getRandTetris())
+		})
+
+		socket.on('block opponents line', (num, room) => {
+			socket.to(room).emit('opponent line block', num)
 		})
 
 		socket.on('set username', (username) => {

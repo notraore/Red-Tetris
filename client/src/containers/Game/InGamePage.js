@@ -13,7 +13,7 @@ const InGameComponent = ({classes, winHeight, winWidth, dispatch, reset, solo, b
 					<div className={'relative'} style={{top: '25px'}}>
 						<div className={'relative'}>
 							{
-								board.tab.map((line, index)=>{
+								board.map((line, index)=>{
 									return <div style={{display: 'flex'}} key={index}>
 										{
 											line.map((col, index) => {
@@ -124,7 +124,7 @@ const InGameComponent = ({classes, winHeight, winWidth, dispatch, reset, solo, b
 								</div>
 								<div
 									className={classes.button}
-									onClick={()=>{dispatch({type: 'END_GAME'})}}
+									onClick={()=>{dispatch({type: 'RETURN_MENU'})}}
 								>
 									Quit Game
 								</div>

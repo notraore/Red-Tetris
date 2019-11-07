@@ -36,6 +36,17 @@ const Menu = props => {
   const [onHover, setHover] = useState(false)
   const [onlineList, setOnlineList] = useState(false)
   const [usernameInput, changeUsernameInput] = useState('')
+  const [tmpPieces, setTmpPieces] = useState(null)
+
+  useEffect(()=>{
+    socket.on('get rand pieces', (rand)=>{
+      setTmpPieces(rand)
+    })
+    socket.emit('get rand pieces')
+    return () => {
+      socket.off('get rand pieces')
+    }
+  }, [])
 
   return (
     <div className="App flex center alignCenter" style={styles.container}>
@@ -60,7 +71,7 @@ const Menu = props => {
           style={selected > 0 ? {display: 'flex'} : {display: 'none'}}
         >
           <Join selected={selected}/>
-          <Solo selected={selected}  dispatch={dispatch}/>
+          <Solo selected={selected}  dispatch={dispatch} pieces={tmpPieces}/>
           <Create selected={selected}/>
           <Settings selected={selected}/>
           <p onClick={()=>{select(0)}} className={classes.optionLabel}>

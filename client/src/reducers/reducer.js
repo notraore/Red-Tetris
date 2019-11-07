@@ -8,7 +8,8 @@ export const END_GAME = 'END_GAME'
 export const UPDATE_OPPONENTS = 'UPDATE_OPPONENTS'
 export const USER_CONNECTED = 'USER_CONNECTED'
 export const PLAYER_WIN = 'PLAYER_WIN'
-export const RETURN_LOBBY = 'RETURN_LOBBY'
+export const RETURN_MENU = 'RETURN_MENU'
+export const SOLO_UPDATE = 'SOLO_UPDATE'
 
 export const initialState = {
 	room: null,
@@ -73,7 +74,6 @@ export const gameReducer = (state = initialState, action) => {
 				isHost: false
 			}
 		case PLAYER_WIN:
-		console.log('reducer player win', action)
 			return {
 				...state,
 				playTab: action.playerTab,
@@ -81,16 +81,14 @@ export const gameReducer = (state = initialState, action) => {
 				winScore: action.winScore
 			}
 		case ROOM_UPDATE:
-		console.log('ROOM UPDATE!!: ', action, 'isHost: ', state.isHost)
 			return {
 				...state,
 				playTab: action.playerTab,
 				gameStarted: typeof action.isHost === 'boolean' ? action.gameStarted : state.gameStarted,
 				isHost: typeof action.isHost === 'boolean' ? action.isHost : state.isHost,
-				pieces: action.pieces,
+				pieces: action.pieces ? action.pieces : state.pieces,
 			}
 		case START_GAME:
-			console.log('reducer Start game')
 			return {
 				...state,
 				endOfGame: false,
@@ -101,11 +99,16 @@ export const gameReducer = (state = initialState, action) => {
 				playTab: action.playerTab,
 				nbPlayer: action.nbPlayer
 			}
-		case RETURN_LOBBY:
+		case SOLO_UPDATE:
 			return {
 				...state,
-				isInGame: true,
-				isWaiting: true,
+				pieces: state.pieces.concat(action.newPieces)
+			}
+		case RETURN_MENU:
+			return {
+				...state,
+				isInGame: false,
+				isWaiting: false,
 				gameStarted: false
 			}
 		case END_GAME:

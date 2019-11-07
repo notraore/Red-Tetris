@@ -12,7 +12,7 @@ const FinishComponent = ({classes, level, score, rows, resetGame, gameState, sol
 				<div className={classes.finishGameInfo}>Your Score: {score === 0 ? '-' : score}</div>
 				<div className={classes.finishGameInfo}>Level: {level}</div>
 				<div className={classes.finishGameInfo}>Rows: {rows === 0 ? '-' : rows}</div>
-				{gameState.winScore
+				{gameState.winScore || solo
 					? null
 					: <div>
 							<div className={classes.finishGameTitle}>still in game:</div>

@@ -7,7 +7,8 @@ export const colorTab = ([
 	'purple',
 	'salmon',
 	'cyan',
-	'green'
+	'green',
+	'#ffe5f6'
 ])
 
 const blockStyle = ({

@@ -24,8 +24,8 @@ export const initialTetriState = (count, data) => {
 	return(tetri)
 }
 
-export const initialBoardState = () => ({
-	tab: [
+export const initialBoardState = () => (
+	[
 		[0,0,0,0,0,0,0,0,0,0],
 		[0,0,0,0,0,0,0,0,0,0],
 		[0,0,0,0,0,0,0,0,0,0],
@@ -46,6 +46,4 @@ export const initialBoardState = () => ({
 		[0,0,0,0,0,0,0,0,0,0],
 		[0,0,0,0,0,0,0,0,0,0],
 		[0,0,0,0,0,0,0,0,0,0]
-	],
-	tetriList: []
-})
+	])

@@ -1,13 +1,13 @@
 export const checkPlayerInputs = (canFit, board, setCanMove, refInterval, tab, moveTetri, setGameLoop, event) => {
 	if (event.keyCode === 39) {//DROITE
 		moveTetri((tetri)=>{
-				if (canFit(board.tab, {...tetri, x: tetri.x + 1})) return {...tetri, x: tetri.x + 1}
+				if (canFit(board, {...tetri, x: tetri.x + 1})) return {...tetri, x: tetri.x + 1}
 				else return tetri
 		})
 	}
 	if (event.keyCode === 37) {//GAUCHE
 		moveTetri((tetri)=>{
-				if (canFit(board.tab, {...tetri, x: tetri.x - 1})) return {...tetri, x: tetri.x - 1}
+				if (canFit(board, {...tetri, x: tetri.x - 1})) return {...tetri, x: tetri.x - 1}
 				else return tetri
 		})
 	}
@@ -36,7 +36,7 @@ export const checkPlayerInputs = (canFit, board, setCanMove, refInterval, tab, m
 					width: tab[tetri.name].position[rot].width,
 					height: tab[tetri.name].position[rot].height,
 			}
-			if (canFit(board.tab, tetriRot)){//si ya la place de faire une rotation
+			if (canFit(board, tetriRot)){//si ya la place de faire une rotation
 					return tetriRot
 			} else return tetri
 		})
