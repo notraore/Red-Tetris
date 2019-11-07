@@ -82,13 +82,12 @@ const Game = ({classes, gameState, dispatch, solo, startGame}) => {
 		}, speed)
 	}, [board.tab, counter, gameState.pieces])
 
-	const keydownFunc = useCallback(event => {
-		var key = keyDown.current ? keyDown.current.keyCode : key
-		if ((key && (key === 38 || key === 32 || key === 40)) || !canMove) return
+	const keydownFunc = event => {
+		if ((keyDown.current && (keyDown.current.keyCode === 38 || keyDown.current.keyCode === 32 || keyDown.current.keyCode === 40)) || !canMove) return
 		keyDown.current = event
 		checkPlayerInputs(canFit, board, setCanMove, refInterval,
 			 tab, moveTetri, setGameLoop, event)
-	}, [board.tab, canMove, setGameLoop])
+	}
 
 	const keyUpFunc = event => {
 		if (event.keyCode === 40 && canMove){
@@ -116,8 +115,7 @@ const Game = ({classes, gameState, dispatch, solo, startGame}) => {
 		document.addEventListener("keyup", keyUpFunc)
 		if (gameOver) removeListener()
 		return () => removeListener()
-	}, [counter, gameOver, canMove, curTetri, score,
-		 dropTime, keydownFunc, setGameLoop])
+	}, [counter, gameOver])
 
 	const displayUpdate = (rows, len) => {
 		const pointTab = [40, 100, 300, 1200]
