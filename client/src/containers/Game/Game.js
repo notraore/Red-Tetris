@@ -13,7 +13,6 @@ import { checkPlayerInputs } from './playerInputs'
 import { isEmpty } from 'lodash'
 
 const Game = ({classes, gameState, dispatch, solo, startGame}) => {
-	const [data, setData] = useState([]);
 	const [counter, increment] = useState(0)
 	const [gameOver, overGame] = useState(false)
 	const [board, updateBoard] = useState(initialBoardState())
@@ -40,7 +39,10 @@ const Game = ({classes, gameState, dispatch, solo, startGame}) => {
 			resetGame()
 		})
 		socket.on("player win", dispatch)
-		if (!solo) socket.on('receive player shadow', dispatch)
+		if (!solo) {
+			socket.on('receive player shadow', dispatch)
+			socket.on('player game over', dispatch)
+		}
 		else socket.on('solo update', dispatch)
 		return () => {
 			socket.off('opponent line block')
@@ -54,6 +56,8 @@ const Game = ({classes, gameState, dispatch, solo, startGame}) => {
 	}, []);
 
 	useEffect(()=>{
+		console.log('tmp line del!')
+		if (!gameOver && gameState.gameStarted && gameState.playing) socket.emit('emit board state', board, gameState.room)
 		if (canAddLine === true && tmpLineDel){
 			updateBoard((old)=>{
 				for (var n = 0; n < tmpLineDel; n++){
@@ -69,6 +73,7 @@ const Game = ({classes, gameState, dispatch, solo, startGame}) => {
 	useEffect(() =>{
 		if (JSON.stringify(board) === JSON.stringify(initialBoardState()) && counter === 0 && curTetri.y === 0){
 			socket.on("opponent line block", (num) => {
+				console.log('OPPONENT LINE BLOCK')
 				setTmpLineDel(tmpLineDel + num)
 			})
 		}

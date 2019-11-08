@@ -37,7 +37,8 @@ export const useSockets = (io) => {
 					player.waiting = true
 					player.playing = false
 					socket.emit('user game over', {type: 'END_GAME', playerTab: rooms[room].playerTab})
-					io.in(room).emit('player game over', player.username)
+					// io.in(room).emit('player game over', player.username)
+					io.in(room).emit('player game over', {type: 'ROOM_UPDATE', playerTab: rooms[room].playerTab})
 					if (!stillPlaying(room)){
 						console.log('user win')
 						player.win = true

@@ -1,8 +1,8 @@
-export const removeLine = (num, updateBoard) => {
+export const removeLine = (num, updateBoard, board) => {
 	updateBoard((old)=>{
 		num.map((n)=>{
-			old.splice(n, 1) 
-			old.splice(0, 0, [0,0,0,0,0,0,0,0,0,0])
+			board.splice(n, 1) 
+			board.splice(0, 0, [0,0,0,0,0,0,0,0,0,0])
 			return num 
 		})
 		return old
@@ -12,15 +12,15 @@ export const removeLine = (num, updateBoard) => {
 export const checkLine = (board, displayUpdate, rows, updateBoard, emitLinesToOpponents) => {
 	let lines = []
 	board.map((line, y)=>{
-			if (line.every((num) => {return num > 0 && num < 8})){
-					lines.push(y)
-			}
-			return true
+		if (line.every((num) => {return num > 0 && num < 8})){
+			lines.push(y)
+		}
+		return true
 	})
 	if (lines.length){
-			removeLine(lines, updateBoard)
-			displayUpdate(rows, lines.length)
-			emitLinesToOpponents(lines.length)
+		removeLine(lines, updateBoard, board)
+		displayUpdate(rows, lines.length)
+		emitLinesToOpponents(lines.length)
 	}
 }
 
