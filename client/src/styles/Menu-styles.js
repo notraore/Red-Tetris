@@ -28,6 +28,12 @@ export const styles = ({
       fontFamily: 'Orbitron, sans-serif',
       padding: '15px 0px'
     },
+    chatLabel: {
+      color: 'grey',
+      marginBottom: '10px',
+      textAlign: 'left',
+      fontSize: '18px'
+    },
     input:{
       height: '45px',
       width: '250px',
@@ -71,6 +77,7 @@ export const styles = ({
       border: '10px solid rgb(47, 49, 64)',
       fontWeight: 'bold',
       animation: 'rainbow 10s infinite ease-out',
+      marginBottom: '10px',
       '&:hover': {
         textShadow: '0 0 10px #FFFFFF',
         boxShadow: `inset 0 0 30px white, 0 0 15px white`,

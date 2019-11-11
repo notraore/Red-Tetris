@@ -164,7 +164,7 @@ export const checkRoomAndJoin = (socket, room, res, io) => {
 	var alreadyInRoom = socket.rooms.hasOwnProperty(room)
 	var canJoin = !(typeof players === 'undefined') &&
 			players.length < 5
-	if (canJoin && !alreadyInRoom && !rooms[room].gameStarted){
+	if (canJoin && !alreadyInRoom && rooms[room] && !rooms[room].gameStarted){
 		console.log(`CONNECTION A LA ROOM "${room}", id:`, socket.id)
 		rooms[room].playerTab.push({id: socket.id, username: users[socket.id], gameHost: false, waiting: true, playing: false})
 		joinRoom(socket, room, {
@@ -178,7 +178,7 @@ export const checkRoomAndJoin = (socket, room, res, io) => {
 	} else {
 		if (alreadyInRoom){
 			canJoin = false
-		} else if (rooms[room].gameStarted) {
+		} else if (rooms[room] && rooms[room].gameStarted) {
 			sendInfo(socket, 'Information',
 			`Game ${room} has already started !`)
 		} else {

@@ -8,7 +8,8 @@ export const GameStyle = () => ({
         color: 'pink',
         border: '2px solid pink',
         borderRadius: '10px',
-        padding: '5px 0px'
+        padding: '5px 0px',
+        width: '80%'
 		},
 		finishGameTitle: {
 			fontSize: '30px',
@@ -24,7 +25,8 @@ export const GameStyle = () => ({
 			fontFamily: 'Orbitron, sans-serif',
 		},
     gameOverContainer: {
-        height: '600px',
+        minHeight: '600px',
+        padding: '20px 0px',
         width: '650px',
         borderRadius: '10px',
         backgroundColor: 'pink'
@@ -38,6 +40,19 @@ export const GameStyle = () => ({
             color: 'salmon'
         }
     },
+    input:{
+        height: '45px',
+        width: '250px',
+        fontSize: '28px',
+        textAlign: 'center',
+        backgroundColor: 'rgb(47, 49, 64)',
+        border: '3px solid rgb(71, 72, 99)',
+        color: 'white',
+        fontFamily: 'Orbitron, sans-serif',
+        '&:focus': {
+          outline: 'none'
+        }
+      },
     restartButton: {
         cursor: 'pointer',
         '& :active': {

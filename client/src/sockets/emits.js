@@ -44,3 +44,7 @@ export const roomExist = (roomName) => {
 export const changeUsername = (newUsername) => {
   socket.emit('set username', newUsername)
 }
+
+export const sendMessage = (room, message) => {
+  socket.emit('send message', room, message)
+}

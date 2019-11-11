@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/styles'
 import {Block, colorTab} from '../../components/Block.js'
 import {GameStyle} from '../../styles/Game-style.js'
 
-const InGameComponent = ({classes, winHeight, winWidth, dispatch, reset, solo, board, gameState, nextTetri, curTetri, score, level, rows, tetri, dropTime}) => {
+const InGameComponent = ({classes, chat, chatInput, setChatInput, winHeight, winWidth, dispatch, reset, solo, board, gameState, nextTetri, curTetri, score, level, rows, tetri, dropTime}) => {
 	var smallSize = winWidth < 650 || winHeight < 800
 	var blockSize = smallSize ? 30 : 40
 	var shadowBlockSize = Math.trunc(winHeight / 80)
@@ -56,34 +56,36 @@ const InGameComponent = ({classes, winHeight, winWidth, dispatch, reset, solo, b
 						</div>
 						<p>{gameState.player}{gameState.isHost ? ' ♛' : null}</p>
 					</div>
-						<div className={'relative flex column'}>
+						<div className={'relative flex column alignCenter'}>
 							{solo
 									? null
 									: <div className={`flex center alignCenter column`} style={{marginTop: '20px'}}>
 									<div style={{fontSize: '30px', fontWeight: 'bold', color: 'pink'}}>Room</div>
-									<p style={{margin: 0, marginTop: '5px'}}>{gameState.room}</p>
+									<p style={{margin: 0, marginTop: '5px'}}>{gameState.room.toUpperCase()}</p>
 								</div>
 							}
-							<div style={{fontSize: '30px', fontWeight: 'bold', color: 'pink', marginTop: '20px'}}>Next:</div>
-							<div className={'relative'} style={{top: '10px', padding: '10px', left: blockSize/2}}>
-								{
-									nextTetri && nextTetri.position[0].form.map((line, index)=>{
-										return <div style={{display: 'flex'}} key={index}>
-											{
-												line.map((col, index) => {
-													return <div key={index}>
-														{col > 0
-															? <Block blockSize={blockSize / 2} color={nextTetri.color}/>
-															: <Block blockSize={blockSize / 2} transparent/>
-														}
-													</div>
-												})
-											}
-										</div>
-									})
-								}
+							<div className={`fullWidth flex row center`}>
+								<div style={{fontSize: '30px', fontWeight: 'bold', color: 'pink', marginTop: '20px'}}>Next:</div>
+								<div className={'relative'} style={{top: '10px', padding: '10px', left: blockSize/2}}>
+									{
+										nextTetri && nextTetri.position[0].form.map((line, index)=>{
+											return <div style={{display: 'flex'}} key={index}>
+												{
+													line.map((col, index) => {
+														return <div key={index}>
+															{col > 0
+																? <Block blockSize={blockSize / 2} color={nextTetri.color}/>
+																: <Block blockSize={blockSize / 2} transparent/>
+															}
+														</div>
+													})
+												}
+											</div>
+										})
+									}
+								</div>
 							</div>
-							<div className={'relative'} style={{minWidth: '150px'}}>
+							<div className={'flex column alignCenter relative fullWidth center'}>
 								<div className={classes.gameInfo}>Score: {score === 0 ? '-' : score}</div>
 								<div className={classes.gameInfo}>Level: {level}</div>
 								<div className={classes.gameInfo}>Rows: {rows === 0 ? '-' : rows}</div>
@@ -122,6 +124,26 @@ const InGameComponent = ({classes, winHeight, winWidth, dispatch, reset, solo, b
 									</div>
 									else return null
 								})}
+							</div>
+							<div clasName={`flex row center`} style={{width: '100%', marginTop: '10px'}}>
+								<p className={classes.chatLabel}>
+									Chat ↴
+								</p>
+								<input
+									id='chatInput'
+									className={`fullWidth ${classes.input}`}
+									style={{width: '80%'}}
+									value={chatInput}
+									onKeyDown={(e)=>{
+										if (e.keyCode === 13){
+											if (chatInput.length > 0){
+												chat(chatInput)
+												setChatInput('')
+											}
+										}
+									}}
+									onChange={(e)=>{setChatInput(e.target.value)}}
+								/>
 							</div>
 							{solo
 								? <div className='flex column'>

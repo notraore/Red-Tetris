@@ -142,6 +142,10 @@ export const useSockets = (io) => {
 			io.in(room).emit('return lobby', {type: 'RETURN_MENU'})
 		})
 
+		socket.on('send message', (room, message) => {
+			io.in(room).emit('new message', {sender: socket.username, message: message})
+		})
+
 		socket.on('room exist', (name, func) => {
 			func(rooms.hasOwnProperty(name))
 		})

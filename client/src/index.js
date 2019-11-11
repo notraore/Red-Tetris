@@ -6,7 +6,7 @@ import './styles/patterns.css'
 import { App } from './App.js'
 import * as serviceWorker from './serviceWorker';
 import { equals, length, dropLast, indexOf, drop, isNil} from 'ramda'
-import { roomExist, joinRoom, createRoom, changeUsername } from './sockets/emits'
+import { roomExist, changeUsername } from './sockets/emits'
 
 const getRoomName = (hash) => {
 	const endOfWord = indexOf('[', hash) >= 0 ? indexOf('[', hash) : length(hash)

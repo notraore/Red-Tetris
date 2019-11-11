@@ -12,7 +12,7 @@ import { checkLine, gameLoop, reset } from './checkFunctions.js'
 import { checkPlayerInputs } from './playerInputs'
 import { isEmpty } from 'lodash'
 
-const Game = ({classes, gameState, dispatch, solo, startGame, notify, curUser}) => {
+const Game = ({classes, gameState, dispatch, solo, startGame, notify, curUser, chat, chatInput, setChatInput}) => {
 	const [counter, increment] = useState(0)
 	const [gameOver, overGame] = useState(false)
 	const [board, updateBoard] = useState(initialBoardState())
@@ -199,6 +199,9 @@ const Game = ({classes, gameState, dispatch, solo, startGame, notify, curUser}) 
 						startGame={startGame}
 						dispatch={dispatch}
 						returnLobby={returnLobby}
+						chat={chat}
+						chatInput={chatInput}
+						setChatInput={setChatInput}
 						/>
 					: <InGameComponent
 						winHeight={screenY}
@@ -216,6 +219,9 @@ const Game = ({classes, gameState, dispatch, solo, startGame, notify, curUser}) 
 						reset={resetGame}
 						dispatch={dispatch}
 						curUser={curUser}
+						chat={chat}
+						chatInput={chatInput}
+						setChatInput={setChatInput}
 					/>
 				}
 		</div>

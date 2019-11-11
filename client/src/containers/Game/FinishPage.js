@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/styles'
 import {GameStyle} from '../../styles/Game-style.js'
 import {Block, colorTab} from '../../components/Block.js'
 
-const FinishComponent = ({classes, level, score, rows, resetGame, gameState, solo, winHeight, returnLobby}) => {
+const FinishComponent = ({classes, chat, chatInput, setChatInput, level, score, rows, resetGame, gameState, solo, winHeight, returnLobby}) => {
 	var shadowBlockSize = Math.trunc(winHeight / 80)
 	return (
 		<div className='flex column center alignCenter' style={{height: '100hw'}}>
@@ -82,6 +82,29 @@ const FinishComponent = ({classes, level, score, rows, resetGame, gameState, sol
 						Waiting for host to restart...
 					</div>
 				: null
+			}
+			{solo
+				? null
+				: <div clasName={`flex row center`} style={{width: '100%', marginTop: '10px'}}>
+					<p className={classes.chatLabel}>
+						Chat ↴
+					</p>
+					<input
+						id='chatInput'
+						className={`fullWidth ${classes.input}`}
+						style={{width: '50%', borderColor: 'white', backgroundColor: 'pink'}}
+						value={chatInput}
+						onKeyDown={(e)=>{
+							if (e.keyCode === 13){
+								if (chatInput.length > 0){
+									chat(chatInput)
+									setChatInput('')
+								}
+							}
+						}}
+						onChange={(e)=>{setChatInput(e.target.value)}}
+					/>
+				</div>
 			}
 			</div>
 		</div>

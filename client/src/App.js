@@ -46,14 +46,14 @@ export const App = props => {
 		<Fragment>
 		<ToastContainer
 			position="top-right"
-			autoClose={2500}
+			autoClose={4000}
 			hideProgressBar={true}
 			newestOnTop={false}
 			closeOnClick={false}
 			rtl={false}
 			pauseOnVisibilityChange
 			draggable={false}
-			pauseOnHover={false}
+			pauseOnHover={true}
 		/>
 		{gameState.isInGame
 			? <Multi

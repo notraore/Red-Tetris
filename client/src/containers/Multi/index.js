@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { styles } from '../../styles/Menu-styles.js'
-import { leaveRoom } from '../../sockets/emits.js'
+import { leaveRoom, sendMessage } from '../../sockets/emits.js'
 import Loader from 'react-dots-loader'
 import 'react-dots-loader/index.css'
 import { socket } from '../../sockets'
@@ -8,6 +8,8 @@ import { withStyles } from '@material-ui/styles'
 import Game from '../Game/Game.js'
 
 const Multi = ({ classes, gameState, dispatch, notify }) => {
+	const [chatInput, setChatInput] = useState('')
+
 	var userId = gameState.playerId
 	var curUser = {}
 
@@ -21,9 +23,16 @@ const Multi = ({ classes, gameState, dispatch, notify }) => {
 		socket.emit('start game', gameState.room)
 	}
 
+	const chat = (message) =>{
+		sendMessage(gameState.room, message)
+	}
+
 	useEffect(()=> {
 		socket.on('room update', dispatch)
 		socket.on('become host', dispatch)
+		socket.on('new message', (data)=>{
+			notify(`${data.sender}: ${data.message}`)
+		})
 		socket.on('new host', (name)=>{
 			notify.info(`${name} is now hosting !`)
 		})
@@ -57,6 +66,9 @@ const Multi = ({ classes, gameState, dispatch, notify }) => {
 					solo={gameState.playTab && Object.keys(gameState.playTab).length === 1}
 					startGame={startGame}
 					notify={notify}
+					chat={chat}
+					chatInput={chatInput}
+					setChatInput={setChatInput}
 				/>
 			: <div>
 					<div
@@ -102,6 +114,30 @@ const Multi = ({ classes, gameState, dispatch, notify }) => {
 						: curUser.gameHost
 							? <p>No opponent yet... Invite your friends or play Solo</p>
 							: null
+					}
+					{gameState.playTab && gameState.playTab.length > 1
+						?	<div clasName={``} style={{width: '80%', maxWidth: '400px', marginTop: '10px'}}>
+							<p className={classes.chatLabel}>
+								Say Something ↴
+							</p>
+							<input
+								id='chatInput'
+								className={`fullWidth ${classes.input}`}
+								style={{width: '100%'}}
+                value={chatInput}
+                autoFocus
+                onKeyDown={(e)=>{
+                  if (e.keyCode === 13){
+                    if (chatInput.length > 0){
+											chat(chatInput)
+											setChatInput('')
+                    }
+                  }
+                }}
+                onChange={(e)=>{setChatInput(e.target.value)}}
+              />
+						</div>
+						: null
 					}
 				</div>
 			</div>
