@@ -19,7 +19,6 @@ export const useSockets = (io) => {
 		}
 
 		socket.on('disconnect', function(){
-			// UPDATE SI ON RAFRAICHIT LA PAGE EN PLEIN JEU
 			leaveRoom(socket, io, true)
 			console.log("\x1b[31m", `${socket.id} disconnected`)
 			io.emit('user disconnected', {type: 'USER_CONNECTED', onlineUsers: users})
@@ -36,8 +35,7 @@ export const useSockets = (io) => {
 				if (player.id === socket.id){
 					player.waiting = true
 					player.playing = false
-					socket.emit('user game over', {type: 'END_GAME', playerTab: rooms[room].playerTab})
-					// io.in(room).emit('player game over', player.username)
+					socket.to(room).emit('user game over', player.username, {type: 'END_GAME', playerTab: rooms[room].playerTab})
 					io.in(room).emit('player game over', {type: 'ROOM_UPDATE', playerTab: rooms[room].playerTab})
 					if (!stillPlaying(room)){
 						console.log('user win')
@@ -89,7 +87,7 @@ export const useSockets = (io) => {
 		})	
 
 		socket.on('emit board state', (board, room)=>{
-			if (rooms[room].playerTab){
+			if (room && rooms[room] && rooms[room].playerTab){
 				rooms[room].playerTab.map((player)=>{
 					if (player.id === socket.id){
 						player.shadow = board
@@ -104,6 +102,7 @@ export const useSockets = (io) => {
 
 		socket.on('add pieces', (room) => {
 			if (room) {
+				console.log('ya room')
 				refillTetriList(room, 1)
 				io.in(room).emit('room update', {
 					type: 'ROOM_UPDATE',
@@ -154,6 +153,10 @@ export const useSockets = (io) => {
 
 		socket.on('create room', (room, res) => {
 			createRoom(socket, room, res, io)
+		})
+
+		socket.on('return lobby', (room) => {
+			io.in(room).emit('return lobby', {type: 'RETURN_MENU'})
 		})
 
 		socket.on('leave room', () => {

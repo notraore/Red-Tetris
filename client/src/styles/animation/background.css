@@ -9,3 +9,39 @@
         background-position: 10% 50%;
     }
   }
+
+@keyframes rainbow {
+    0% {
+        background-color: red;
+    }
+    10% {
+        background-color: orangered;
+    }
+    20% {
+        background-color: orange;
+    }
+    30% {
+        background-color: yellow;
+    }
+    40% {
+        background-color: yellowgreen;
+    }
+    50% {
+        background-color: green;
+    }
+    60% {
+        background-color: blue;
+    }
+    70% {
+        background-color: royalblue;
+    }
+    80% {
+        background-color: blueviolet;
+    }
+    90% {
+        background-color: darkmagenta;
+    }
+    100% {
+        background-color: darkred;
+    }
+  }

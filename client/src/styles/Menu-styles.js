@@ -63,9 +63,30 @@ export const styles = ({
     },
     startButton: {
       width: '200px',
-      height: '50px',
+      height: '100px',
       backgroundColor: 'red',
-      color: 'white'
+      fontFamily: 'Orbitron, sans-serif',
+      color: 'white',
+      cursor: 'pointer',
+      border: '10px solid rgb(47, 49, 64)',
+      fontWeight: 'bold',
+      animation: 'rainbow 10s infinite ease-out',
+      '&:hover': {
+        textShadow: '0 0 10px #FFFFFF',
+        boxShadow: `inset 0 0 30px white, 0 0 15px white`,
+        transitionDuration: '0.5s',
+        border: '10px solid white',
+      }
+    },
+    returnMenuButton: {
+      height: '30px',
+      cursor: 'pointer',
+      backgroundColor: 'rgb(48, 49, 60)',
+      '&:hover': {
+        color: 'white',
+        transitionDuration: '0.2s',
+        backgroundColor: 'rgb(28, 30, 41)',
+      }
     },
     centerSubContainer: {
       display: 'flex',
@@ -124,10 +145,6 @@ export const styles = ({
       fontWeight: 'bold'
     },
     selectedContainer: {
-      // background: colorArray[_.random(0, 7)],
-      // border: '10px solid rgb(47, 49, 64)',
-      // height: '500px',
-      // width: '100%',
       position: 'relative',
       animation: 'selectOption 1s ease'
     },

@@ -7,7 +7,7 @@ import { socket } from '../../sockets'
 import { withStyles } from '@material-ui/styles'
 import Game from '../Game/Game.js'
 
-const Multi = ({ classes, gameState, dispatch }) => {
+const Multi = ({ classes, gameState, dispatch, notify }) => {
 	var userId = gameState.playerId
 	var curUser = {}
 
@@ -23,9 +23,29 @@ const Multi = ({ classes, gameState, dispatch }) => {
 
 	useEffect(()=> {
 		socket.on('room update', dispatch)
-		socket.on('host started game', dispatch)
+		socket.on('become host', dispatch)
+		socket.on('new host', (name)=>{
+			notify.info(`${name} is now hosting !`)
+		})
+		socket.on('user joined room', (name)=>{
+			notify.info(`${name} joined room ${gameState.room}!`)
+		})
+		socket.on('user exited room', (name)=>{
+			notify.info(`${name} exited room ${gameState.room}`)
+		})
+		socket.on('host started game', (action) => {
+			notify.info('Game started!')
+			dispatch(action)
+		})
 		socket.emit('room infos')
-		return () => socket.off('room update')
+		return () => {
+			socket.off('room update')
+			socket.off('become host')
+			socket.off('new host')
+			socket.off('host started game')
+			socket.off('user joined room')
+			socket.off('user exited room')
+		}
 	}, [])
 
 	return (
@@ -36,11 +56,11 @@ const Multi = ({ classes, gameState, dispatch }) => {
 					dispatch={dispatch}
 					solo={gameState.playTab && Object.keys(gameState.playTab).length === 1}
 					startGame={startGame}
+					notify={notify}
 				/>
 			: <div>
 					<div
-					className='navigationBar fullWidth flex center alignCenter'
-					style={{height: '30px', backgroundColor: 'red'}}
+					className={`${classes.returnMenuButton} navigationBar fullWidth flex center alignCenter`}
 					onClick={()=>{
 						leaveRoom()
 					}}
@@ -49,9 +69,12 @@ const Multi = ({ classes, gameState, dispatch }) => {
 				</div>
 				<div className="App" style={styles.container}>
 					<p align="center">
-						Waiting for host to start the game
+						{ curUser.gameHost
+							? "Waiting for players"
+							: "Waiting for host to start the game"
+						}
 					</p>
-					<Loader color="navy"/>
+					<Loader color="white"/>
 					<p>Room : {gameState.room}</p>
 					<div>
 						<div className={classes.listUsernameLabel}>
@@ -69,14 +92,16 @@ const Multi = ({ classes, gameState, dispatch }) => {
 							})
 					}
 					</div>
-					{ curUser.gameHost
+					{ curUser.gameHost && gameState.playTab && gameState.playTab.length > 1
 						?	<div
-								className={classes.startButton}
+								className={`flex center alignCenter ${classes.startButton}`}
 								onClick={()=>{startGame()}}
 							>
 								START
 							</div>
-						: null
+						: curUser.gameHost
+							? <p>No opponent yet... Invite your friends or play Solo</p>
+							: null
 					}
 				</div>
 			</div>

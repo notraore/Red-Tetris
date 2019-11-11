@@ -67,6 +67,7 @@ export const joinRoom = (socket, room, action, io) => {
 	console.log('dans join room')
 	socket.join(room, ()=>{
 		socket.emit('room joined', action)
+		io.in(room).emit('user joined room', socket.username)
 		emitUpdateInRoom(io, room, {
 			type: 'ROOM_UPDATE',
 			playerTab: rooms[room].playerTab,
@@ -75,13 +76,17 @@ export const joinRoom = (socket, room, action, io) => {
 	})
 }
    
-export const changeHost = (user, curRoom, id) => {
+export const changeHost = (user, curRoom, index) => {
 	const len = Object.keys(rooms[curRoom].playerTab).length
 	if (user && user.gameHost === true && len > 1)
 	{
-		rooms[curRoom].playerTab[id - 1]
-			? rooms[curRoom].playerTab[id - 1].gameHost = true
-			: rooms[curRoom].playerTab[id + 1].gameHost = true
+		if (rooms[curRoom].playerTab[index - 1]){
+			rooms[curRoom].playerTab[index - 1].gameHost = true
+			return rooms[curRoom].playerTab[index - 1].id
+		} else {
+			rooms[curRoom].playerTab[index + 1].gameHost = true
+			return rooms[curRoom].playerTab[index + 1].id
+		}
 	}
 }
 
@@ -102,10 +107,12 @@ export const leaveRoom = (socket, io, refresh) => {
 	})}
 	if (curRoom) {
 		console.log('ya cur room')
-		rooms[curRoom].playerTab.map((user, id)=>{
+		rooms[curRoom].playerTab.map((user, index)=>{
 			if (user.id === socket.id){
-				changeHost(user, curRoom, id)
-				rooms[curRoom].playerTab.splice(id, 1)
+				var newHostId = changeHost(user, curRoom, index)
+				socket.to(newHostId).emit('become host', {type: 'BECOME_HOST'})
+				socket.to(curRoom).emit('new host', users[newHostId])
+				rooms[curRoom].playerTab.splice(index, 1)
 				socket.leave(curRoom)
 			}
 		})
@@ -114,6 +121,7 @@ export const leaveRoom = (socket, io, refresh) => {
 			type: 'ROOM_UPDATE',
 			playerTab: rooms[curRoom].playerTab,
 		})
+		io.in(curRoom).emit('user exited room', socket.username)
 		sendInfo(socket, 'Exit info', 'You leaved the room.')
 	}
 }

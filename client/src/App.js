@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useReducer } from 'react'
+import React, { useEffect, useState, useReducer, Fragment } from 'react'
 import Menu from './containers/Menu' 
-// import Solo from './components/Game'
 import Multi from './containers/Multi'
 import { socket } from './sockets'
 import { historyPush } from "./history"
 import { gameReducer, initialState } from './reducers/reducer.js'
 import Game from './containers/Game/Game.js'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export const App = props => {
 	const [popupInfo, setPopupInfo] = useState(null)
@@ -42,22 +43,38 @@ export const App = props => {
 	}, [])
 
 	return(
-		gameState.isInGame
+		<Fragment>
+		<ToastContainer
+			position="top-right"
+			autoClose={2500}
+			hideProgressBar={true}
+			newestOnTop={false}
+			closeOnClick={false}
+			rtl={false}
+			pauseOnVisibilityChange
+			draggable={false}
+			pauseOnHover={false}
+		/>
+		{gameState.isInGame
 			? <Multi
 				gameState={gameState}
+				notify={toast}
 				dispatch={updateGameState}
 			/>
 			: gameState.gameStarted
 				? <Game
 					gameState={gameState}
+					notify={toast}
 					dispatch={updateGameState}
 					solo={gameState.nbPlayer === 1}
 				/>
 				: <Menu
 					gameState={gameState}
 					dispatch={updateGameState}
+					notify={toast}
 					popupInfo={popupInfo}
 					disablePopup={disablePopup}
-				/>
+				/>}
+		</Fragment>
 	)
 }

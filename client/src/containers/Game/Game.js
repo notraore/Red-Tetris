@@ -12,7 +12,7 @@ import { checkLine, gameLoop, reset } from './checkFunctions.js'
 import { checkPlayerInputs } from './playerInputs'
 import { isEmpty } from 'lodash'
 
-const Game = ({classes, gameState, dispatch, solo, startGame}) => {
+const Game = ({classes, gameState, dispatch, solo, startGame, notify, curUser}) => {
 	const [counter, increment] = useState(0)
 	const [gameOver, overGame] = useState(false)
 	const [board, updateBoard] = useState(initialBoardState())
@@ -33,30 +33,38 @@ const Game = ({classes, gameState, dispatch, solo, startGame}) => {
 
 	useEffect(() =>{
 		if (gameState.pieces && gameState.pieces[1]) setNext(tab[gameState.pieces[1]])
-		socket.on("user game over", dispatch)
 		socket.on("host restart game", (action)=>{
+			notify.info('Game started!')
 			dispatch(action)
 			resetGame()
 		})
-		socket.on("player win", dispatch)
+		socket.on("player win", (action) => {
+			notify.success(`${ action.winScore.id === socket.id
+				? "You"
+				: action.winScore.winner
+			} win !`)
+			dispatch(action)
+		})
 		if (!solo) {
+			socket.on('return lobby', dispatch)
 			socket.on('receive player shadow', dispatch)
-			socket.on('player game over', dispatch)
+			socket.on("user game over", (name, action) => {
+				notify.info(`${name} finished !`)
+				dispatch(action)
+			})
 		}
 		else socket.on('solo update', dispatch)
 		return () => {
 			socket.off('opponent line block')
 			socket.off('receive player shadow')
-			socket.off('sendRandTetris')
 			socket.off('solo update')
 			socket.off("host restart game")
+			socket.off("player win")
 			socket.off("user game over")
-			socket.off("player game over")
 		}
 	}, []);
 
 	useEffect(()=>{
-		console.log('tmp line del!')
 		if (!gameOver && gameState.gameStarted && gameState.playing) socket.emit('emit board state', board, gameState.room)
 		if (canAddLine === true && tmpLineDel){
 			updateBoard((old)=>{
@@ -73,7 +81,6 @@ const Game = ({classes, gameState, dispatch, solo, startGame}) => {
 	useEffect(() =>{
 		if (JSON.stringify(board) === JSON.stringify(initialBoardState()) && counter === 0 && curTetri.y === 0){
 			socket.on("opponent line block", (num) => {
-				console.log('OPPONENT LINE BLOCK')
 				setTmpLineDel(tmpLineDel + num)
 			})
 		}
@@ -169,6 +176,10 @@ const Game = ({classes, gameState, dispatch, solo, startGame}) => {
 		socket.emit('host restart game', gameState.room)
 	}
 
+	const returnLobby = ()=>{
+		socket.emit('return lobby', gameState.room)
+	}
+
 	const emitLinesToOpponents = (num) => {
 		socket.emit('block opponents line', num, gameState.room)
 	}
@@ -196,7 +207,9 @@ const Game = ({classes, gameState, dispatch, solo, startGame}) => {
 						winHeight={screenY}
 						solo={solo}
 						startGame={startGame}
+						dispatch={dispatch}
 						restartGame={restartGame}
+						returnLobby={returnLobby}
 						/>
 					: <InGameComponent
 						winHeight={screenY}
@@ -213,6 +226,7 @@ const Game = ({classes, gameState, dispatch, solo, startGame}) => {
 						solo={solo}
 						reset={resetGame}
 						dispatch={dispatch}
+						curUser={curUser}
 					/>
 				}
 		</div>

@@ -10,6 +10,7 @@ export const USER_CONNECTED = 'USER_CONNECTED'
 export const PLAYER_WIN = 'PLAYER_WIN'
 export const RETURN_MENU = 'RETURN_MENU'
 export const SOLO_UPDATE = 'SOLO_UPDATE'
+export const BECOME_HOST = 'BECOME_HOST'
 
 export const initialState = {
 	room: null,
@@ -53,6 +54,11 @@ export const gameReducer = (state = initialState, action) => {
 			return {
 				...state,
 				player: action.player
+			}
+		case BECOME_HOST:
+			return {
+				...state,
+				isHost: true
 			}
 		case ROOM_JOINED:
 			return {

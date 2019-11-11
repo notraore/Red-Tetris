@@ -54,6 +54,7 @@ const InGameComponent = ({classes, winHeight, winWidth, dispatch, reset, solo, b
 								</div>
 							}
 						</div>
+						<p>{gameState.player}{gameState.isHost ? ' ♛' : null}</p>
 					</div>
 						<div className={'relative flex column'}>
 							<div style={{fontSize: '30px', fontWeight: 'bold', color: 'pink', marginTop: '20px'}}>Next:</div>
@@ -84,7 +85,7 @@ const InGameComponent = ({classes, winHeight, winWidth, dispatch, reset, solo, b
 							<div className={'flex row center'} style={{marginTop: '10px'}}>
 								{	gameState.playTab && gameState.playTab.map((player, index)=>{
 									if (player && player.id !== gameState.playerId) return <div key={index} className={`relative`} style={{padding: '2px'}}>
-										<div className={classes.finishGameInfo}>{player.username}</div>
+										<div className={classes.finishGameInfo}>{player.username}{player.gameHost ? ' ♛': ''}</div>
 										{
 											player.shadow && player.shadow.map((line, index)=>{
 												return <div style={{display: 'flex'}} key={index}>
