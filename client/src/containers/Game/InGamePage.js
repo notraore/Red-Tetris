@@ -57,6 +57,13 @@ const InGameComponent = ({classes, winHeight, winWidth, dispatch, reset, solo, b
 						<p>{gameState.player}{gameState.isHost ? ' ♛' : null}</p>
 					</div>
 						<div className={'relative flex column'}>
+							{solo
+									? null
+									: <div className={`flex center alignCenter column`} style={{marginTop: '20px'}}>
+									<div style={{fontSize: '30px', fontWeight: 'bold', color: 'pink'}}>Room</div>
+									<p style={{margin: 0, marginTop: '5px'}}>{gameState.room}</p>
+								</div>
+							}
 							<div style={{fontSize: '30px', fontWeight: 'bold', color: 'pink', marginTop: '20px'}}>Next:</div>
 							<div className={'relative'} style={{top: '10px', padding: '10px', left: blockSize/2}}>
 								{
@@ -85,7 +92,7 @@ const InGameComponent = ({classes, winHeight, winWidth, dispatch, reset, solo, b
 							<div className={'flex row center'} style={{marginTop: '10px'}}>
 								{	gameState.playTab && gameState.playTab.map((player, index)=>{
 									if (player && player.id !== gameState.playerId) return <div key={index} className={`relative`} style={{padding: '2px'}}>
-										<div className={classes.finishGameInfo}>{player.username}{player.gameHost ? ' ♛': ''}</div>
+										<div className={classes.finishGameInfo}>{player.username}</div>
 										{
 											player.shadow && player.shadow.map((line, index)=>{
 												return <div style={{display: 'flex'}} key={index}>
@@ -111,6 +118,7 @@ const InGameComponent = ({classes, winHeight, winWidth, dispatch, reset, solo, b
 												<p>Over</p>
 											</div>
 										}
+										{/* {player.gameHost ? ' ♛': ''} */}
 									</div>
 									else return null
 								})}

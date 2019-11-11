@@ -64,7 +64,6 @@ export const emitUpdateInRoom = (io, room, action) => {
 }
    
 export const joinRoom = (socket, room, action, io) => {
-	console.log('dans join room')
 	socket.join(room, ()=>{
 		socket.emit('room joined', action)
 		io.in(room).emit('user joined room', socket.username)
@@ -124,6 +123,10 @@ export const leaveRoom = (socket, io, refresh) => {
 		io.in(curRoom).emit('user exited room', socket.username)
 		sendInfo(socket, 'Exit info', 'You leaved the room.')
 	}
+	Object.keys(rooms).map((room)=>{
+		if (rooms[room] && rooms[room].playerTab && rooms[room].playerTab.length < 1) delete rooms[room]
+		if (rooms[room] && rooms[room].playerTab && rooms[room].playerTab.length === 1) io.in(room).emit('return lobby', {type: 'RETURN_MENU'})
+	})
 }
    
 export const createRoom = (socket, room, res, io) => {
@@ -161,7 +164,7 @@ export const checkRoomAndJoin = (socket, room, res, io) => {
 	var alreadyInRoom = socket.rooms.hasOwnProperty(room)
 	var canJoin = !(typeof players === 'undefined') &&
 			players.length < 5
-	if (canJoin && !alreadyInRoom){
+	if (canJoin && !alreadyInRoom && !rooms[room].gameStarted){
 		console.log(`CONNECTION A LA ROOM "${room}", id:`, socket.id)
 		rooms[room].playerTab.push({id: socket.id, username: users[socket.id], gameHost: false, waiting: true, playing: false})
 		joinRoom(socket, room, {
@@ -175,6 +178,9 @@ export const checkRoomAndJoin = (socket, room, res, io) => {
 	} else {
 		if (alreadyInRoom){
 			canJoin = false
+		} else if (rooms[room].gameStarted) {
+			sendInfo(socket, 'Information',
+			`Game ${room} has already started !`)
 		} else {
 			sendInfo(socket, 'Information',
 			`Room ${room} is not available.`)

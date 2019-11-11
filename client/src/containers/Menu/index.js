@@ -12,6 +12,7 @@ import Title from '../../components/Title.js'
 import {Option} from '../../components/Option.js'
 import {Join, Solo, Create, Settings} from '../../components/MenuSubSection'
 import { socket } from '../../sockets'
+import { changeUsername } from '../../sockets/emits'
 
 const _shuffleColor = (e) => {
   let randNum = _.random(0, 7)
@@ -48,6 +49,11 @@ const Menu = props => {
     }
   }, [])
 
+  const redirect = (room) => {
+    window.location.assign(`#${room}[${gameState.player}]`)
+    window.location.reload()
+  }
+
   return (
     <div className="App flex center alignCenter" style={styles.container}>
       {popupInfo !== null
@@ -70,9 +76,9 @@ const Menu = props => {
           className={`flex center alignCenter column ${classes.chosen}`}
           style={selected > 0 ? {display: 'flex'} : {display: 'none'}}
         >
-          <Join selected={selected}/>
+          <Join selected={selected} redirect={redirect}/>
           <Solo selected={selected}  dispatch={dispatch} pieces={tmpPieces}/>
-          <Create selected={selected}/>
+          <Create selected={selected} redirect={redirect}/>
           <Settings selected={selected}/>
           <p onClick={()=>{select(0)}} className={classes.optionLabel}>
             Return
@@ -114,7 +120,7 @@ const Menu = props => {
                 onKeyDown={(e)=>{
                   if (e.keyCode === 13){
                     if (usernameInput.length <= 10 && usernameInput.length > 0){
-                      socket.emit('set username', usernameInput)
+                      changeUsername(usernameInput)
                       setHover(false)
                     } else alert('Username should be 1 character minimum and 10 characters maximum')
                   }

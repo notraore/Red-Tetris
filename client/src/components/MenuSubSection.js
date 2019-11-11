@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import {styles} from '../styles/Menu-styles.js'
 import { withStyles }  from '@material-ui/styles'
 import { joinRoom } from '../sockets/emits.js'
-import { createRoom } from '../sockets/emits.js'
 import leader from '../datas/leaderboard.json';
 
 const SoloComponent = ({ classes, selected, dispatch, pieces }) => {
@@ -15,7 +14,7 @@ const SoloComponent = ({ classes, selected, dispatch, pieces }) => {
     )
 }
 
-const CreateComponent = ({ classes, selected }) => {
+const CreateComponent = ({ classes, selected, redirect}) => {
     const [roomName, handleChange] = useState('')
 
     return (
@@ -27,7 +26,7 @@ const CreateComponent = ({ classes, selected }) => {
               handleChange(e.target.value)
             }}/>
             <p className={classes.optionLabel} onClick={()=>{
-              if (roomName.length) createRoom(roomName)
+              if (roomName.length) redirect(roomName)
             }}>
               Create
             </p>
@@ -36,7 +35,6 @@ const CreateComponent = ({ classes, selected }) => {
 }
 
 const SettingsComponent = ({ selected }) => {
-    // const [leadData, setLeadData] = useState([]);
     return (
         <div className={`flex center alignCenter column`} style={selected === 4 ? {display: 'flex'} : {display: 'none'}}>
             <p>Leaderboard:</p>
@@ -50,7 +48,7 @@ const SettingsComponent = ({ selected }) => {
     )
 }
 
-const JoinComponent = ({ classes, selected }) => {
+const JoinComponent = ({ classes, selected, redirect }) => {
     const [roomName, handleChange] = useState('')
 
     return (
@@ -62,7 +60,7 @@ const JoinComponent = ({ classes, selected }) => {
               handleChange(e.target.value)
             }}/>
             <p className={classes.optionLabel} onClick={()=>{
-              if (roomName.length) joinRoom(roomName)
+              if (roomName.length) redirect(roomName)
             }}>
               Join
             </p>

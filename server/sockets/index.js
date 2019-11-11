@@ -13,6 +13,7 @@ export const useSockets = (io) => {
 	io.on('connection', (socket)=>{
 				
 		console.log("\x1b[32m", `${socket.id} connected`)
+		console.log(rooms)
 
 		if (!users.hasOwnProperty(socket.id)){
 			setDefaultUsername(socket)
@@ -47,26 +48,6 @@ export const useSockets = (io) => {
 			})
 		})
 
-		socket.on('host restart game', (room) => {
-			rooms[room].gameStarted = true
-			rooms[room].playerTab.map((player)=>{
-				player.waiting = false
-				player.playing = true
-				player.win = false
-			})
-			refillTetriList(room, 2)
-			io.in(room).emit('host restart game',
-				{
-					type: 'START_GAME',
-					nbPlayer: Object.keys(rooms[room].playerTab).length,
-					playerTab: rooms[room].playerTab,
-					gameStarted: true,
-					winScore: null,
-					pieces: rooms[room].pieces
-				}
-			)
-		})
-
 		socket.on('start game', (room)=>{
 			rooms[room].gameStarted = true
 			rooms[room].playerTab.map((player)=>{
@@ -74,6 +55,7 @@ export const useSockets = (io) => {
 				player.playing = true
 				player.win = false
 			})
+			refillTetriList(room, 2)
 			io.in(room).emit('host started game',
 				{
 					type: 'START_GAME',
@@ -156,7 +138,12 @@ export const useSockets = (io) => {
 		})
 
 		socket.on('return lobby', (room) => {
+			rooms[room].gameStarted = false
 			io.in(room).emit('return lobby', {type: 'RETURN_MENU'})
+		})
+
+		socket.on('room exist', (name, func) => {
+			func(rooms.hasOwnProperty(name))
 		})
 
 		socket.on('leave room', () => {

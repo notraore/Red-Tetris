@@ -33,11 +33,6 @@ const Game = ({classes, gameState, dispatch, solo, startGame, notify, curUser}) 
 
 	useEffect(() =>{
 		if (gameState.pieces && gameState.pieces[1]) setNext(tab[gameState.pieces[1]])
-		socket.on("host restart game", (action)=>{
-			notify.info('Game started!')
-			dispatch(action)
-			resetGame()
-		})
 		socket.on("player win", (action) => {
 			notify.success(`${ action.winScore.id === socket.id
 				? "You"
@@ -58,7 +53,6 @@ const Game = ({classes, gameState, dispatch, solo, startGame, notify, curUser}) 
 			socket.off('opponent line block')
 			socket.off('receive player shadow')
 			socket.off('solo update')
-			socket.off("host restart game")
 			socket.off("player win")
 			socket.off("user game over")
 		}
@@ -172,10 +166,6 @@ const Game = ({classes, gameState, dispatch, solo, startGame, notify, curUser}) 
 		});
 	}
 
-	const restartGame = ()=>{
-		socket.emit('host restart game', gameState.room)
-	}
-
 	const returnLobby = ()=>{
 		socket.emit('return lobby', gameState.room)
 	}
@@ -208,7 +198,6 @@ const Game = ({classes, gameState, dispatch, solo, startGame, notify, curUser}) 
 						solo={solo}
 						startGame={startGame}
 						dispatch={dispatch}
-						restartGame={restartGame}
 						returnLobby={returnLobby}
 						/>
 					: <InGameComponent

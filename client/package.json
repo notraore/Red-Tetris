@@ -7,6 +7,7 @@
     "gridlex": "^2.7.1",
     "history": "^4.10.1",
     "identity-obj-proxy": "^3.0.0",
+    "ramda": "^0.26.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-dots-loader": "^1.1.4",
