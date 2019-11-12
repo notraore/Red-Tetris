@@ -104,7 +104,6 @@ const Game = ({classes, gameState, dispatch, solo, startGame, notify, curUser, c
 	}
 
 	const setGameLoop = useCallback((speed) => {
-		console.log('setgameloop canmove: ', canMove)
 		if (keyDown.current && keyDown.current.keyCode === 32) speed = 15
 		return setInterval(() => {
 			gameLoop(moveTetri, canFit, setCanMove, keyDown,

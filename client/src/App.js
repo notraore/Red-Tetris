@@ -19,6 +19,9 @@ export const App = props => {
 	}
 
 	const setListenners = () => {
+		socket.io.on('connect_error', function(err) {
+			toast.error('Socket connexion lose. Please refresh page')
+		})
 		socket.on('get user infos', dispatch)
 		socket.on('user connected', dispatch)
 		socket.on('user disconnected', dispatch)

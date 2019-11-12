@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import {styles} from '../styles/Menu-styles.js'
 import { withStyles }  from '@material-ui/styles'
-import { joinRoom } from '../sockets/emits.js'
 import leader from '../datas/leaderboard.json';
 
 const SoloComponent = ({ classes, selected, dispatch, pieces }) => {

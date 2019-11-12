@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { users, rooms, setDefaultUsername, getUserInfos,
 leaveRoom, createRoom, checkRoomAndJoin, refillTetriList, getRandTetris } from './socket-functions'
+import { sendInfo } from '../utils'
 
 const stillPlaying = (room) =>{
 	for (var id in rooms[room].playerTab){
@@ -13,7 +14,6 @@ export const useSockets = (io) => {
 	io.on('connection', (socket)=>{
 				
 		console.log("\x1b[32m", `${socket.id} connected`)
-		console.log(rooms)
 
 		if (!users.hasOwnProperty(socket.id)){
 			setDefaultUsername(socket)
@@ -31,7 +31,6 @@ export const useSockets = (io) => {
 		})
 
 		socket.on('user game over', (room, score)=>{
-			console.log('user game over')
 			rooms[room].playerTab.map((player)=>{
 				if (player.id === socket.id){
 					player.waiting = true
@@ -39,7 +38,6 @@ export const useSockets = (io) => {
 					socket.to(room).emit('user game over', player.username, {type: 'END_GAME', playerTab: rooms[room].playerTab})
 					io.in(room).emit('player game over', {type: 'ROOM_UPDATE', playerTab: rooms[room].playerTab})
 					if (!stillPlaying(room)){
-						console.log('user win')
 						player.win = true
 						io.in(room).emit('player win', {type: 'PLAYER_WIN', playerTab: rooms[room].playerTab, winScore: {winner: player.username, id: player.id, score: score}})
 						rooms[room].pieces = null
@@ -84,7 +82,6 @@ export const useSockets = (io) => {
 
 		socket.on('add pieces', (room) => {
 			if (room) {
-				console.log('ya room')
 				refillTetriList(room, 1)
 				io.in(room).emit('room update', {
 					type: 'ROOM_UPDATE',
@@ -125,16 +122,12 @@ export const useSockets = (io) => {
 			})
 		})
 
-		socket.on('join room', (room, res) => {
-			checkRoomAndJoin(socket, room, res, io)
+		socket.on('join room', (room) => {
+			checkRoomAndJoin(socket, room, io)
 		})
 
-		socket.on('is in room', (roomName, res) => {
-			res(socket.rooms.hasOwnProperty(roomName), roomName)
-		})
-
-		socket.on('create room', (room, res) => {
-			createRoom(socket, room, res, io)
+		socket.on('create room', (room) => {
+			createRoom(socket, room, io)
 		})
 
 		socket.on('return lobby', (room) => {

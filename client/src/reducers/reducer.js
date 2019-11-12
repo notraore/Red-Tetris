@@ -64,7 +64,6 @@ export const gameReducer = (state = initialState, action) => {
 			return {
 				...state,
 				room: action.room,
-				playing: action.playing,
 				isInGame: true,
 				isHost: action.isHost,
 				playTab: action.playerTab,
@@ -95,7 +94,6 @@ export const gameReducer = (state = initialState, action) => {
 				pieces: action.pieces ? action.pieces : state.pieces,
 			}
 		case START_GAME:
-		console.log('start game')
 			return {
 				...state,
 				endOfGame: false,

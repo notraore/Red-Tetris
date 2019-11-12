@@ -130,7 +130,7 @@ export const leaveRoom = (socket, io, refresh) => {
 	})
 }
    
-export const createRoom = (socket, room, res, io) => {
+export const createRoom = (socket, room, io) => {
 	var players = getUsersInRoom(io, room)
 	var canCreateRoom = typeof players === 'undefined' ||
 	players.length === 0
@@ -157,10 +157,9 @@ export const createRoom = (socket, room, res, io) => {
 	} else {
 		sendInfo(socket, 'Information', `Room "${room}" already exists.`)
 	}
-	res(canCreateRoom, room)
 }
    
-export const checkRoomAndJoin = (socket, room, res, io) => {
+export const checkRoomAndJoin = (socket, room, io) => {
 	var players = getUsersInRoom(io, room)
 	var alreadyInRoom = socket.rooms.hasOwnProperty(room)
 	var canJoin = !(typeof players === 'undefined') &&
@@ -187,5 +186,4 @@ export const checkRoomAndJoin = (socket, room, res, io) => {
 			`Room ${room} is not available.`)
 		}
 	}
-	res(canJoin, room)
 }
