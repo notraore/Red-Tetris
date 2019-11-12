@@ -41,9 +41,6 @@ const Popup = ({classes, users, close, playerId}) => {
     return (
         <div style={{zIndex: 100}} className={`${classes.back} fullHeight absolute fullWidth flex center alignCenter`}>
             <div style={{padding: '10px'}} className={`flex center column  alignCenter ${classes.container}`}>
-                {/* <div className={classes.title}>
-                  Users Online
-                </div> */}
                 <div style={{minHeight: '100px', width: '200px'}} className={classes.description}>
 									{users
 										? Object.values(users).map((username, id)=>{

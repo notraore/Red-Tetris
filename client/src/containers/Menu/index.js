@@ -19,9 +19,7 @@ const _shuffleColor = (e) => {
   if (colorArray[randNum] === e.target.style.background){
     randNum = randNum === 7 ? 0 : randNum += 1
   }
-  if (!e.target.className.includes('optionLabel')){
-    e.target.style.background = colorArray[randNum]
-  }
+  e.target.style.background = colorArray[randNum]
 }
 
 const Menu = props => {
@@ -94,7 +92,7 @@ const Menu = props => {
             <Option selected={selected} name='Create' select={select} num={3} shuffle={_shuffleColor} />
           </div>
           <div className={`flex center ${classes.optionsContainer}`}>
-            <Option selected={selected} name='Score' select={select} num={4} shuffle={_shuffleColor} />
+            <Option selected={selected} name='Credits' select={select} num={4} shuffle={_shuffleColor} />
           </div>
         </div>
         <div
@@ -142,7 +140,7 @@ const Menu = props => {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default withStyles(styles)(Menu)

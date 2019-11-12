@@ -1,6 +1,5 @@
 @keyframes animate {
     50% {
-        /* letter-spacing: 2px; */
         text-shadow: 0 0 25px #FFFFFF;
     }
   }

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import {styles} from '../styles/Menu-styles.js'
 import { withStyles }  from '@material-ui/styles'
-import leader from '../datas/leaderboard.json';
 
 const SoloComponent = ({ classes, selected, dispatch, pieces }) => {
     return (
@@ -21,9 +20,19 @@ const CreateComponent = ({ classes, selected, redirect}) => {
             <p>
               Enter a new room name
             </p>
-            <input className={`${classes.input}`} onChange={(e)=>{
-              handleChange(e.target.value)
-            }}/>
+            <input
+              className={`${classes.input}`}
+              onChange={(e)=>{
+                handleChange(e.target.value)
+              }}
+              onKeyDown={(e)=>{
+                if (e.keyCode === 13){
+                  if (roomName.length){
+                    redirect(roomName)
+                  } else alert('RoomName should be 1 character minimum')
+                }
+              }}
+            />
             <p className={classes.optionLabel} onClick={()=>{
               if (roomName.length) redirect(roomName)
             }}>
@@ -36,13 +45,7 @@ const CreateComponent = ({ classes, selected, redirect}) => {
 const SettingsComponent = ({ selected }) => {
     return (
         <div className={`flex center alignCenter column`} style={selected === 4 ? {display: 'flex'} : {display: 'none'}}>
-            <p>Leaderboard:</p>
-            {leader.map((leaderTab, id) => {
-              return (
-              <div key={id}>
-                <p>Tableau sans TR ici </p>
-              </div>)
-            })}
+            <p>Jorobin & Notraore</p>
         </div>
     )
 }
@@ -55,9 +58,19 @@ const JoinComponent = ({ classes, selected, redirect }) => {
             <p>
               Enter existing room name
             </p>
-            <input className={`${classes.input}`} onChange={(e)=>{
-              handleChange(e.target.value)
-            }}/>
+            <input
+              className={`${classes.input}`}
+              onChange={(e)=>{
+                handleChange(e.target.value)
+              }}
+              onKeyDown={(e)=>{
+                if (e.keyCode === 13){
+                  if (roomName.length){
+                    redirect(roomName)
+                  }
+                }
+              }}
+            />
             <p className={classes.optionLabel} onClick={()=>{
               if (roomName.length) redirect(roomName)
             }}>

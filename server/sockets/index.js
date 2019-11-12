@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import { users, rooms, setDefaultUsername, getUserInfos,
 leaveRoom, createRoom, checkRoomAndJoin, refillTetriList, getRandTetris } from './socket-functions'
-import { sendInfo } from '../utils'
 
 const stillPlaying = (room) =>{
 	for (var id in rooms[room].playerTab){
@@ -110,6 +109,7 @@ export const useSockets = (io) => {
 				player: socket.username
 			})
 			users[socket.id] = socket.username
+			io.emit('user connected', {type: 'USER_CONNECTED', onlineUsers: users})
 		})
 
 		socket.on('room infos', () => {

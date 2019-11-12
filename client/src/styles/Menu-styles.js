@@ -127,6 +127,7 @@ export const styles = ({
       fontSize: '27px',
       fontWeight: 'bold',
       cursor: 'pointer',
+      backgroundColor: 'transparent !important',
       '&:hover': {
         textShadow: '0 0 10px #FFFFFF',
       }

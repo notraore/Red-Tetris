@@ -4,13 +4,16 @@ import _ from 'lodash'
 export var users = {}
 export var rooms = {}
 export var nameTab = [
-	'Titi',
-	'Bidule',
-	'Machin',
-	'Truc',
-	'Minuche',
-	'Wele',
-	'Caca'
+	'Bilbo',
+	'Frodo',
+	'Woody',
+	'Scooby',
+	'Banana',
+	'Coconut',
+	'Zelda',
+	'Link',
+	'Zorg',
+	'Player',
 ]
 
 export const getAllRooms = (io) => {
