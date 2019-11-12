@@ -2,9 +2,7 @@ import React, { useEffect, useState, useReducer, Fragment } from 'react'
 import Menu from './containers/Menu' 
 import Multi from './containers/Multi'
 import { socket } from './sockets'
-import { historyPush} from "./history"
 import { gameReducer, initialState } from './reducers/reducer.js'
-import Game from './containers/Game/Game.js'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -26,7 +24,6 @@ export const App = props => {
 		socket.on('user disconnected', dispatch)
 		socket.on('get online users', dispatch)
 		socket.on('room joined', (data)=>{
-			// historyPush(`${data.room}[${data.player}]`)
 			dispatch(data)
 		})
 		socket.on('room leaved', dispatch)
@@ -57,7 +54,7 @@ export const App = props => {
 		/>
 		{gameState.isInGame
 			? <Multi
-				solo={(gameState.playTab && Object.keys(gameState.playTab).length === 1 )|| gameState.nbPlayer === 1}
+				solo={gameState.nbPlayer === 1}
 				gameState={gameState}
 				notify={toast}
 				dispatch={updateGameState}

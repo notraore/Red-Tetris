@@ -105,7 +105,6 @@ export const leaveRoom = (socket, io, refresh) => {
 		}
 	})}
 	if (curRoom) {
-		console.log('ya cur room')
 		rooms[curRoom].playerTab.map((user, index)=>{
 			if (user.id === socket.id){
 				var newHostId = changeHost(user, curRoom, index)
