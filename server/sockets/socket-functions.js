@@ -108,8 +108,10 @@ export const leaveRoom = (socket, io, refresh) => {
 		rooms[curRoom].playerTab.map((user, index)=>{
 			if (user.id === socket.id){
 				var newHostId = changeHost(user, curRoom, index)
-				socket.to(newHostId).emit('become host', {type: 'BECOME_HOST'})
-				socket.to(curRoom).emit('new host', users[newHostId])
+				if (user.gameHost === true) {
+					socket.to(newHostId).emit('become host', {type: 'BECOME_HOST'})
+					socket.to(curRoom).emit('new host', users[newHostId])
+				}
 				rooms[curRoom].playerTab.splice(index, 1)
 				socket.leave(curRoom)
 			}
