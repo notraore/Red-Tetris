@@ -7,7 +7,7 @@ import { socket } from '../../sockets'
 import { withStyles } from '@material-ui/styles'
 import Game from '../Game/Game.js'
 
-const Multi = ({ classes, gameState, dispatch, notify }) => {
+const Multi = ({ classes, gameState, dispatch, notify, solo }) => {
 	const [chatInput, setChatInput] = useState('')
 
 	var userId = gameState.playerId
@@ -27,7 +27,7 @@ const Multi = ({ classes, gameState, dispatch, notify }) => {
 		sendMessage(gameState.room, message)
 	}
 
-	useEffect(()=> {
+	const setSockets = () => {
 		socket.on('room update', dispatch)
 		socket.on('become host', dispatch)
 		socket.on('new message', (data)=>{
@@ -47,13 +47,21 @@ const Multi = ({ classes, gameState, dispatch, notify }) => {
 			dispatch(action)
 		})
 		socket.emit('room infos')
+	}
+
+	const unsetSockets = () => {
+		socket.off('room update')
+		socket.off('become host')
+		socket.off('new host')
+		socket.off('host started game')
+		socket.off('user joined room')
+		socket.off('user exited room')
+	}
+
+	useEffect(()=> {
+	if (!solo) setSockets()
 		return () => {
-			socket.off('room update')
-			socket.off('become host')
-			socket.off('new host')
-			socket.off('host started game')
-			socket.off('user joined room')
-			socket.off('user exited room')
+			if (!solo) unsetSockets()
 		}
 	}, [])
 
@@ -63,7 +71,7 @@ const Multi = ({ classes, gameState, dispatch, notify }) => {
 			? <Game
 					gameState={gameState}
 					dispatch={dispatch}
-					solo={gameState.playTab && Object.keys(gameState.playTab).length === 1}
+					solo={solo}
 					startGame={startGame}
 					notify={notify}
 					chat={chat}
@@ -116,7 +124,7 @@ const Multi = ({ classes, gameState, dispatch, notify }) => {
 							: null
 					}
 					{gameState.playTab && gameState.playTab.length > 1
-						?	<div clasName={``} style={{width: '80%', maxWidth: '400px', marginTop: '10px'}}>
+						?	<div className={``} style={{width: '80%', maxWidth: '400px', marginTop: '10px'}}>
 							<p className={classes.chatLabel}>
 								Say Something ↴
 							</p>

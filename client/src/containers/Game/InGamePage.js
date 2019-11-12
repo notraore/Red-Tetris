@@ -56,7 +56,7 @@ const InGameComponent = ({classes, chat, chatInput, setChatInput, winHeight, win
 						</div>
 						<p>{gameState.player}{gameState.isHost ? ' ♛' : null}</p>
 					</div>
-						<div className={'relative flex column alignCenter'}>
+						<div className={'relative flex column alignCenter fullWidth'}>
 							{solo
 									? null
 									: <div className={`flex center alignCenter column`} style={{marginTop: '20px'}}>
@@ -120,33 +120,12 @@ const InGameComponent = ({classes, chat, chatInput, setChatInput, winHeight, win
 												<p>Over</p>
 											</div>
 										}
-										{/* {player.gameHost ? ' ♛': ''} */}
 									</div>
 									else return null
 								})}
 							</div>
-							<div clasName={`flex row center`} style={{width: '100%', marginTop: '10px'}}>
-								<p className={classes.chatLabel}>
-									Chat ↴
-								</p>
-								<input
-									id='chatInput'
-									className={`fullWidth ${classes.input}`}
-									style={{width: '80%'}}
-									value={chatInput}
-									onKeyDown={(e)=>{
-										if (e.keyCode === 13){
-											if (chatInput.length > 0){
-												chat(chatInput)
-												setChatInput('')
-											}
-										}
-									}}
-									onChange={(e)=>{setChatInput(e.target.value)}}
-								/>
-							</div>
 							{solo
-								? <div className='flex column'>
+								? <div className='flex column' style={{width: '80%'}}>
 									<div
 										className={classes.button}
 										onClick={()=>{reset()}}
@@ -160,7 +139,26 @@ const InGameComponent = ({classes, chat, chatInput, setChatInput, winHeight, win
 									Quit Game
 								</div>
 								</div>
-								: null
+								: <div style={{width: '100%', marginTop: '10px'}}>
+									<p className={classes.chatLabel}>
+										Chat ↴
+									</p>
+									<input
+										id='chatInput'
+										className={`fullWidth ${classes.input}`}
+										style={{width: '80%'}}
+										value={chatInput}
+										onKeyDown={(e)=>{
+											if (e.keyCode === 13){
+												if (chatInput.length > 0){
+													chat(chatInput)
+													setChatInput('')
+												}
+											}
+										}}
+										onChange={(e)=>{setChatInput(e.target.value)}}
+									/>
+								</div>
 							}
 						</div>
 				</div>

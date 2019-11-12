@@ -36,6 +36,7 @@ export const GameStyle = () => ({
         fontWeight: 'bold',
         color: 'white',
         padding: '10px',
+        cursor: 'pointer',
         '&:hover': {
             color: 'salmon'
         }
@@ -66,6 +67,7 @@ export const GameStyle = () => ({
         border: '1px solid pink'
     },
     button: {
+        width: '100%',
         fontSize: '20px',
         color: 'white',
         backgroundColor: 'pink',
@@ -74,6 +76,7 @@ export const GameStyle = () => ({
         padding: '10px 0px',
         cursor: 'pointer',
         margin: 5,
+        marginLeft: 0,
         '&:hover': {
             backgroundColor: 'inherit',
             color: 'pink'

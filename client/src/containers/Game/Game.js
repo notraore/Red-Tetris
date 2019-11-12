@@ -10,7 +10,6 @@ import { socket } from '../../sockets';
 import { styles } from '../../styles/Menu-styles.js'
 import { checkLine, gameLoop, reset } from './checkFunctions.js'
 import { checkPlayerInputs } from './playerInputs'
-import { isEmpty } from 'lodash'
 
 const Game = ({classes, gameState, dispatch, solo, startGame, notify, curUser, chat, chatInput, setChatInput}) => {
 	const [counter, increment] = useState(0)
@@ -127,7 +126,9 @@ const Game = ({classes, gameState, dispatch, solo, startGame, notify, curUser, c
 			clearInterval(refInterval.current)
 			refInterval.current = setGameLoop(dropTime)
 		}
-		if (keyDown.current !== 32) keyDown.current = null
+		if (event.keyCode === 38 || event.keyCode === 40){
+			keyDown.current = null
+		}
 	}
 
 	const removeListener = () => {

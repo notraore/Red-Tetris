@@ -95,11 +95,13 @@ export const gameReducer = (state = initialState, action) => {
 				pieces: action.pieces ? action.pieces : state.pieces,
 			}
 		case START_GAME:
+		console.log('start game')
 			return {
 				...state,
 				endOfGame: false,
 				gameStarted: true,
 				playing: true,
+				isInGame: true,
 				pieces: action.pieces,
 				winScore: action.winScore,
 				playTab: action.playerTab,

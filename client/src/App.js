@@ -57,24 +57,19 @@ export const App = props => {
 		/>
 		{gameState.isInGame
 			? <Multi
+				solo={(gameState.playTab && Object.keys(gameState.playTab).length === 1 )|| gameState.nbPlayer === 1}
 				gameState={gameState}
 				notify={toast}
 				dispatch={updateGameState}
 			/>
-			: gameState.gameStarted
-				? <Game
-					gameState={gameState}
-					notify={toast}
-					dispatch={updateGameState}
-					solo={gameState.nbPlayer === 1}
-				/>
-				: <Menu
+			: <Menu
 					gameState={gameState}
 					dispatch={updateGameState}
 					notify={toast}
 					popupInfo={popupInfo}
 					disablePopup={disablePopup}
-				/>}
+				/>
+		}
 		</Fragment>
 	)
 }

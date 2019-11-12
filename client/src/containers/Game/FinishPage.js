@@ -85,7 +85,7 @@ const FinishComponent = ({classes, chat, chatInput, setChatInput, level, score, 
 			}
 			{solo
 				? null
-				: <div clasName={`flex row center`} style={{width: '100%', marginTop: '10px'}}>
+				: <div style={{width: '100%', marginTop: '10px'}}>
 					<p className={classes.chatLabel}>
 						Chat ↴
 					</p>
