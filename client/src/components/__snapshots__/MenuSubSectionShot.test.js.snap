@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MenuSubSection SnapShot test CreateComponent Match SnapShot 1`] = `
+<div
+  className="flex center alignCenter column"
+  style={
+    Object {
+      "display": "none",
+    }
+  }
+>
+  <p>
+    Enter a new room name
+  </p>
+  <input
+    className="undefined"
+    onChange={[Function]}
+    onKeyDown={[Function]}
+  />
+  <p
+    onClick={[Function]}
+  >
+    Create
+  </p>
+</div>
+`;
+
+exports[`MenuSubSection SnapShot test Join Match SnapShot 1`] = `
+<div
+  className="flex center alignCenter column"
+  style={
+    Object {
+      "display": "none",
+    }
+  }
+>
+  <p>
+    Enter existing room name
+  </p>
+  <input
+    className="undefined"
+    onChange={[Function]}
+    onKeyDown={[Function]}
+  />
+  <p
+    onClick={[Function]}
+  >
+    Join
+  </p>
+</div>
+`;
+
+exports[`MenuSubSection SnapShot test SettingsComponent Match SnapShot 1`] = `
+<div
+  className="flex center alignCenter column"
+  style={
+    Object {
+      "display": "none",
+    }
+  }
+>
+  <p>
+    Jorobin & Notraore
+  </p>
+</div>
+`;
+
+exports[`MenuSubSection SnapShot test SoloComponent Match SnapShot 1`] = `
+<div
+  className="flex center alignCenter column"
+  style={
+    Object {
+      "display": "none",
+    }
+  }
+>
+  <p
+    onClick={[Function]}
+  >
+    Start
+  </p>
+</div>
+`;

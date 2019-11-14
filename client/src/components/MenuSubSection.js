@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {styles} from '../styles/Menu-styles.js'
 import { withStyles }  from '@material-ui/styles'
 
-const SoloComponent = ({ classes, selected, dispatch, pieces }) => {
+export const SoloComponent = ({ classes, selected, dispatch, pieces }) => {
     return (
         <div className={`flex center alignCenter column`} style={selected === 1 ? {display: 'flex'} : {display: 'none'}}>
             <p className={classes.optionLabel} onClick={()=>{dispatch({type: 'START_GAME', nbPlayer: 1, pieces: pieces})}}>
@@ -12,7 +12,7 @@ const SoloComponent = ({ classes, selected, dispatch, pieces }) => {
     )
 }
 
-const CreateComponent = ({ classes, selected, redirect}) => {
+export const CreateComponent = ({ classes, selected, redirect}) => {
     const [roomName, handleChange] = useState('')
 
     return (
@@ -42,7 +42,7 @@ const CreateComponent = ({ classes, selected, redirect}) => {
     )
 }
 
-const SettingsComponent = ({ selected }) => {
+export const SettingsComponent = ({ selected }) => {
     return (
         <div className={`flex center alignCenter column`} style={selected === 4 ? {display: 'flex'} : {display: 'none'}}>
             <p>Jorobin & Notraore</p>
@@ -50,7 +50,7 @@ const SettingsComponent = ({ selected }) => {
     )
 }
 
-const JoinComponent = ({ classes, selected, redirect }) => {
+export const JoinComponent = ({ classes, selected, redirect }) => {
     const [roomName, handleChange] = useState('')
 
     return (

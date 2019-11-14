@@ -11,6 +11,7 @@ import {styles, colorArray} from '../../styles/Menu-styles.js'
 import Title from '../../components/Title.js'
 import {Option} from '../../components/Option.js'
 import {Join, Solo, Create, Settings} from '../../components/MenuSubSection'
+
 import { socket } from '../../sockets'
 import { changeUsername } from '../../sockets/emits'
 
@@ -22,7 +23,7 @@ const _shuffleColor = (e) => {
   e.target.style.background = colorArray[randNum]
 }
 
-const Menu = props => {
+export const Menu = props => {
   const {
     classes,
     popupInfo,
