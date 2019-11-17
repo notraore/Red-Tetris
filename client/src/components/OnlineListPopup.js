@@ -1,7 +1,7 @@
 import React from 'react'
 import { withStyles }  from '@material-ui/styles'
 
-const styles = () => ({
+export const styles = () => ({
     back:{
         backgroundColor: 'rgba(33,35,46,0.8)'
     },
@@ -35,9 +35,9 @@ const styles = () => ({
         color: 'white',
         marginTop: 10
     }
-})
+});
 
-const Popup = ({classes, users, close, playerId}) => {
+export const Popup = ({classes, users, close, playerId}) => {
     return (
         <div style={{zIndex: 100}} className={`${classes.back} fullHeight absolute fullWidth flex center alignCenter`}>
             <div style={{padding: '10px'}} className={`flex center column  alignCenter ${classes.container}`}>

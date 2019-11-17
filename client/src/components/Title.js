@@ -3,7 +3,7 @@ import tetrimino from '../assets/blue-tetrimino.png'
 import {styles} from '../styles/Menu-styles.js'
 import { withStyles }  from '@material-ui/styles'
 
-const Title = (props) => {
+export const Title = (props) => {
   const { classes } = props
   return (
         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>

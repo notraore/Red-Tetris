@@ -1,4 +1,5 @@
-const blockSize = 40
+const blockSize = 40;
+
 export const GameStyle = () => ({
     gameInfo: {
         margin: '10px 0px',

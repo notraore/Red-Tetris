@@ -2,10 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
-import { colorTab } from './Block.js'
-import { blockStyle } from './Block.js'
-import { shadowBlockStyle } from './Block.js'
-import { Block } from './Block.js'
+import { colorTab } from '../Block.js'
+import { blockStyle } from '../Block.js'
+import { shadowBlockStyle } from '../Block.js'
+import { Block } from '../Block.js'
 
 describe('Game propriety 100%', () => {
 	test("Color tab contains colors", () => {

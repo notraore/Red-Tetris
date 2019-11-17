@@ -3,11 +3,11 @@ import { shallow } from 'enzyme';
 import styled from 'styled-components';
 import renderer from 'react-test-renderer';
 
-import { SoloComponent } from './MenuSubSection.js'
-import { JoinComponent } from './MenuSubSection.js'
-import { CreateComponent } from './MenuSubSection.js'
-import { SettingsComponent } from './MenuSubSection.js'
-import { GameStyle } from '../styles/Game-style.js'
+import { SoloComponent } from '../MenuSubSection.js'
+import { JoinComponent } from '../MenuSubSection.js'
+import { CreateComponent } from '../MenuSubSection.js'
+import { SettingsComponent } from '../MenuSubSection.js'
+import { GameStyle } from '../../styles/Game-style.js'
 
 
 describe("MenuSubSection SnapShot test",() => {
@@ -28,3 +28,4 @@ describe("MenuSubSection SnapShot test",() => {
 		expect(blockCmp).toMatchSnapshot();
 	});
 });
+
