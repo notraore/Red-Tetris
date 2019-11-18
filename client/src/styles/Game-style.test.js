@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
 import { GameStyle } from './Game-style.js';
+import { blockSize } from './Game-style.js';
 
 
 describe('Game style is well initialized', () => {
@@ -50,6 +51,8 @@ describe('Game style is well initialized', () => {
 		expect(infoTmp.input.fontFamily).to.equal('Orbitron, sans-serif');
 
 		expect(infoTmp.blockStyle.backgroundColor).to.equal("pink");
+		expect(infoTmp.blockStyle.width).to.equal(`${blockSize}px`);
+		expect(infoTmp.blockStyle.height).to.equal(`${blockSize}px`);
 		expect(infoTmp.blockStyle.border).to.equal("1px solid pink");
 
 		expect(infoTmp.button.width).to.equal("100%");

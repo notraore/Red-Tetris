@@ -1,4 +1,4 @@
-const blockSize = 40;
+export const blockSize = 40;
 
 export const GameStyle = () => ({
 gameInfo: {
