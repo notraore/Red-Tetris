@@ -49,9 +49,19 @@ describe('Game style is well initialized', () => {
 		expect(infoTmp.input.color).to.equal("white");
 		expect(infoTmp.input.fontFamily).to.equal('Orbitron, sans-serif');
 
-		expect(infoTmp.blockStyle.cursor).to.equal("pointer");
+		expect(infoTmp.blockStyle.backgroundColor).to.equal("pink");
+		expect(infoTmp.blockStyle.border).to.equal("1px solid pink");
 
-
+		expect(infoTmp.button.width).to.equal("100%");
+		expect(infoTmp.button.fontSize).to.equal("20px");
+		expect(infoTmp.button.color).to.equal("white");
+		expect(infoTmp.button.backgroundColor).to.equal("pink");
+		expect(infoTmp.button.border).to.equal("2px solid pink");
+		expect(infoTmp.button.borderRadius).to.equal("10px");
+		expect(infoTmp.button.padding).to.equal("10px 0px");
+		expect(infoTmp.button.cursor).to.equal("pointer");
+		expect(infoTmp.button.margin).to.equal(5);
+		expect(infoTmp.button.marginLeft).to.equal(0);
 
 	});
 });
