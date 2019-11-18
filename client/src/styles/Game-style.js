@@ -1,30 +1,30 @@
 const blockSize = 40;
 
 export const GameStyle = () => ({
-    gameInfo: {
-        margin: '10px 0px',
-        alignItem: 'center',
-        // fontWeight: 'bold',
-        fontSize: '20px',
-        color: 'pink',
-        border: '2px solid pink',
-        borderRadius: '10px',
-        padding: '5px 0px',
-        width: '80%'
-		},
-		finishGameTitle: {
-			fontSize: '30px',
-			color: 'white',
-			fontWeight: 'bold',
-			padding: '5px 0px',
-			fontFamily: 'Orbitron, sans-serif',
-		},
-		finishGameInfo: {
-			fontSize: '20px',
-			color: 'white',
-			padding: '5px 0px',
-			fontFamily: 'Orbitron, sans-serif',
-		},
+gameInfo: {
+    margin: '10px 0px',
+    alignItem: 'center',
+    // fontWeight: 'bold',
+    fontSize: '20px',
+    color: 'pink',
+    border: '2px solid pink',
+    borderRadius: '10px',
+    padding: '5px 0px',
+    width: '80%'
+	},
+	finishGameTitle: {
+		fontSize: '30px',
+		color: 'white',
+		fontWeight: 'bold',
+		padding: '5px 0px',
+		fontFamily: 'Orbitron, sans-serif',
+	},
+	finishGameInfo: {
+		fontSize: '20px',
+		color: 'white',
+		padding: '5px 0px',
+		fontFamily: 'Orbitron, sans-serif',
+	},
     gameOverContainer: {
         minHeight: '600px',
         padding: '20px 0px',
