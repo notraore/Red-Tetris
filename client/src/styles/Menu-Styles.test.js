@@ -4,9 +4,8 @@ import { expect } from 'chai';
 
 import { colorArray } from './Menu-styles.js';
 import { styles } from './Menu-styles.js';
-import _ from 'lodash'
 
-describe("", () => {
+describe("Menu Color array test", () => {
 	test("Testing color array", () => {
 		expect(colorArray[0]).to.equal('rgb(235, 40, 26)');
 		expect(colorArray[1]).to.equal('rgb(235, 120, 26)');
@@ -16,7 +15,7 @@ describe("", () => {
 		expect(colorArray[5]).to.equal('rgb(26, 68, 235)');
 		expect(colorArray[6]).to.equal('rgb(134, 26, 235)');
 		expect(colorArray[7]).to.equal('rgb(235, 26, 183)');
-	})
+	});
 	test("testing menu style", () => {
 		expect(styles.container.backgroundColor).to.equal("rgb(33, 35, 46)");
 		expect(styles.container.display).to.equal("flex");
@@ -82,52 +81,40 @@ describe("", () => {
 		expect(styles.option.padding).to.equal('10px 0px');
 		expect(styles.option.cursor).to.equal('pointer');
 		expect(styles.option.border).to.equal('10px solid rgb(47, 49, 64)');
-		// expect(styles.option.background).to.equal(any(colorArray ));
+		expect(styles.option.background).to.be.oneOf(colorArray);
 
-		console.log(_.random(0, 7));
+		expect(styles.optionLabel.color).to.equal('white');
+		expect(styles.optionLabel.fontSize).to.equal('27px');
+		expect(styles.optionLabel.fontWeight).to.equal('bold');
+		expect(styles.optionLabel.cursor).to.equal('pointer');
+		expect(styles.optionLabel.backgroundColor).to.equal('transparent !important');
 
-	})
-})
-//     optionLabel: {
-//       color: 'white',
-//       fontSize: '27px',
-//       fontWeight: 'bold',
-//       cursor: 'pointer',
-//       backgroundColor: 'transparent !important',
-//       '&:hover': {
-//         textShadow: '0 0 10px #FFFFFF',
-//       }
-//     },
-//     redLabel: {
-//       cursor: 'default',
-//       textTransform: 'uppercase',
-//       fontSize: '45px',
-//       WebkitTextFillColor: 'transparent',
-//       background: `-webkit-linear-gradient(#eee, red)`,
-//       WebkitBackgroundClip: 'text',
-//     },
-//     tetrisLabel: {
-//       textTransform: 'uppercase',
-//       cursor: 'default',
-//       paddingLeft: '5px',
-//       fontSize: '80px',
-//       WebkitTextFillColor: 'transparent',
-//       background: `-webkit-linear-gradient(#eee, grey)`,
-//       WebkitBackgroundClip: 'text',
-//       textShadow: '0 0 5px #FFFFFF',
-//       animation: 'animate 3s infinite',
-//       fontWeight: 'bold'
-//     },
-//     selectedContainer: {
-//       position: 'relative',
-//       animation: 'selectOption 1s ease'
-//     },
-//     chosen: {
-//       width: '100%',
-//       height: '300px',
-//       border: '10px solid rgb(47, 49, 64)',
-//       backgroundColor: 'rgb(30, 32, 43)',
-//       position: 'relative',
-//       animation: 'secondMenu 0.5s ease'
-//     }
-//   })
+		expect(styles.redLabel.cursor).to.equal('default');
+		expect(styles.redLabel.textTransform).to.equal('uppercase');
+		expect(styles.redLabel.fontSize).to.equal('45px');
+		expect(styles.redLabel.WebkitTextFillColor).to.equal('transparent');
+		expect(styles.redLabel.background).to.equal(`-webkit-linear-gradient(#eee, red)`);
+		expect(styles.redLabel.WebkitBackgroundClip).to.equal('text');
+
+		expect(styles.tetrisLabel.textTransform).to.equal('uppercase');
+		expect(styles.tetrisLabel.cursor).to.equal('default');
+		expect(styles.tetrisLabel.paddingLeft).to.equal('5px');
+		expect(styles.tetrisLabel.fontSize).to.equal('80px');
+		expect(styles.tetrisLabel.WebkitTextFillColor).to.equal('transparent');
+		expect(styles.tetrisLabel.background).to.equal(`-webkit-linear-gradient(#eee, grey)`);
+		expect(styles.tetrisLabel.WebkitBackgroundClip).to.equal('text');
+		expect(styles.tetrisLabel.textShadow).to.equal('0 0 5px #FFFFFF');
+		expect(styles.tetrisLabel.animation).to.equal('animate 3s infinite');
+		expect(styles.tetrisLabel.fontWeight).to.equal('bold');
+
+		expect(styles.selectedContainer.position).to.equal('relative');
+		expect(styles.selectedContainer.animation).to.equal('selectOption 1s ease');
+
+		expect(styles.chosen.width).to.equal('100%');
+		expect(styles.chosen.height).to.equal('300px');
+		expect(styles.chosen.border).to.equal('10px solid rgb(47, 49, 64)');
+		expect(styles.chosen.backgroundColor).to.equal('rgb(30, 32, 43)');
+		expect(styles.chosen.position).to.equal('relative');
+		expect(styles.chosen.animation).to.equal('secondMenu 0.5s ease');
+	});
+});
