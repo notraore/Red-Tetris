@@ -3,11 +3,13 @@ import { shallow } from 'enzyme';
 import styled from 'styled-components';
 import renderer from 'react-test-renderer';
 
-import { GameStyle } from './styles/Game-style.js';
-import { styles } from './components/OnlineListPopup.js';
-import { App } from './App.js';
+import { styles } from '../../components/OnlineListPopup.js';
+import { Multi } from './index.js';
+import { GameStyle } from '../../styles/Game-style.js';
 
-const gameState = {
+describe("index.js SnapShot test",() => {
+	const styleTmp = styles();
+	const gameState = {
 	room: null,
 	nbPlayer: null,
 	player: "NobilaTest",
@@ -23,10 +25,8 @@ const gameState = {
 	playing: false,
 	pieces: null
 };
-
-describe('App Snapshot test', () => {
-		test("App component Match SnapShot", () => {
-		const blockCmp = renderer.create(< App gameState={ gameState } popupInfo={ styles }/>).toJSON();
+	test("Menu component Match SnapShot", () => {
+		const blockCmp = renderer.create(<Multi classes={ GameStyle } gameState={ gameState } popupInfo={ styles }/>).toJSON();
 		expect(blockCmp).toMatchSnapshot();
 	});
 });

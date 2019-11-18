@@ -7,7 +7,7 @@ import { socket } from '../../sockets'
 import { withStyles } from '@material-ui/styles'
 import Game from '../Game/Game.js'
 
-const Multi = ({ classes, gameState, dispatch, notify, solo }) => {
+export const Multi = ({ classes, gameState, dispatch, notify, solo }) => {
 	const [chatInput, setChatInput] = useState('')
 
 	var userId = gameState.playerId
