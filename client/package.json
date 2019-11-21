@@ -22,7 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest --watchAll",
+    "test": "jest --coverage",
     "eject": "react-scripts eject",
     "dev": "npm start && (cd ../server && npm run start)"
   },
