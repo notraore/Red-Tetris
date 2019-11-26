@@ -20,9 +20,9 @@ for example: http://localhost:3000/#foo[bar] will create a game "foo" and your u
 ### Screenshots
 
 Menu
-![Alt text](/client/public/img1.png?raw=true "Title")
+![Alt text](/src/client/public/img1.png?raw=true "Menu")
 In Game
-![Alt text](/client/public/img2.png?raw=true "Title")
+![Alt text](/src/client/public/img2.png?raw=true "In Game")
 Player lose
-![Alt text](/client/public/img3.png?raw=true "Title")
+![Alt text](/src/client/public/img3.png?raw=true "Player lose")
 
