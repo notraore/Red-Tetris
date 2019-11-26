@@ -1,0 +1,58 @@
+{
+  "name": "RedTetris",
+  "version": "0.0.0",
+  "description": "Tetris game",
+  "main": "index.js",
+  "repository": "git@github.com:Ektoplasme/Red-Tetris.git",
+  "author": "Ektoplasme <jorobin@student.42.fr>",
+  "scripts": {
+    "test": "jest --colors",
+    "webpack": "webpack",
+    "server-dev": "nodemon --exec babel-node src/server/index.js",
+    "client-dev": "react-scripts start src/client",
+    "eject": "react-scripts eject",
+    "build": "react-scripts build",
+    "start-prod": "npm run build && babel-node src/server/index.js"
+  },
+  "contributors": [
+    {
+      "name": "Joséphine Robin",
+      "email": "jorobin@student.42.fr",
+      "url": "https://github.com/Ektoplasme"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@babel/preset-react": "^7.7.0",
+    "@material-ui/core": "^4.5.1",
+    "babel-loader": "^8.0.6",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^3.2.0",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "gridlex": "^2.7.1",
+    "history": "^4.10.1",
+    "identity-obj-proxy": "^3.0.0",
+    "nodemon": "^1.19.2",
+    "ramda": "^0.26.1",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-dots-loader": "^1.1.4",
+    "react-router": "^5.1.2",
+    "react-scripts": "^3.0.1",
+    "react-toastify": "^5.4.1",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.3.0",
+    "style-loader": "^1.0.0",
+    "styled-components": "^4.4.0",
+    "url-parse": "^1.4.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.0",
+    "@babel/core": "^7.6.0",
+    "@babel/node": "^7.6.1",
+    "@babel/preset-env": "^7.6.0",
+    "url-loader": "^2.3.0"
+  }
+}
