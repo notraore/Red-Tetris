@@ -12,25 +12,25 @@ var io = socketIo(server, {
     pingTimeout: SOCKET_TIMEOUT
 })
 
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, '../../build')));
 
 app.get('/', function(req, res){
-	res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+	res.sendFile(path.join(__dirname, '../../build', 'index.html'));
 })
 
-fs.readFile("./bible.txt", 'utf8', function(err, data){
-    if (err){
-        throw err;
-    }
-    var regex = /Rick/gi
-    var nob = data.replace(regex, 'Summer');
-    console.log(nob);
+// fs.readFile("./bible.txt", 'utf8', function(err, data){
+//     if (err){
+//         throw err;
+//     }
+//     var regex = /Rick/gi
+//     var nob = data.replace(regex, 'Summer');
+//     console.log(nob);
 
-    fs.writeFile("./bible.txt", nob, (err)=> {
-    	if (err) throw err;
-    	console.log('File succesfully saved.');
-    });
-});
+//     fs.writeFile("./bible.txt", nob, (err)=> {
+//     	if (err) throw err;
+//     	console.log('File succesfully saved.');
+//     });
+// });
 
 useSockets(io)
 

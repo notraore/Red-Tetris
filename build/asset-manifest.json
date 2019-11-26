@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ab3822e8.chunk.css",
+    "main.js": "/static/js/main.bce9fd09.chunk.js",
+    "main.js.map": "/static/js/main.bce9fd09.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.55e5be67.js",
+    "runtime-main.js.map": "/static/js/runtime-main.55e5be67.js.map",
+    "static/css/2.f0480be0.chunk.css": "/static/css/2.f0480be0.chunk.css",
+    "static/js/2.39724203.chunk.js": "/static/js/2.39724203.chunk.js",
+    "static/js/2.39724203.chunk.js.map": "/static/js/2.39724203.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.36042c17df85b8f9a69ead3db62a7f2d.js": "/precache-manifest.36042c17df85b8f9a69ead3db62a7f2d.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.f0480be0.chunk.css.map": "/static/css/2.f0480be0.chunk.css.map",
+    "static/css/main.ab3822e8.chunk.css.map": "/static/css/main.ab3822e8.chunk.css.map",
+    "static/media/blue-tetrimino.png": "/static/media/blue-tetrimino.cde48510.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.55e5be67.js",
+    "static/css/2.f0480be0.chunk.css",
+    "static/js/2.39724203.chunk.js",
+    "static/css/main.ab3822e8.chunk.css",
+    "static/js/main.bce9fd09.chunk.js"
+  ]
+}
