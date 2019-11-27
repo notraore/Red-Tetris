@@ -6,7 +6,7 @@
   "repository": "git@github.com:Ektoplasme/Red-Tetris.git",
   "author": "Ektoplasme <jorobin@student.42.fr>",
   "scripts": {
-    "test": "jest --colors",
+    "test": "node scripts/test.js --watchAll --coverage",
     "server-dev": "NODE_ENV=development BABEL_ENV=development nodemon --exec babel-node src/server/index.js",
     "client-dev": "node scripts/start.js",
     "build": "node scripts/build.js",
@@ -100,23 +100,31 @@
     "@babel/core": "^7.6.0",
     "@babel/node": "^7.6.1",
     "@babel/preset-env": "^7.6.0",
+    "babel7-jest": "^1.0.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "jest-enzyme": "^7.1.2",
+    "react-test-renderer": "^16.12.0",
     "url-loader": "^2.3.0"
   },
   "jest": {
+    "setupFilesAfterEnv": [
+      "./node_modules/jest-enzyme/lib/index.js"
+    ],
     "roots": [
-      "<rootDir>/src"
+      "<rootDir>"
     ],
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
-      "!src/**/*.d.ts"
+      "!<rootDir>/node_modules/"
     ],
     "setupFiles": [
       "react-app-polyfill/jsdom"
     ],
-    "setupFilesAfterEnv": [],
+    "verbose": false,
     "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
-      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
+      "<rootDir>/test/**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "<rootDir>/test/**/*.{spec,test}.{js,jsx,ts,tsx}"
     ],
     "testEnvironment": "jest-environment-jsdom-fourteen",
     "transform": {
