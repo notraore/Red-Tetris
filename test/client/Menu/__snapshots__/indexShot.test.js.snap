@@ -1,0 +1,285 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Menu Snapshot test Menu render match the shot 1`] = `
+<div
+  className="App flex center alignCenter"
+  style={
+    Object {
+      "alignItems": "center",
+      "animation": "gradientBackground 20s infinite",
+      "backgroundColor": "rgb(33, 35, 46)",
+      "backgroundSize": "100% 100%",
+      "color": "white",
+      "display": "flex",
+      "flexDirection": "column",
+      "fontSize": "calc(10px + 2vmin)",
+      "height": "100%",
+      "overflow": "hidden",
+    }
+  }
+>
+  <div
+    className="Popup-back-1 absolute fullWidth fullHeight flex center alignCenter"
+    style={
+      Object {
+        "zIndex": 100,
+      }
+    }
+  >
+    <div
+      className="flex center column  alignCenter Popup-container-2"
+    >
+      <div
+        className="Popup-title-3"
+      />
+      <div
+        className="Popup-description-4"
+      />
+      <button
+        className="flex center alignCenter Popup-button-5"
+        onClick={[Function]}
+      >
+        OK
+      </button>
+    </div>
+  </div>
+  <div
+    className="[object Object]"
+  >
+    <div
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <p
+        className="Title-redLabel-18"
+      >
+        Red
+      </p>
+      <p
+        className="Title-tetrisLabel-19"
+      >
+        Tetris
+      </p>
+      <img
+        alt="logo"
+        src="blue-tetrimino.png"
+        style={
+          Object {
+            "paddingLeft": "20px",
+            "width": "100px",
+          }
+        }
+      />
+    </div>
+    <div
+      className={
+        Object {
+          "&:hover": Object {
+            "color": "green",
+          },
+          "cursor": "pointer",
+          "fontFamily": "Orbitron, sans-serif",
+          "fontSize": "20px",
+          "fontWeight": "bold",
+          "marginBottom": "10px",
+        }
+      }
+      onClick={[Function]}
+    >
+      Users online: 
+      2
+    </div>
+    <div
+      className="flex center alignCenter column [object Object]"
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      <div
+        className="flex center alignCenter column"
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+      >
+        <p>
+          Enter existing room name
+        </p>
+        <input
+          className="JoinComponent-input-25"
+          onChange={[Function]}
+          onKeyDown={[Function]}
+        />
+        <p
+          className="JoinComponent-optionLabel-33"
+          onClick={[Function]}
+        >
+          Join
+        </p>
+      </div>
+      <div
+        className="flex center alignCenter column"
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+      >
+        <p
+          className="SoloComponent-optionLabel-49"
+          onClick={[Function]}
+        >
+          Start
+        </p>
+      </div>
+      <div
+        className="flex center alignCenter column"
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+      >
+        <p>
+          Enter a new room name
+        </p>
+        <input
+          className="CreateComponent-input-57"
+          onChange={[Function]}
+          onKeyDown={[Function]}
+        />
+        <p
+          className="CreateComponent-optionLabel-65"
+          onClick={[Function]}
+        >
+          Create
+        </p>
+      </div>
+      <div
+        className="flex center alignCenter column"
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+      >
+        <p>
+          Jorobin & Notraore
+        </p>
+      </div>
+      <p
+        className={
+          Object {
+            "&:hover": Object {
+              "textShadow": "0 0 10px #FFFFFF",
+            },
+            "backgroundColor": "transparent !important",
+            "color": "white",
+            "cursor": "pointer",
+            "fontSize": "27px",
+            "fontWeight": "bold",
+          }
+        }
+        onClick={[Function]}
+      >
+        Return
+      </p>
+    </div>
+    <div
+      className="flex column center alignCenter"
+      style={null}
+    >
+      <div
+        className="[object Object]"
+      >
+        <div
+          className="flex center alignCenter OptionComponent-option-96"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          <p
+            className="OptionComponent-optionLabel-97"
+          >
+            Solo
+          </p>
+        </div>
+        <div
+          className="flex center alignCenter OptionComponent-option-96"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          <p
+            className="OptionComponent-optionLabel-97"
+          >
+            Join
+          </p>
+        </div>
+        <div
+          className="flex center alignCenter OptionComponent-option-96"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          <p
+            className="OptionComponent-optionLabel-97"
+          >
+            Create
+          </p>
+        </div>
+      </div>
+      <div
+        className="flex center [object Object]"
+      >
+        <div
+          className="flex center alignCenter OptionComponent-option-96"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          <p
+            className="OptionComponent-optionLabel-97"
+          >
+            Credits
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex center alignCenter [object Object]"
+      onClick={[Function]}
+    >
+      <p
+        style={
+          Object {
+            "margin": "5px",
+          }
+        }
+      >
+        Username:
+
+      </p>
+      <div>
+        <div
+          className="flex center alignCenter"
+          style={
+            Object {
+              "fontFamily": "Orbitron, sans-serif",
+              "fontSize": "34px",
+              "height": "50px",
+              "width": "400px",
+            }
+          }
+        >
+          NobilaTest
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

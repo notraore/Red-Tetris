@@ -3,7 +3,8 @@ import { withStyles } from '@material-ui/styles'
 import {Block, colorTab} from '../../components/Block.js'
 import {GameStyle} from '../../styles/Game-style.js'
 
-const InGameComponent = ({classes, chat, chatInput, setChatInput, winHeight, winWidth, dispatch, reset, solo, board, gameState, nextTetri, curTetri, score, level, rows, tetri, dropTime}) => {
+
+export const InGameComponent = ({classes, chat, chatInput, setChatInput, winHeight, winWidth, dispatch, reset, solo, board, gameState, nextTetri, curTetri, score, level, rows, tetri, dropTime}) => {
 	var smallSize = winWidth < 650 || winHeight < 800
 	var blockSize = smallSize ? 30 : 40
 	var shadowBlockSize = Math.trunc(winHeight / 80)
@@ -128,7 +129,7 @@ const InGameComponent = ({classes, chat, chatInput, setChatInput, winHeight, win
 								? <div className='flex column' style={{width: '80%'}}>
 									<div
 										className={classes.button}
-										onClick={()=>{reset()}}
+										onClick={reset}
 									>
 									Restart
 								</div>

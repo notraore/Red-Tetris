@@ -2,19 +2,19 @@ import React from 'react'
 import {App} from '../../src/client/src/App'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
-import tab from '../../src/client/src/components/pieces.1.json'
-import Game from '../../src/client/src/containers/Game/Game'
+
+import InGame from '../../src/client/src/containers/Game/InGamePage.js';
 import { initialBoardState, initialTetriState } from '../../src/client/src/components/initialState.js'
-import InGame from '../../src/client/src/containers/Game/InGamePage'
-// import InGameComponent from '../../src/client/src/containers/Game/InGamePage.js';
 import FinishPage from '../../src/client/src/containers/Game/FinishPage'
-import { styles } from '../../src/client/src/components/Popup.js';
+
+import {styles} from '../../src/client/src/components/Popup.js'
+
 
 import Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
 
-Enzyme.configure({ adapter: new Adapter() })
+Enzyme.configure({ adapter: new Adapter()})
 
 const stylesTmp = styles();
 
@@ -36,7 +36,7 @@ const gameState = {
 };
 
 const props = {
-	room: null,
+  room: null,
   nbPlayer: null,
   room: "room1",
   player: "Josie",
@@ -60,7 +60,7 @@ const props = {
     {
       id: "h3n982y3r9",
       username: "Jason",
-      shadow: 	[
+      shadow:   [
         [0,0,0,0,1,0,0,0,0,0],
         [0,0,0,0,1,0,0,0,0,0],
         [0,0,0,0,1,0,0,0,0,0],
@@ -87,7 +87,7 @@ const props = {
         {
       id: "h3n982y3r9",
       username: "Jason",
-      shadow: 	[
+      shadow:   [
         [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0],
@@ -114,63 +114,17 @@ const props = {
   ]
 }
 
-describe('App', () => {
-  test('App snapshot renders', () => {
-    const component = renderer.create(<App />);
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  })
-})
-
-describe('Game', () => {
-  test('Game snapshot renders', () => {
-    const component = renderer.create(<Game gameState={props}/>);
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  })
-})
-
-describe('InGame component SOLO', () => {
-  test('ingame snapshot renders', () => {
-    const component = renderer.create(<InGame
-      board={props.board}
-      curTetri={props.curTetri}
-      tetri={props.tetri}
-      gameState={props}
-      solo
-    />);
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  })
-})
-
-// describe('InGame component MULTI', () => {
-//   const comp = <InGame
-//     board={props.board}
-//     curTetri={props.curTetri}
-//     tetri={props.tetri}
-//     gameState={{...props, isHost: true}}
-//     score={1234}
-//     rows={4}
-//     level={1}
-//     nextTetri={tab["I"]}
-//     chatInput={"Coucou ça va?"}
-//   />
-//   test('ingame multi snapshot renders', () => {
-//     const wrapper = shallow(comp)
-//     // wrapper.instance().chat("coucou")
-//     const component = renderer.create(comp)
-//     let tree = component.toJSON()
-//     expect(tree).toMatchSnapshot()
-//   })
-// })
-
-describe('Finish component', () => {
-  test('finish game snapshot renders', () => {
-    const component = renderer.create(<FinishPage
-      gameState={props}/>
-    );
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  })
-})
+describe('Click : <InGameComponent />', () => {
+//   const setChatInput = (val) => {
+//     chatInput = val;
+//   }
+//   let chatInput = "";
+//   setChatInput("jaimeLePain");
+//   const chat = (input) => {
+//     return input;
+//   }
+  it('Click Simulation works ?', () => {
+//     let setChatInput = jest.fn();
+    // const wrapper = shallow(<InGame gameState={{...props, isHost: true}} classes={stylesTmp} />);
+  });
+});

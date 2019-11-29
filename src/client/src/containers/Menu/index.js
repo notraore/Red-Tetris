@@ -32,11 +32,11 @@ export const Menu = props => {
     dispatch
   } = props
 
-  const [selected, select] = useState(0)
-  const [onHover, setHover] = useState(false)
-  const [onlineList, setOnlineList] = useState(false)
-  const [usernameInput, changeUsernameInput] = useState('')
-  const [tmpPieces, setTmpPieces] = useState(null)
+  const [selected, select] = useState(0);
+  const [onHover, setHover] = useState(false);
+  const [onlineList, setOnlineList] = useState(false);
+  const [usernameInput, changeUsernameInput] = useState('');
+  const [tmpPieces, setTmpPieces] = useState(null);
 
   useEffect(()=>{
     socket.on('get rand pieces', (rand)=>{

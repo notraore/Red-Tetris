@@ -55,7 +55,7 @@ export const FinishComponent = ({classes, chat, chatInput, setChatInput, level, 
 				}
 			{solo
 				?	<div className={`flex column center alignCenter ${classes.restartButton}`}>
-					<div className={classes.restartLabel} onClick={()=>{resetGame()}}>
+					<div className={classes.restartLabel} onClick={resetGame}>
 						RESTART
 					</div>
 				</div>
@@ -75,7 +75,7 @@ export const FinishComponent = ({classes, chat, chatInput, setChatInput, level, 
 			}
 			{gameState.endOfGame
 				?	gameState.isHost
-					?	<div className={classes.restartLabel} onClick={()=>{returnLobby()}}>
+					?	<div className={classes.restartLabel} onClick={returnLobby}>
 							RETURN LOBBY
 						</div>
 					: <div className={classes.finishGameTitle} style={{marginTop: '5px'}}>

@@ -36,4 +36,4 @@ describe("OnlineListPopup test" ,() => {
 		expect(stylesTmp.button.color).to.equal("white");
 		expect(stylesTmp.button.marginTop).to.equal(10);
 	});
-})
+});

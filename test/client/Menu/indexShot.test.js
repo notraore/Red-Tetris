@@ -2,16 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import styled from 'styled-components';
 import renderer from 'react-test-renderer';
-import Adapter from 'enzyme-adapter-react-16'
-import { configure as configureEnzyme } from 'enzyme'
 
-import { Game } from '../../../src/client/src/containers/Game/Game.js'
-import { styles } from '../../../src/client/src/components/Popup.js';
+import { Menu } from '.../../../src/client/src/containers/Menu/index.js';
+import { styles } from '../../../src/client/src/styles/Menu-styles.js';
 
-configureEnzyme({ adapter: new Adapter() })
-
-
-const stylesTmp = styles();
 const gameState = {
 	room: "null",
 	nbPlayer: 5,
@@ -48,18 +42,23 @@ const gameState = {
 		]
 		}],
 	shadows: [{id: "3fubi2n34v389un"}],
-	onlineUsers: "Josie",
+	onlineUsers: ["Josie", "Fanffan"],
 	endOfGame: true,
 	winScore: [{id: "3fubi2n34v389un"}],
 	playing: true,
 	pieces: ["T", "Z", "I", "L"]
 };
 
-describe("Game components test", () => {
-	test("Game render match SnapShot", () => {
-		const GameCmp = renderer.create(< Game classes={stylesTmp} gameState={gameState} solo={false} />).toJSON();
-		expect(GameCmp).toMatchSnapshot();
-		const GameCmpA = renderer.create(< Game classes={stylesTmp} gameState={gameState} solo={true} />).toJSON();
-		expect(GameCmpA).toMatchSnapshot();
+const classes = styles;
+
+const infor = [{
+	title: "Nobila est present",
+	description: "Une partie de tetris tres classique"
+}];
+
+describe("Menu Snapshot test", () => {
+	test("Menu render match the shot", () => {
+		const blockCmp = renderer.create(< Menu onlineList={true} selected={2} popupInfo={infor} gameState = { gameState } classes={styles}/>).toJSON();
+		expect(blockCmp).toMatchSnapshot();
 	});
 });

@@ -8,7 +8,7 @@ export const OptionComponent = (props) => {
   return (
       <div
         className={`flex center alignCenter ${classes.option}`}
-        onMouseEnter={(e)=>{!isSelected && shuffle(e)}}
+        onMouseEnter={ (e) => {!isSelected && shuffle(e)}}
         onClick={(e)=>{
             select(num)
         }}

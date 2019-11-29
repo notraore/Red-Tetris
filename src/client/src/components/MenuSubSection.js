@@ -52,7 +52,6 @@ export const SettingsComponent = ({ selected }) => {
 
 export const JoinComponent = ({ classes, selected, redirect }) => {
     const [roomName, handleChange] = useState('')
-
     return (
         <div className={`flex center alignCenter column`} style={selected === 2 ? {display: 'flex'} : {display: 'none'}}>
             <p>

@@ -6,9 +6,14 @@ import renderer from 'react-test-renderer';
 import { FinishComponent } from '.../../../src/client/src/containers/Game/FinishPage.js';
 import { styles } from '../../../src/client/src/components/Popup.js';
 
-describe("FinishPage Snapshot test", () => {
-	const stylesTmp = styles();
-	const gameState = {
+import Adapter from 'enzyme-adapter-react-16'
+import { configure as configureEnzyme } from 'enzyme'
+
+configureEnzyme({ adapter: new Adapter() })
+
+const stylesTmp = styles();
+
+const gameState = {
 	room: null,
 	nbPlayer: null,
 	player: "NobilaTest",
@@ -24,6 +29,8 @@ describe("FinishPage Snapshot test", () => {
 	playing: true,
 	pieces: ["T", "Z", "I", "L"]
 };
+
+describe("FinishPage Snapshot test", () => {
 
 	test("FinishComponent render match the shot", () => {
 
@@ -59,9 +66,9 @@ describe("FinishPage Snapshot test", () => {
 		[0,0,0,0,0,0,0,0,0,0]
 		]
 		}]
-		// gameState.winScore = [{
-		// 	id: "v34h9492wvkbhe3wg3q"
-		// }];
+		gameState.winScore = [{
+			id: "v34h9492wvkbhe3wg3q"
+		}];
 		const blockCmpb = renderer.create(< FinishComponent score ={999} rows={5} level={2} chatInput={""} gameState={gameState} classes={stylesTmp} />).toJSON();
 		expect(blockCmpb).toMatchSnapshot();
 		gameState.winScore = [{
@@ -70,7 +77,34 @@ describe("FinishPage Snapshot test", () => {
 		}];
 		gameState.endOfGame = true;
 		gameState.isHost = true;
-		const blockCmpc = renderer.create(< FinishComponent gameState={gameState} classes={stylesTmp} />).toJSON();
+		const blockCmpc = renderer.create(< FinishComponent rows={0} gameState={gameState} classes={stylesTmp} />).toJSON();
 		expect(blockCmpc).toMatchSnapshot();
+//Ligne 51 a trouver
+		// let newState = {winScore: [{id: "fhn3290u4"}]};
+		// const blockCmpD = renderer.create(< FinishComponent gameState={newState} player={null}rows={0} classes={stylesTmp} />).toJSON();
+		// expect(blockCmpD).toMatchSnapshot();
 	})
 })
+
+describe('Click : <FinishComponent />', () => {
+	const setChatInput = (val) => {
+		chatInput = val;
+	}
+	let chatInput = "";
+	setChatInput("jaimeLePain");
+	const chat = (input) => {
+		return input;
+	}
+	// player && player.id !== gameState.playerId
+	it('Click Simulation works ?', () => {
+		const event = {
+			target: { value: "NobilaRoom" }
+		};
+		let setChatInput = jest.fn();
+		const wrapper = shallow(<FinishComponent chat={chat} setChatInput={ setChatInput } chatInput={chatInput} gameState={gameState} classes={stylesTmp} />);
+		wrapper.find('input').simulate('keydown', {keyCode: 13});
+
+		wrapper.find('input').simulate('change', event);
+		expect(setChatInput).toBeCalledTimes(2);
+	});
+});
