@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Title Snapshot test Title render match the shot 1`] = `
+<div
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "flexDirection": "row",
+    }
+  }
+>
+  <p>
+    Red
+  </p>
+  <p>
+    Tetris
+  </p>
+  <img
+    alt="logo"
+    src="blue-tetrimino.png"
+    style={
+      Object {
+        "paddingLeft": "20px",
+        "width": "100px",
+      }
+    }
+  />
+</div>
+`;

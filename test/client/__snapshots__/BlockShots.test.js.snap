@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Block Component Snapshot : Block Component matches 1`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "undefined",
+      "border": "0.5px solid white",
+      "height": "undefinedpx",
+      "width": "undefinedpx",
+    }
+  }
+/>
+`;
+
+exports[`Block Component Snapshot : Block Component matches 2`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "yellow",
+      "height": "undefinedpx",
+      "width": "undefinedpx",
+    }
+  }
+/>
+`;
+
+exports[`Block Component Snapshot : Block Component matches 3`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "transparent",
+      "border": "0.5px solid transparent",
+      "height": "undefined px",
+      "width": "undefinedpx",
+    }
+  }
+/>
+`;
+
+exports[`Block Component Snapshot : Block Component matches 4`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "pink",
+      "height": "undefinedpx",
+      "width": "undefinedpx",
+    }
+  }
+/>
+`;
+
+exports[`Block Component Snapshot : Block Component matches 5`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "pink",
+      "height": "undefinedpx",
+      "width": "undefinedpx",
+    }
+  }
+/>
+`;
+
+exports[`Block Component Snapshot : Block Component matches 6`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "pink",
+      "border": "0.5px solid #3331",
+      "height": "undefinedpx",
+      "width": "undefinedpx",
+    }
+  }
+/>
+`;
+
+exports[`Block Component Snapshot : Block Component matches 7`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "transparent",
+      "border": "0.5px solid transparent",
+      "height": "undefined px",
+      "width": "undefinedpx",
+    }
+  }
+/>
+`;
+
+exports[`Block Component Snapshot : Block Component matches 8`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "pink",
+      "height": "undefinedpx",
+      "width": "undefinedpx",
+    }
+  }
+/>
+`;
+
+exports[`Block Component Snapshot : Block Component matches 9`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "pink",
+      "border": "0.5px solid #3331",
+      "height": "undefinedpx",
+      "width": "undefinedpx",
+    }
+  }
+/>
+`;
+
+exports[`Block Component Snapshot : Block Component matches 10`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "yellow",
+      "height": "undefinedpx",
+      "width": "undefinedpx",
+    }
+  }
+/>
+`;

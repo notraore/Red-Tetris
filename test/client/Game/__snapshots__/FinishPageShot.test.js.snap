@@ -1,0 +1,2765 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FinishPage Snapshot test FinishComponent render match the shot 1`] = `
+<div
+  className="flex column center alignCenter"
+  style={
+    Object {
+      "height": "100hw",
+    }
+  }
+>
+  <div
+    className="flex column center alignCenter undefined"
+  >
+    <div>
+      Game finished !
+    </div>
+    <div>
+      Your Score: 
+    </div>
+    <div>
+      Level: 
+      0
+    </div>
+    <div>
+      Rows: 
+      -
+    </div>
+    <div
+      className="flex column center alignCenter undefined"
+    >
+      <div
+        onClick={[Function]}
+      >
+        RESTART
+      </div>
+    </div>
+    <div
+      onClick={[Function]}
+    >
+      RETURN LOBBY
+    </div>
+  </div>
+</div>
+`;
+
+exports[`FinishPage Snapshot test FinishComponent render match the shot 2`] = `
+<div
+  className="flex column center alignCenter"
+  style={
+    Object {
+      "height": "100hw",
+    }
+  }
+>
+  <div
+    className="flex column center alignCenter undefined"
+  >
+    <div>
+      Game finished !
+    </div>
+    <div>
+      Your Score: 
+      999
+    </div>
+    <div>
+      Level: 
+      2
+    </div>
+    <div>
+      Rows: 
+      5
+    </div>
+    <div>
+      <div>
+        still in game:
+      </div>
+      <div
+        className="flex row center"
+        style={
+          Object {
+            "marginTop": "10px",
+          }
+        }
+      >
+        <div
+          className="relative"
+          style={
+            Object {
+              "padding": "2px",
+            }
+          }
+        >
+          <div />
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "pink",
+                    "border": "0.5px solid #3331",
+                    "height": "NaNpx",
+                    "width": "NaNpx",
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      onClick={[Function]}
+    >
+      RETURN LOBBY
+    </div>
+    <div
+      style={
+        Object {
+          "marginTop": "10px",
+          "width": "100%",
+        }
+      }
+    >
+      <p>
+        Chat ↴
+      </p>
+      <input
+        className="fullWidth undefined"
+        id="chatInput"
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        style={
+          Object {
+            "backgroundColor": "pink",
+            "borderColor": "white",
+            "width": "50%",
+          }
+        }
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`FinishPage Snapshot test FinishComponent render match the shot 3`] = `
+<div
+  className="flex column center alignCenter"
+  style={
+    Object {
+      "height": "100hw",
+    }
+  }
+>
+  <div
+    className="flex column center alignCenter undefined"
+  >
+    <div>
+      Game finished !
+    </div>
+    <div>
+      Your Score: 
+    </div>
+    <div>
+      Level: 
+    </div>
+    <div>
+      Rows: 
+    </div>
+    <div>
+      <div
+        style={
+          Object {
+            "color": "#d8efbb",
+            "fontSize": "40px",
+            "fontWeight": "bold",
+          }
+        }
+      >
+         win !
+      </div>
+      <div>
+        Score: 
+      </div>
+    </div>
+    <div
+      onClick={[Function]}
+    >
+      RETURN LOBBY
+    </div>
+    <div
+      style={
+        Object {
+          "marginTop": "10px",
+          "width": "100%",
+        }
+      }
+    >
+      <p>
+        Chat ↴
+      </p>
+      <input
+        className="fullWidth undefined"
+        id="chatInput"
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        style={
+          Object {
+            "backgroundColor": "pink",
+            "borderColor": "white",
+            "width": "50%",
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;

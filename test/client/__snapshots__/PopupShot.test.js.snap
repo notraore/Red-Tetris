@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Popup Component test Popup component match Snapshot 1`] = `
+<div
+  className="undefined absolute fullWidth fullHeight flex center alignCenter"
+  style={
+    Object {
+      "zIndex": 100,
+    }
+  }
+>
+  <div
+    className="flex center column  alignCenter undefined"
+  >
+    <div />
+    <div />
+    <button
+      className="flex center alignCenter undefined"
+      onClick={[Function]}
+    >
+      OK
+    </button>
+  </div>
+</div>
+`;

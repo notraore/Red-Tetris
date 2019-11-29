@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/styles'
 import {GameStyle} from '../../styles/Game-style.js'
 import {Block, colorTab} from '../../components/Block.js'
 
-const FinishComponent = ({classes, chat, chatInput, setChatInput, level, score, rows, resetGame, gameState, solo, winHeight, returnLobby}) => {
+export const FinishComponent = ({classes, chat, chatInput, setChatInput, level, score, rows, resetGame, gameState, solo, winHeight, returnLobby}) => {
 	var shadowBlockSize = Math.trunc(winHeight / 80)
 	return (
 		<div className='flex column center alignCenter' style={{height: '100hw'}}>

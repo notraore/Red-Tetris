@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OnlineListPopup Snapshot test Popup render match the shot 1`] = `
+<div
+  className="[object Object] fullHeight absolute fullWidth flex center alignCenter"
+  style={
+    Object {
+      "zIndex": 100,
+    }
+  }
+>
+  <div
+    className="flex center column  alignCenter [object Object]"
+    style={
+      Object {
+        "padding": "10px",
+      }
+    }
+  >
+    <div
+      className={
+        Object {
+          "color": "white",
+          "fontSize": "18px",
+          "padding": 5,
+        }
+      }
+      style={
+        Object {
+          "minHeight": "100px",
+          "width": "200px",
+        }
+      }
+    />
+    <button
+      className="flex center alignCenter [object Object]"
+      onClick={[Function]}
+    >
+      OK
+    </button>
+  </div>
+</div>
+`;
+
+exports[`OnlineListPopup Snapshot test Popup render match the shot 2`] = `
+<div
+  className="[object Object] fullHeight absolute fullWidth flex center alignCenter"
+  style={
+    Object {
+      "zIndex": 100,
+    }
+  }
+>
+  <div
+    className="flex center column  alignCenter [object Object]"
+    style={
+      Object {
+        "padding": "10px",
+      }
+    }
+  >
+    <div
+      className={
+        Object {
+          "color": "white",
+          "fontSize": "18px",
+          "padding": 5,
+        }
+      }
+      style={
+        Object {
+          "minHeight": "100px",
+          "width": "200px",
+        }
+      }
+    >
+      <div
+        className="flex row alignCenter"
+        style={
+          Object {
+            "left": "20px",
+            "position": "relative",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "color": "green",
+              "padding": "0px 5px",
+            }
+          }
+        >
+          •
+        </div>
+        <div>
+          'NobilaTest' 
+        </div>
+      </div>
+      <div
+        className="flex row alignCenter"
+        style={
+          Object {
+            "left": "20px",
+            "position": "relative",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "color": "green",
+              "padding": "0px 5px",
+            }
+          }
+        >
+          •
+        </div>
+        <div>
+          v34h9492wvkbh3wg3q 
+        </div>
+      </div>
+    </div>
+    <button
+      className="flex center alignCenter [object Object]"
+      onClick={[Function]}
+    >
+      OK
+    </button>
+  </div>
+</div>
+`;

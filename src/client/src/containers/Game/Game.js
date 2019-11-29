@@ -11,7 +11,7 @@ import { styles } from '../../styles/Menu-styles.js'
 import { checkLine, gameLoop, reset } from './checkFunctions.js'
 import { checkPlayerInputs } from './playerInputs'
 
-const Game = ({classes, gameState, dispatch, solo, startGame, notify, curUser, chat, chatInput, setChatInput}) => {
+export const Game = ({classes, gameState, dispatch, solo, startGame, notify, curUser, chat, chatInput, setChatInput}) => {
 	const [counter, increment] = useState(0)
 	const [gameOver, overGame] = useState(false)
 	const [board, updateBoard] = useState(initialBoardState())
@@ -23,7 +23,6 @@ const Game = ({classes, gameState, dispatch, solo, startGame, notify, curUser, c
 	const [canAddLine, setLineAdd] = useState(true)
 	const [tmpLineDel, setTmpLineDel] = useState(0)
 	const [nextTetri, setNext] = useState(null);
-
 	const [rows, setRows] = useState(0)
 	const [level, setLevel] = useState(0)
 	const [dropTime, setDropTime] = useState(1000)
