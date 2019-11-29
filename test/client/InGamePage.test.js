@@ -2,22 +2,18 @@ import React from 'react'
 import {App} from '../../src/client/src/App'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
+import {styles} from '../../src/client/src/components/Popup.js'
 
 import InGame from '../../src/client/src/containers/Game/InGamePage.js';
 import { initialBoardState, initialTetriState } from '../../src/client/src/components/initialState.js'
-import FinishPage from '../../src/client/src/containers/Game/FinishPage'
-
-import {styles} from '../../src/client/src/components/Popup.js'
-
+import tab from '../../src/client/src/components/pieces.1.json'
 
 import Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
-
 Enzyme.configure({ adapter: new Adapter()})
 
 const stylesTmp = styles();
-
 const gameState = {
   room: null,
   nbPlayer: null,
@@ -115,16 +111,34 @@ const props = {
 }
 
 describe('Click : <InGameComponent />', () => {
-//   const setChatInput = (val) => {
-//     chatInput = val;
-//   }
-//   let chatInput = "";
-//   setChatInput("jaimeLePain");
-//   const chat = (input) => {
-//     return input;
-//   }
+  const setChatInput = (val) => {
+    chatInput = val;
+  }
+  let chatInput = "";
+  setChatInput("jaimeLePain");
+  const chat = (input) => {
+    return input;
+  }
   it('Click Simulation works ?', () => {
-//     let setChatInput = jest.fn();
-    // const wrapper = shallow(<InGame gameState={{...props, isHost: true}} classes={stylesTmp} />);
+    let setChatInput = jest.fn();
+    const event = {
+      target: { value: "NobilaRoom" }
+    };
+    const wrapper = shallow(<InGame board={props.board} curTetri={props.curTetri} tetri={props.tetri} gameState={{...props, isHost: true}}
+    score={1234}
+    solo={true}
+    rows={4}
+    level={1}
+    nextTetri={tab["I"]}
+    chatInput={"Coucou ça va?"}
+    setChatInput={setChatInput}
+    chat={chat} />);
+    
+    // wrapper.find('input').simulate('keydown', {keyCode: 13});
+
+    // wrapper.find('div').simulate('keydown', event);
+
+    // wrapper.find('div').simulate('change', event);
+    // expect(setChatInput).toBeCalledWith("NobilaRoom");
   });
 });

@@ -144,26 +144,26 @@ describe('InGame component SOLO', () => {
   })
 })
 
-// describe('InGame component MULTI', () => {
-//   const comp = <InGame
-//     board={props.board}
-//     curTetri={props.curTetri}
-//     tetri={props.tetri}
-//     gameState={{...props, isHost: true}}
-//     score={1234}
-//     rows={4}
-//     level={1}
-//     nextTetri={tab["I"]}
-//     chatInput={"Coucou ça va?"}
-//   />
-//   test('ingame multi snapshot renders', () => {
-//     const wrapper = shallow(comp)
-//     // wrapper.instance().chat("coucou")
-//     const component = renderer.create(comp)
-//     let tree = component.toJSON()
-//     expect(tree).toMatchSnapshot()
-//   })
-// })
+describe('InGame component MULTI', () => {
+  const comp = <InGame
+    board={props.board}
+    curTetri={props.curTetri}
+    tetri={props.tetri}
+    gameState={{...props, isHost: true}}
+    score={1234}
+    rows={4}
+    level={1}
+    nextTetri={tab["I"]}
+    chatInput={"Coucou ça va?"}
+  />
+  test('ingame multi snapshot renders', () => {
+    const wrapper = shallow(comp)
+    // wrapper.instance().chat("coucou")
+    const component = renderer.create(comp)
+    let tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+})
 
 describe('Finish component', () => {
   test('finish game snapshot renders', () => {

@@ -95,7 +95,6 @@ describe('Click : <FinishComponent />', () => {
 	const chat = (input) => {
 		return input;
 	}
-	// player && player.id !== gameState.playerId
 	it('Click Simulation works ?', () => {
 		const event = {
 			target: { value: "NobilaRoom" }

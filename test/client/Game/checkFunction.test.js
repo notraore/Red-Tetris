@@ -32,7 +32,7 @@ const updateBoard = (map) => {
 	]);
 }
 
-let map = [
+let board = [
 		[1,1,1,1,1,1,1,1,1,1],
 		[1,1,1,1,1,1,1,1,1,1],
 		[1,1,1,1,1,1,1,1,1,1],
@@ -57,6 +57,6 @@ let map = [
 describe("CheckFunctions test", () =>{
 	test("is true", () =>{
 		const num = [19];
-		map = removeLine(num, updateBoard, map);
+		const map = removeLine(19, updateBoard, board);
 	})
 })

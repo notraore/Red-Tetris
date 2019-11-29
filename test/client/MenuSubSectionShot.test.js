@@ -100,7 +100,7 @@ describe('Click : <SoloComponent />', () => {
 			pieces: pieces
   		};
 		let dispatch = jest.fn();
-		const wrapper = shallow(<SoloComponent onClick={ dispatch } pieces={ pieces } selected={ 1 } classes={ classes } />);
+		const wrapper = shallow(<SoloComponent roomName={"Nobila"} onClick={ dispatch } pieces={ pieces } selected={ 1 } classes={ classes } />);
 
 		wrapper.find('div').simulate('click');
 		expect(dispatch).toBeCalledTimes(0);
