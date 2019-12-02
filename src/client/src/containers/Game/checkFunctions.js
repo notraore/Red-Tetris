@@ -67,6 +67,6 @@ export const reset = (increment, updateScore, setLevel, setRows, setDropTime,
 	setDropTime(1000);
 	moveTetri(initialTetriState(0), data);
 	if (data && data[1]) setNext(tab[data[1]])
-	else setNext(null)
+		else setNext(null)
 	overGame(false)
 }

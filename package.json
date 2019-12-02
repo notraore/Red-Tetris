@@ -6,7 +6,7 @@
   "repository": "git@github.com:Ektoplasme/Red-Tetris.git",
   "author": "Ektoplasme <jorobin@student.42.fr>",
   "scripts": {
-    "test": "node scripts/test.js --watchAll --coverage",
+    "test": "node scripts/test.js --watchAll --coverage --verbose true",
     "server-dev": "NODE_ENV=development BABEL_ENV=development nodemon --exec babel-node src/server/index.js",
     "client-dev": "node scripts/start.js",
     "build": "node scripts/build.js",
@@ -63,6 +63,7 @@
     "jest-resolve": "24.9.0",
     "jest-watch-typeahead": "0.4.0",
     "mini-css-extract-plugin": "0.8.0",
+    "mock-socket": "^9.0.2",
     "nodemon": "^1.19.2",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "pnp-webpack-plugin": "1.5.0",

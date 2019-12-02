@@ -21,7 +21,9 @@ const gameState = {
 	isInGame: true,
 	gameStarted: true,
 	isHost: true,
-	playTab: [],
+	playTab: [{
+		users: [{id: "erhuf3498vcn34"}]
+	}],
 	shadows: null,
 	onlineUsers: "Josie",
 	endOfGame: true,

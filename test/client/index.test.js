@@ -3,6 +3,7 @@ import Index from '../../src/client/index.js';
 
 test('get room name from hash', () => {
     expect(getRoomName('#room[username]')).toBe('room')
+    expect(getRoomName('#')).toBe(undefined)
 });
 
 test('get user name from hash', () => {
