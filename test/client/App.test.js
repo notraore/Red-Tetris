@@ -157,11 +157,25 @@ describe('InGame component MULTI', () => {
     chatInput={"Coucou ça va?"}
   />
   test('ingame multi snapshot renders', () => {
-    const wrapper = shallow(comp)
-    // wrapper.instance().chat("coucou")
     const component = renderer.create(comp)
     let tree = component.toJSON()
     expect(tree).toMatchSnapshot()
+})
+    const comp2 = <InGame
+    board={props.board}
+    curTetri={props.curTetri}
+    tetri={props.tetri}
+    gameState={{...props, isHost: false}}
+    score={-1234}
+    rows={0}
+    level={0}
+    nextTetri={tab["I"]}
+    chatInput={"Coucou ça va?"}
+  />
+  test('ingame multi snapshot renders2', () => {
+    const component2 = renderer.create(comp2)
+    let tree2 = component2.toJSON()
+    expect(tree2).toMatchSnapshot()
   })
 })
 

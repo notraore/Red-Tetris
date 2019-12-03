@@ -124,7 +124,8 @@
       "!src/**/*checkFunctions.js",
       "!src/**/*reducer.js",
       "!src/**/*socket-functions.js",
-      "!src/**/*index.js"
+      "!src/**/*index.js",
+      "!src/**/*Game.js"
     ],
     "setupFiles": [
       "react-app-polyfill/jsdom"
