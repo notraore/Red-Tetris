@@ -56,6 +56,7 @@ export const Multi = ({ classes, gameState, dispatch, notify, solo }) => {
 		socket.off('host started game')
 		socket.off('user joined room')
 		socket.off('user exited room')
+		socket.off('new message')
 	}
 
 	useEffect(()=> {
