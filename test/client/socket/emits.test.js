@@ -22,5 +22,5 @@ describe('Fast and isolated socket tests', function(){
 		socket.on("send username", changeUsername("Nobila"));
 		socket.on("send message", sendMessage("Nobila", 'Je vais te faire la peau'));
 		done();
-    });
+	});
 });

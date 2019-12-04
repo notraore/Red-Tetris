@@ -133,11 +133,5 @@ describe('Click : <InGameComponent />', () => {
     chatInput={"Coucou ça va?"}
     setChatInput={setChatInput}
     chat={chat} />);
-    
-    // let theKey = wrapper.find('input').simulate('keydown', {keyCode: 13});
-    // wrapper.find('input[id="chatInput"]').simulate('keydown', event);
-
-    // wrapper.find('div').simulate('change', event);
-    // expect(setChatInput).toBeCalledWith("NobilaRoom");
   });
 });

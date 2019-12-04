@@ -52,14 +52,8 @@ const gameState2 = {
 
 const prone = [{user: [{id: "erhuf3498vcn34", gameHost: true}, {id: "e43ug934hvu934g", gameHost: false}, {id: "4j3ivn34g", gameHost: false}]}];
 
-// Multi(classes, gameState, dispatch, notify, solo });
 describe('Click : <Multi />', () => {
 	it('Click Simulation works ?', () => {
-		// const event = {
-		// 	type: 'START_GAME',
-		// 	nbPlayer: 1,
-		// 	pieces: pieces
-		// };
 		let dispatch = jest.fn();
 		let notify = jest.fn();
 		const wrapper = shallow(<Multi classes={ classes } notify={notify} gameState={ gameState } solo={ false } />);
@@ -73,4 +67,3 @@ describe('Click : <Multi />', () => {
 		expect(notify2).toBeCalledTimes(0);
 	});
 });
-// 48.73 |    48.91 |     38.5 |    49.61

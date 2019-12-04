@@ -1,9 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-// import express from 'express'
 
 import {SOCKET_TIMEOUT} from '../../src/server/index.js'
-// import {server} from '../../src/server/index.js'
 import {app} from '../../src/server/index.js'
 
 function doAsync(c) {
