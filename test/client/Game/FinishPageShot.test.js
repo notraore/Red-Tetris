@@ -81,10 +81,6 @@ describe("FinishPage Snapshot test", () => {
 		gameState.isHost = true;
 		const blockCmpc = renderer.create(< FinishComponent rows={0} gameState={gameState} classes={stylesTmp} />).toJSON();
 		expect(blockCmpc).toMatchSnapshot();
-//Ligne 51 a trouver
-		// let newState = {winScore: [{id: "fhn3290u4"}]};
-		// const blockCmpD = renderer.create(< FinishComponent gameState={newState} player={null}rows={0} classes={stylesTmp} />).toJSON();
-		// expect(blockCmpD).toMatchSnapshot();
 	})
 })
 

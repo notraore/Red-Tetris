@@ -107,11 +107,4 @@ describe('Click : <SoloComponent />', () => {
 	});
 });
 
-// it('should call onChange prop', () => {
-//   const onSearchMock = jest.fn();
-//   const component = enzyme.shallow(<InputBox onSearch={onSearchMock} />);
-//   component.find('input').simulate('change', event);
-//   expect(onSearchMock).toBeCalledWith('the-value');
-// });
-
 

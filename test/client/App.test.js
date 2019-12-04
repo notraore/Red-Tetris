@@ -6,7 +6,6 @@ import tab from '../../src/client/src/components/pieces.1.json'
 import Game from '../../src/client/src/containers/Game/Game'
 import { initialBoardState, initialTetriState } from '../../src/client/src/components/initialState.js'
 import InGame from '../../src/client/src/containers/Game/InGamePage'
-// import InGameComponent from '../../src/client/src/containers/Game/InGamePage.js';
 import FinishPage from '../../src/client/src/containers/Game/FinishPage'
 import { styles } from '../../src/client/src/components/Popup.js';
 
