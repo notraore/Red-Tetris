@@ -9,6 +9,22 @@ export const InGameComponent = ({classes, chat, chatInput, setChatInput, winHeig
 	var blockSize = smallSize ? 30 : 40
 	var shadowBlockSize = Math.trunc(winHeight / 80)
 	
+
+	const getShadow = (board) => {
+		var shadow = board.map(arr => arr.slice())
+
+		shadow.map((line, lineId) => {
+			line.map((col, colId)=>{
+				if (col !== 0){
+					for (var i = lineId; i < 20; i++){
+						if (shadow[i][colId] === 0) shadow[i][colId] = 1
+					}
+				}
+			})
+		})
+		return shadow
+	}
+
 	return (
         <div className='flex row fullWidth fullHeight center spaceAround' style={{maxWidth: '800px'}}>
 					<div className={'relative'} style={{top: '25px'}}>
@@ -87,17 +103,17 @@ export const InGameComponent = ({classes, chat, chatInput, setChatInput, winHeig
 								</div>
 							</div>
 							<div className={'flex column alignCenter relative fullWidth center'}>
-								<div className={classes.gameInfo}>Score: {score === 0 ? '-' : score}</div>
-								<div className={classes.gameInfo}>Level: {level}</div>
-								<div className={classes.gameInfo}>Rows: {rows === 0 ? '-' : rows}</div>
-								<div className={classes.gameInfo}>Speed: {1000 - dropTime === 0 ? 'normal' : `x${1000 - dropTime}`}</div>
+								<div className={classes.gameInfo} style={{color: 'white'}}>Score: {score === 0 ? '-' : score}</div>
+								<div className={classes.gameInfo} style={{color: 'white'}}>Level: {level}</div>
+								<div className={classes.gameInfo} style={{color: 'white'}}>Rows: {rows === 0 ? '-' : rows}</div>
+								<div className={classes.gameInfo} style={{color: 'white'}}>Speed: {1000 - dropTime === 0 ? 'normal' : `x${1000 - dropTime}`}</div>
 							</div>
 							<div className={'flex row center'} style={{marginTop: '10px'}}>
 								{	gameState.playTab && gameState.playTab.map((player, index)=>{
 									if (player && player.id !== gameState.playerId) return <div key={index} className={`relative`} style={{padding: '2px'}}>
 										<div className={classes.finishGameInfo}>{player.username}</div>
 										{
-											player.shadow && player.shadow.map((line, index)=>{
+											player.shadow && getShadow(player.shadow).map((line, index)=>{
 												return <div style={{display: 'flex'}} key={index}>
 													{
 														line.map((col, index) => {

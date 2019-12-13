@@ -23,7 +23,7 @@ Array [
     }
   >
     <div
-      className="Menu-centerSubContainer-9"
+      className="Menu-centerSubContainer-13"
     >
       <div
         style={
@@ -35,12 +35,12 @@ Array [
         }
       >
         <p
-          className="Title-redLabel-29"
+          className="Title-redLabel-37"
         >
           Red
         </p>
         <p
-          className="Title-tetrisLabel-30"
+          className="Title-tetrisLabel-38"
         >
           Tetris
         </p>
@@ -56,7 +56,7 @@ Array [
         />
       </div>
       <div
-        className="flex center alignCenter column Menu-chosen-16"
+        className="flex center alignCenter column Menu-chosen-20"
         style={
           Object {
             "display": "none",
@@ -75,12 +75,12 @@ Array [
             Enter existing room name
           </p>
           <input
-            className="JoinComponent-input-36"
+            className="JoinComponent-input-48"
             onChange={[Function]}
             onKeyDown={[Function]}
           />
           <p
-            className="JoinComponent-optionLabel-44"
+            className="JoinComponent-optionLabel-56"
             onClick={[Function]}
           >
             Join
@@ -95,7 +95,7 @@ Array [
           }
         >
           <p
-            className="SoloComponent-optionLabel-60"
+            className="SoloComponent-optionLabel-76"
             onClick={[Function]}
           >
             Start
@@ -113,12 +113,12 @@ Array [
             Enter a new room name
           </p>
           <input
-            className="CreateComponent-input-68"
+            className="CreateComponent-input-88"
             onChange={[Function]}
             onKeyDown={[Function]}
           />
           <p
-            className="CreateComponent-optionLabel-76"
+            className="CreateComponent-optionLabel-96"
             onClick={[Function]}
           >
             Create
@@ -137,7 +137,7 @@ Array [
           </p>
         </div>
         <p
-          className="Menu-optionLabel-12"
+          className="Menu-optionLabel-16"
           onClick={[Function]}
         >
           Return
@@ -148,52 +148,52 @@ Array [
         style={null}
       >
         <div
-          className="Menu-optionsContainer-10"
+          className="Menu-optionsContainer-14"
         >
           <div
-            className="flex center alignCenter OptionComponent-option-107"
+            className="flex center alignCenter OptionComponent-option-135"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
             <p
-              className="OptionComponent-optionLabel-108"
+              className="OptionComponent-optionLabel-136"
             >
               Solo
             </p>
           </div>
           <div
-            className="flex center alignCenter OptionComponent-option-107"
+            className="flex center alignCenter OptionComponent-option-135"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
             <p
-              className="OptionComponent-optionLabel-108"
+              className="OptionComponent-optionLabel-136"
             >
               Join
             </p>
           </div>
           <div
-            className="flex center alignCenter OptionComponent-option-107"
+            className="flex center alignCenter OptionComponent-option-135"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
             <p
-              className="OptionComponent-optionLabel-108"
+              className="OptionComponent-optionLabel-136"
             >
               Create
             </p>
           </div>
         </div>
         <div
-          className="flex center Menu-optionsContainer-10"
+          className="flex center Menu-optionsContainer-14"
         >
           <div
-            className="flex center alignCenter OptionComponent-option-107"
+            className="flex center alignCenter OptionComponent-option-135"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
             <p
-              className="OptionComponent-optionLabel-108"
+              className="OptionComponent-optionLabel-136"
             >
               Credits
             </p>
@@ -201,7 +201,7 @@ Array [
         </div>
       </div>
       <div
-        className="flex center alignCenter Menu-changeUsernameContainer-6"
+        className="flex center alignCenter Menu-changeUsernameContainer-10"
         onClick={[Function]}
       >
         <p
@@ -243,31 +243,35 @@ exports[`Finish component finish game snapshot renders 1`] = `
   }
 >
   <div
-    className="flex column center alignCenter FinishComponent-gameOverContainer-125"
+    className="flex column center alignCenter FinishComponent-gameOverContainer-159"
   >
     <div
-      className="FinishComponent-finishGameTitle-123"
+      className="FinishComponent-finishGameTitle-157"
     >
       Game finished !
     </div>
     <div
-      className="FinishComponent-finishGameInfo-124"
+      className="flex column center alignCenter FinishComponent-scoreContainer-154"
     >
-      Your Score: 
-    </div>
-    <div
-      className="FinishComponent-finishGameInfo-124"
-    >
-      Level: 
-    </div>
-    <div
-      className="FinishComponent-finishGameInfo-124"
-    >
-      Rows: 
+      <div
+        className="FinishComponent-finishGameInfo-158"
+      >
+        Your Score: 
+      </div>
+      <div
+        className="FinishComponent-finishGameInfo-158"
+      >
+        Level: 
+      </div>
+      <div
+        className="FinishComponent-finishGameInfo-158"
+      >
+        Rows: 
+      </div>
     </div>
     <div>
       <div
-        className="FinishComponent-finishGameTitle-123"
+        className="FinishComponent-finishGameTitle-157"
       >
         still in game:
       </div>
@@ -288,7 +292,7 @@ exports[`Finish component finish game snapshot renders 1`] = `
           }
         >
           <div
-            className="FinishComponent-finishGameInfo-124"
+            className="FinishComponent-finishGameInfo-158"
           >
             Philippe
           </div>
@@ -2862,7 +2866,7 @@ exports[`Finish component finish game snapshot renders 1`] = `
           }
         >
           <div
-            className="FinishComponent-finishGameInfo-124"
+            className="FinishComponent-finishGameInfo-158"
           >
             Jason
           </div>
@@ -5451,7 +5455,7 @@ exports[`Finish component finish game snapshot renders 1`] = `
           }
         >
           <div
-            className="FinishComponent-finishGameInfo-124"
+            className="FinishComponent-finishGameInfo-158"
           >
             Jason
           </div>
@@ -8030,7 +8034,7 @@ exports[`Finish component finish game snapshot renders 1`] = `
         Chat ↴
       </p>
       <input
-        className="fullWidth FinishComponent-input-127"
+        className="fullWidth FinishComponent-input-161"
         id="chatInput"
         onChange={[Function]}
         onKeyDown={[Function]}
@@ -8074,34 +8078,38 @@ exports[`Game Game snapshot renders 1`] = `
     }
   >
     <div
-      className="flex column center alignCenter FinishComponent-gameOverContainer-125"
+      className="flex column center alignCenter FinishComponent-gameOverContainer-159"
     >
       <div
-        className="FinishComponent-finishGameTitle-123"
+        className="FinishComponent-finishGameTitle-157"
       >
         Game finished !
       </div>
       <div
-        className="FinishComponent-finishGameInfo-124"
+        className="flex column center alignCenter FinishComponent-scoreContainer-154"
       >
-        Your Score: 
-        -
-      </div>
-      <div
-        className="FinishComponent-finishGameInfo-124"
-      >
-        Level: 
-        0
-      </div>
-      <div
-        className="FinishComponent-finishGameInfo-124"
-      >
-        Rows: 
-        -
+        <div
+          className="FinishComponent-finishGameInfo-158"
+        >
+          Your Score: 
+          -
+        </div>
+        <div
+          className="FinishComponent-finishGameInfo-158"
+        >
+          Level: 
+          0
+        </div>
+        <div
+          className="FinishComponent-finishGameInfo-158"
+        >
+          Rows: 
+          -
+        </div>
       </div>
       <div>
         <div
-          className="FinishComponent-finishGameTitle-123"
+          className="FinishComponent-finishGameTitle-157"
         >
           still in game:
         </div>
@@ -8122,7 +8130,7 @@ exports[`Game Game snapshot renders 1`] = `
             }
           >
             <div
-              className="FinishComponent-finishGameInfo-124"
+              className="FinishComponent-finishGameInfo-158"
             >
               Philippe
             </div>
@@ -10696,7 +10704,7 @@ exports[`Game Game snapshot renders 1`] = `
             }
           >
             <div
-              className="FinishComponent-finishGameInfo-124"
+              className="FinishComponent-finishGameInfo-158"
             >
               Jason
             </div>
@@ -13285,7 +13293,7 @@ exports[`Game Game snapshot renders 1`] = `
             }
           >
             <div
-              className="FinishComponent-finishGameInfo-124"
+              className="FinishComponent-finishGameInfo-158"
             >
               Jason
             </div>
@@ -15864,7 +15872,7 @@ exports[`Game Game snapshot renders 1`] = `
           Chat ↴
         </p>
         <input
-          className="fullWidth FinishComponent-input-127"
+          className="fullWidth FinishComponent-input-161"
           id="chatInput"
           onChange={[Function]}
           onKeyDown={[Function]}
@@ -18990,25 +18998,45 @@ exports[`InGame component MULTI ingame multi snapshot renders 1`] = `
       className="flex column alignCenter relative fullWidth center"
     >
       <div
-        className="InGameComponent-gameInfo-131"
+        className="InGameComponent-gameInfo-165"
+        style={
+          Object {
+            "color": "white",
+          }
+        }
       >
         Score: 
         1234
       </div>
       <div
-        className="InGameComponent-gameInfo-131"
+        className="InGameComponent-gameInfo-165"
+        style={
+          Object {
+            "color": "white",
+          }
+        }
       >
         Level: 
         1
       </div>
       <div
-        className="InGameComponent-gameInfo-131"
+        className="InGameComponent-gameInfo-165"
+        style={
+          Object {
+            "color": "white",
+          }
+        }
       >
         Rows: 
         4
       </div>
       <div
-        className="InGameComponent-gameInfo-131"
+        className="InGameComponent-gameInfo-165"
+        style={
+          Object {
+            "color": "white",
+          }
+        }
       >
         Speed: 
         xNaN
@@ -19031,7 +19059,7 @@ exports[`InGame component MULTI ingame multi snapshot renders 1`] = `
         }
       >
         <div
-          className="InGameComponent-finishGameInfo-133"
+          className="InGameComponent-finishGameInfo-170"
         >
           Philippe
         </div>
@@ -21405,7 +21433,7 @@ exports[`InGame component MULTI ingame multi snapshot renders 1`] = `
         }
       >
         <div
-          className="InGameComponent-finishGameInfo-133"
+          className="InGameComponent-finishGameInfo-170"
         >
           Jason
         </div>
@@ -23794,7 +23822,7 @@ exports[`InGame component MULTI ingame multi snapshot renders 1`] = `
         }
       >
         <div
-          className="InGameComponent-finishGameInfo-133"
+          className="InGameComponent-finishGameInfo-170"
         >
           Jason
         </div>
@@ -26172,7 +26200,7 @@ exports[`InGame component MULTI ingame multi snapshot renders 1`] = `
         Chat ↴
       </p>
       <input
-        className="fullWidth InGameComponent-input-136"
+        className="fullWidth InGameComponent-input-173"
         id="chatInput"
         onChange={[Function]}
         onKeyDown={[Function]}
@@ -29295,25 +29323,45 @@ exports[`InGame component MULTI ingame multi snapshot renders2 1`] = `
       className="flex column alignCenter relative fullWidth center"
     >
       <div
-        className="InGameComponent-gameInfo-131"
+        className="InGameComponent-gameInfo-165"
+        style={
+          Object {
+            "color": "white",
+          }
+        }
       >
         Score: 
         -1234
       </div>
       <div
-        className="InGameComponent-gameInfo-131"
+        className="InGameComponent-gameInfo-165"
+        style={
+          Object {
+            "color": "white",
+          }
+        }
       >
         Level: 
         0
       </div>
       <div
-        className="InGameComponent-gameInfo-131"
+        className="InGameComponent-gameInfo-165"
+        style={
+          Object {
+            "color": "white",
+          }
+        }
       >
         Rows: 
         -
       </div>
       <div
-        className="InGameComponent-gameInfo-131"
+        className="InGameComponent-gameInfo-165"
+        style={
+          Object {
+            "color": "white",
+          }
+        }
       >
         Speed: 
         xNaN
@@ -29336,7 +29384,7 @@ exports[`InGame component MULTI ingame multi snapshot renders2 1`] = `
         }
       >
         <div
-          className="InGameComponent-finishGameInfo-133"
+          className="InGameComponent-finishGameInfo-170"
         >
           Philippe
         </div>
@@ -31710,7 +31758,7 @@ exports[`InGame component MULTI ingame multi snapshot renders2 1`] = `
         }
       >
         <div
-          className="InGameComponent-finishGameInfo-133"
+          className="InGameComponent-finishGameInfo-170"
         >
           Jason
         </div>
@@ -34099,7 +34147,7 @@ exports[`InGame component MULTI ingame multi snapshot renders2 1`] = `
         }
       >
         <div
-          className="InGameComponent-finishGameInfo-133"
+          className="InGameComponent-finishGameInfo-170"
         >
           Jason
         </div>
@@ -36477,7 +36525,7 @@ exports[`InGame component MULTI ingame multi snapshot renders2 1`] = `
         Chat ↴
       </p>
       <input
-        className="fullWidth InGameComponent-input-136"
+        className="fullWidth InGameComponent-input-173"
         id="chatInput"
         onChange={[Function]}
         onKeyDown={[Function]}
@@ -39345,22 +39393,42 @@ exports[`InGame component SOLO ingame snapshot renders 1`] = `
       className="flex column alignCenter relative fullWidth center"
     >
       <div
-        className="InGameComponent-gameInfo-131"
+        className="InGameComponent-gameInfo-165"
+        style={
+          Object {
+            "color": "white",
+          }
+        }
       >
         Score: 
       </div>
       <div
-        className="InGameComponent-gameInfo-131"
+        className="InGameComponent-gameInfo-165"
+        style={
+          Object {
+            "color": "white",
+          }
+        }
       >
         Level: 
       </div>
       <div
-        className="InGameComponent-gameInfo-131"
+        className="InGameComponent-gameInfo-165"
+        style={
+          Object {
+            "color": "white",
+          }
+        }
       >
         Rows: 
       </div>
       <div
-        className="InGameComponent-gameInfo-131"
+        className="InGameComponent-gameInfo-165"
+        style={
+          Object {
+            "color": "white",
+          }
+        }
       >
         Speed: 
         xNaN
@@ -39383,7 +39451,7 @@ exports[`InGame component SOLO ingame snapshot renders 1`] = `
         }
       >
         <div
-          className="InGameComponent-finishGameInfo-133"
+          className="InGameComponent-finishGameInfo-170"
         >
           Philippe
         </div>
@@ -41757,7 +41825,7 @@ exports[`InGame component SOLO ingame snapshot renders 1`] = `
         }
       >
         <div
-          className="InGameComponent-finishGameInfo-133"
+          className="InGameComponent-finishGameInfo-170"
         >
           Jason
         </div>
@@ -44146,7 +44214,7 @@ exports[`InGame component SOLO ingame snapshot renders 1`] = `
         }
       >
         <div
-          className="InGameComponent-finishGameInfo-133"
+          className="InGameComponent-finishGameInfo-170"
         >
           Jason
         </div>
@@ -46521,12 +46589,12 @@ exports[`InGame component SOLO ingame snapshot renders 1`] = `
       }
     >
       <div
-        className="InGameComponent-button-139"
+        className="InGameComponent-button-176"
       >
         Restart
       </div>
       <div
-        className="InGameComponent-button-139"
+        className="InGameComponent-button-176"
         onClick={[Function]}
       >
         Quit Game

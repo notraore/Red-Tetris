@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { users, rooms, setDefaultUsername, getUserInfos,
 leaveRoom, createRoom, checkRoomAndJoin, refillTetriList, getRandTetris } from './socket-functions'
+import { sendInfo } from '../utils'
 
 const stillPlaying = (room) =>{
 	for (var id in rooms[room].playerTab){
@@ -46,23 +47,27 @@ export const useSockets = (io) => {
 		})
 
 		socket.on('start game', (room)=>{
-			rooms[room].gameStarted = true
-			rooms[room].playerTab.map((player)=>{
-				player.waiting = false
-				player.playing = true
-				player.win = false
-			})
-			refillTetriList(room, 2)
-			io.in(room).emit('host started game',
-				{
-					type: 'START_GAME',
-					nbPlayer: Object.keys(rooms[room].playerTab).length,
-					playerTab: rooms[room].playerTab,
-					gameStarted: rooms[room].gameStarted,
-					winScore: null,
-					pieces: rooms[room].pieces
-				}
-			)
+			if (room && rooms[room]){
+				rooms[room].gameStarted = true
+				rooms[room].playerTab.map((player)=>{
+					player.waiting = false
+					player.playing = true
+					player.win = false
+				})
+				refillTetriList(room, 2)
+				if (rooms[room].playerTab){
+					io.in(room).emit('host started game',
+						{
+							type: 'START_GAME',
+							nbPlayer: Object.keys(rooms[room].playerTab).length,
+							playerTab: rooms[room].playerTab,
+							gameStarted: rooms[room].gameStarted,
+							winScore: null,
+							pieces: rooms[room].pieces
+						}
+					)
+				} else sendInfo(socket, 'Room has no opponent', 'Please refresh the page')
+			}  else sendInfo(socket, 'Room doesn\'t exist', 'Please refresh the page')
 		})	
 
 		socket.on('emit board state', (board, room)=>{
@@ -77,10 +82,9 @@ export const useSockets = (io) => {
 					{type: 'UPDATE_OPPONENTS', playTab: rooms[room].playerTab}
 				)
 			}
-		})	
-
+		})
 		socket.on('add pieces', (room) => {
-			if (room) {
+			if (room && rooms[room] && rooms[room].playerTab) {
 				refillTetriList(room, 1)
 				io.in(room).emit('room update', {
 					type: 'ROOM_UPDATE',
@@ -113,13 +117,15 @@ export const useSockets = (io) => {
 		})
 
 		socket.on('room infos', () => {
-			var room = Object.keys(socket.rooms)[1]
-			socket.emit('room update', {
-				type: 'ROOM_UPDATE',
-				playerTab: rooms[room].playerTab,
-				gameStarted: rooms[room].gameStarted,
-				pieces: rooms[room].pieces
-			})
+			if (room && rooms[room] && rooms[room].playerTab){
+				var room = Object.keys(socket.rooms)[1]
+				socket.emit('room update', {
+					type: 'ROOM_UPDATE',
+					playerTab: rooms[room].playerTab,
+					gameStarted: rooms[room].gameStarted,
+					pieces: rooms[room].pieces
+				})
+			} else sendInfo(socket, 'Room doesn\'t exist', 'Please refresh the page')
 		})
 
 		socket.on('join room', (room) => {
@@ -131,8 +137,10 @@ export const useSockets = (io) => {
 		})
 
 		socket.on('return lobby', (room) => {
-			rooms[room].gameStarted = false
-			io.in(room).emit('return lobby', {type: 'RETURN_MENU'})
+			if (room && rooms[room]){
+				rooms[room].gameStarted = false
+				io.in(room).emit('return lobby', {type: 'RETURN_MENU'})
+			} else  sendInfo(socket, 'Room doesn\'t exist', 'Please refresh the page')
 		})
 
 		socket.on('send message', (room, message) => {

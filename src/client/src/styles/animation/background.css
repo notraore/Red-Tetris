@@ -45,3 +45,39 @@
         background-color: darkred;
     }
   }
+
+  @keyframes rainbowText {
+    0% {
+        color: red;
+    }
+    10% {
+        color: orangered;
+    }
+    20% {
+        color: orange;
+    }
+    30% {
+        color: yellow;
+    }
+    40% {
+        color: yellowgreen;
+    }
+    50% {
+        color: green;
+    }
+    60% {
+        color: blue;
+    }
+    70% {
+        color: royalblue;
+    }
+    80% {
+        color: blueviolet;
+    }
+    90% {
+        color: darkmagenta;
+    }
+    100% {
+        color: darkred;
+    }
+  }

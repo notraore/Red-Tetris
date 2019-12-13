@@ -10,7 +10,7 @@
     "server-dev": "NODE_ENV=development BABEL_ENV=development nodemon --exec babel-node src/server/index.js",
     "client-dev": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "srv-prod": "NODE_ENV=production BABEL_ENV=production nodemon --exec babel-node src/server/index.js",
+    "srv-prod": "NODE_ENV=production BABEL_ENV=production babel-node src/server/index.js",
     "start-prod": "npm run build && npm run srv-prod"
   },
   "contributors": [

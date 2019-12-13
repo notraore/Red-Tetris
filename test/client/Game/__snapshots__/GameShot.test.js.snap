@@ -2901,24 +2901,44 @@ exports[`Game components test Game render match SnapShot 1`] = `
       >
         <div
           className="InGameComponent-gameInfo-1"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
         >
           Score: 
           -
         </div>
         <div
           className="InGameComponent-gameInfo-1"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
         >
           Level: 
           0
         </div>
         <div
           className="InGameComponent-gameInfo-1"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
         >
           Rows: 
           -
         </div>
         <div
           className="InGameComponent-gameInfo-1"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
         >
           Speed: 
           normal
@@ -2941,7 +2961,7 @@ exports[`Game components test Game render match SnapShot 1`] = `
           }
         >
           <div
-            className="InGameComponent-finishGameInfo-3"
+            className="InGameComponent-finishGameInfo-6"
           />
           <div
             style={
@@ -5317,7 +5337,7 @@ exports[`Game components test Game render match SnapShot 1`] = `
           Chat ↴
         </p>
         <input
-          className="fullWidth InGameComponent-input-6"
+          className="fullWidth InGameComponent-input-9"
           id="chatInput"
           onChange={[Function]}
           onKeyDown={[Function]}
@@ -8429,24 +8449,44 @@ exports[`Game components test Game render match SnapShot 2`] = `
       >
         <div
           className="InGameComponent-gameInfo-1"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
         >
           Score: 
           -
         </div>
         <div
           className="InGameComponent-gameInfo-1"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
         >
           Level: 
           0
         </div>
         <div
           className="InGameComponent-gameInfo-1"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
         >
           Rows: 
           -
         </div>
         <div
           className="InGameComponent-gameInfo-1"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
         >
           Speed: 
           normal
@@ -8469,7 +8509,7 @@ exports[`Game components test Game render match SnapShot 2`] = `
           }
         >
           <div
-            className="InGameComponent-finishGameInfo-3"
+            className="InGameComponent-finishGameInfo-6"
           />
           <div
             style={
@@ -10842,13 +10882,13 @@ exports[`Game components test Game render match SnapShot 2`] = `
         }
       >
         <div
-          className="InGameComponent-button-9"
+          className="InGameComponent-button-12"
           onClick={[Function]}
         >
           Restart
         </div>
         <div
-          className="InGameComponent-button-9"
+          className="InGameComponent-button-12"
           onClick={[Function]}
         >
           Quit Game

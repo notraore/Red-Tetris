@@ -28,6 +28,18 @@ export const styles = ({
       fontFamily: 'Orbitron, sans-serif',
       padding: '15px 0px'
     },
+    roomNameLabel:{
+      fontSize: '50px', padding: '20px',
+    },
+    rainbowText:{
+      animation: 'rainbowText 10s infinite ease-out',
+    },
+    glowText:{
+      animation: 'animate 5s infinite ease-out',
+    },
+    roomLabel:{
+      fontFamily: 'Orbitron, sans-serif',
+    },
     chatLabel: {
       color: 'grey',
       marginBottom: '10px',
@@ -68,6 +80,7 @@ export const styles = ({
       }
     },
     startButton: {
+      marginTop: '20px',
       width: '200px',
       height: '100px',
       backgroundColor: 'red',

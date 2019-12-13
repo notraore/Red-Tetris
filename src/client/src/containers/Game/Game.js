@@ -77,24 +77,9 @@ export const Game = ({classes, gameState, dispatch, solo, startGame, notify, cur
 			})
 		}
 	}, [counter, board])
-
-	const getShadow = (board) => {
-		var shadow = [...board]
-
-		// shadow.map((line, lineId) => {
-		// 	line.map((col, colId)=>{
-		// 		if (col !== 0){
-		// 			for (var i = lineId; i < 20; i++){
-		// 				if (shadow[i][colId] === 0) shadow[i][colId] = 1
-		// 			}
-		// 		}
-		// 	})
-		// })
-		return board
-	}
-
+	
 	useEffect(() =>{
-		if (!solo) socket.emit('emit board state', getShadow(board), gameState.room)
+		if (!solo) socket.emit('emit board state', board, gameState.room)
 		if (gameState.pieces && counter + 5  > gameState.pieces.length){
 			socket.emit('add pieces', gameState.room)
 		}

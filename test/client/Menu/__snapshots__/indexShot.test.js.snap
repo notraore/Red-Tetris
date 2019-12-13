@@ -56,12 +56,12 @@ exports[`Menu Snapshot test Menu render match the shot 1`] = `
       }
     >
       <p
-        className="Title-redLabel-18"
+        className="Title-redLabel-22"
       >
         Red
       </p>
       <p
-        className="Title-tetrisLabel-19"
+        className="Title-tetrisLabel-23"
       >
         Tetris
       </p>
@@ -114,12 +114,12 @@ exports[`Menu Snapshot test Menu render match the shot 1`] = `
           Enter existing room name
         </p>
         <input
-          className="JoinComponent-input-25"
+          className="JoinComponent-input-33"
           onChange={[Function]}
           onKeyDown={[Function]}
         />
         <p
-          className="JoinComponent-optionLabel-33"
+          className="JoinComponent-optionLabel-41"
           onClick={[Function]}
         >
           Join
@@ -134,7 +134,7 @@ exports[`Menu Snapshot test Menu render match the shot 1`] = `
         }
       >
         <p
-          className="SoloComponent-optionLabel-49"
+          className="SoloComponent-optionLabel-61"
           onClick={[Function]}
         >
           Start
@@ -152,12 +152,12 @@ exports[`Menu Snapshot test Menu render match the shot 1`] = `
           Enter a new room name
         </p>
         <input
-          className="CreateComponent-input-57"
+          className="CreateComponent-input-73"
           onChange={[Function]}
           onKeyDown={[Function]}
         />
         <p
-          className="CreateComponent-optionLabel-65"
+          className="CreateComponent-optionLabel-81"
           onClick={[Function]}
         >
           Create
@@ -201,34 +201,34 @@ exports[`Menu Snapshot test Menu render match the shot 1`] = `
         className="[object Object]"
       >
         <div
-          className="flex center alignCenter OptionComponent-option-96"
+          className="flex center alignCenter OptionComponent-option-120"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
           <p
-            className="OptionComponent-optionLabel-97"
+            className="OptionComponent-optionLabel-121"
           >
             Solo
           </p>
         </div>
         <div
-          className="flex center alignCenter OptionComponent-option-96"
+          className="flex center alignCenter OptionComponent-option-120"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
           <p
-            className="OptionComponent-optionLabel-97"
+            className="OptionComponent-optionLabel-121"
           >
             Join
           </p>
         </div>
         <div
-          className="flex center alignCenter OptionComponent-option-96"
+          className="flex center alignCenter OptionComponent-option-120"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
           <p
-            className="OptionComponent-optionLabel-97"
+            className="OptionComponent-optionLabel-121"
           >
             Create
           </p>
@@ -238,12 +238,12 @@ exports[`Menu Snapshot test Menu render match the shot 1`] = `
         className="flex center [object Object]"
       >
         <div
-          className="flex center alignCenter OptionComponent-option-96"
+          className="flex center alignCenter OptionComponent-option-120"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
           <p
-            className="OptionComponent-optionLabel-97"
+            className="OptionComponent-optionLabel-121"
           >
             Credits
           </p>

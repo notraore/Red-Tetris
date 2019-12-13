@@ -96,8 +96,14 @@ export const Multi = ({ classes, gameState, dispatch, notify, solo }) => {
 						}
 					</p>
 					<Loader color="white"/>
-					<p>Room : {gameState.room}</p>
-					<div>
+					<div
+						className={`flex center alignCenter ${classes.roomLabel}`}
+						style={{fontSize: '30px'}}>Room : 
+							<div className={`${classes.roomNameLabel} ${classes.glowText}`}>
+								{gameState.room}
+							</div>
+						</div>
+					<div style={{border: '1px solid white', minWidth: '500px', borderRadius: '10px'}}>
 						<div className={classes.listUsernameLabel}>
 							Players in this room :
 						</div> 
@@ -105,7 +111,7 @@ export const Multi = ({ classes, gameState, dispatch, notify, solo }) => {
 						gameState.playTab && gameState.playTab.map((user, index) => {
 							return user
 								? <div className={`flex center alignCenter row`} key={index}>
-								<div className={classes.listUsernameLabel}>
+								<div className={`${classes.listUsernameLabel} ${classes.rainbowText}`}>
 									{user.username}{user.gameHost ? ' ♛' : ''}{user.id === gameState.playerId ? ' (you)' : ''}
 								</div>
 							</div>
@@ -121,7 +127,10 @@ export const Multi = ({ classes, gameState, dispatch, notify, solo }) => {
 								START
 							</div>
 						: curUser.gameHost
-							? <p>No opponent yet... Invite your friends or play Solo</p>
+							? <div>
+									<p>No opponent yet... </p>
+									<p>Invite your friends or play Solo</p>
+								</div>
 							: null
 					}
 					{gameState.playTab && gameState.playTab.length > 1

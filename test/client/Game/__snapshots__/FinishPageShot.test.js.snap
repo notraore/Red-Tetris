@@ -15,16 +15,20 @@ exports[`FinishPage Snapshot test FinishComponent render match the shot 1`] = `
     <div>
       Game finished !
     </div>
-    <div>
-      Your Score: 
-    </div>
-    <div>
-      Level: 
-      0
-    </div>
-    <div>
-      Rows: 
-      -
+    <div
+      className="flex column center alignCenter undefined"
+    >
+      <div>
+        Your Score: 
+      </div>
+      <div>
+        Level: 
+        0
+      </div>
+      <div>
+        Rows: 
+        -
+      </div>
     </div>
     <div
       className="flex column center alignCenter undefined"
@@ -55,28 +59,24 @@ exports[`FinishPage Snapshot test FinishComponent render match the shot 2`] = `
     <div>
       Game finished !
     </div>
-    <div>
-      Your Score: 
-      999
+    <div
+      className="flex column center alignCenter undefined"
+    >
+      <div>
+        Your Score: 
+        999
+      </div>
+      <div>
+        Level: 
+        2
+      </div>
+      <div>
+        Rows: 
+        5
+      </div>
     </div>
     <div>
-      Level: 
-      2
-    </div>
-    <div>
-      Rows: 
-      5
-    </div>
-    <div>
-      <div
-        style={
-          Object {
-            "color": "#d8efbb",
-            "fontSize": "40px",
-            "fontWeight": "bold",
-          }
-        }
-      >
+      <div>
          win !
       </div>
       <div>
@@ -131,26 +131,22 @@ exports[`FinishPage Snapshot test FinishComponent render match the shot 3`] = `
     <div>
       Game finished !
     </div>
-    <div>
-      Your Score: 
+    <div
+      className="flex column center alignCenter undefined"
+    >
+      <div>
+        Your Score: 
+      </div>
+      <div>
+        Level: 
+      </div>
+      <div>
+        Rows: 
+        -
+      </div>
     </div>
     <div>
-      Level: 
-    </div>
-    <div>
-      Rows: 
-      -
-    </div>
-    <div>
-      <div
-        style={
-          Object {
-            "color": "#d8efbb",
-            "fontSize": "40px",
-            "fontWeight": "bold",
-          }
-        }
-      >
+      <div>
          win !
       </div>
       <div>
