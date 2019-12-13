@@ -5,15 +5,36 @@ gameInfo: {
     margin: '10px 0px',
     alignItem: 'center',
     // fontWeight: 'bold',
-    fontSize: '20px',
+    fontSize: '50px',
     color: 'pink',
     border: '2px solid pink',
     borderRadius: '10px',
     padding: '5px 0px',
     width: '80%'
-	},
+    },
+    scoreContainer: {
+        border: '1px solid white',
+        padding: 5,
+        borderRadius: '10px',
+        minWidth: '250px',
+        marginTop: '15px',
+    },
+    winLabel: {
+        color: '#d8efbb',
+        fontSize: '55px',
+        fontWeight: 'bold',
+        animation: 'animate 3s infinite'
+    },
+    finishGameRestart: {
+        fontSize: '35px',
+		color: 'white',
+		fontWeight: 'bold',
+		padding: '5px 0px',
+		fontFamily: 'Orbitron, sans-serif',
+        marginTop: '5px'
+    },
 	finishGameTitle: {
-		fontSize: '30px',
+		fontSize: '50px',
 		color: 'white',
 		fontWeight: 'bold',
 		padding: '5px 0px',
@@ -33,7 +54,7 @@ gameInfo: {
         backgroundColor: 'pink'
     },
     restartLabel: {
-        fontSize: '50px',
+        fontSize: '35px',
         fontWeight: 'bold',
         color: 'white',
         padding: '10px',

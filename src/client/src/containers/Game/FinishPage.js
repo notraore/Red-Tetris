@@ -9,9 +9,11 @@ export const FinishComponent = ({classes, chat, chatInput, setChatInput, level, 
 		<div className='flex column center alignCenter' style={{height: '100hw'}}>
 			<div className={`flex column center alignCenter ${classes.gameOverContainer}`}>
 				<div className={classes.finishGameTitle}>Game finished !</div>
-				<div className={classes.finishGameInfo}>Your Score: {score === 0 ? '-' : score}</div>
-				<div className={classes.finishGameInfo}>Level: {level}</div>
-				<div className={classes.finishGameInfo}>Rows: {rows === 0 ? '-' : rows}</div>
+				<div className={`flex column center alignCenter ${classes.scoreContainer}`}>
+					<div className={classes.finishGameInfo}>Your Score: {score === 0 ? '-' : score}</div>
+					<div className={classes.finishGameInfo}>Level: {level}</div>
+					<div className={classes.finishGameInfo}>Rows: {rows === 0 ? '-' : rows}</div>
+				</div>
 				{gameState.winScore || solo
 					? null
 					: <div>
@@ -63,7 +65,7 @@ export const FinishComponent = ({classes, chat, chatInput, setChatInput, level, 
 			}
 			{gameState.winScore
 				? <div>
-						<div style={{color: '#d8efbb', fontSize: '40px', fontWeight: 'bold'}}>
+						<div className={classes.winLabel}>
 							{gameState.winScore.id === gameState.playerId ? 'You' : gameState.winScore.winner} win !
 						</div>
 						{gameState.winScore.id === gameState.playerId
@@ -78,7 +80,7 @@ export const FinishComponent = ({classes, chat, chatInput, setChatInput, level, 
 					?	<div className={classes.restartLabel} onClick={returnLobby}>
 							RETURN LOBBY
 						</div>
-					: <div className={classes.finishGameTitle} style={{marginTop: '5px'}}>
+					: <div className={classes.finishGameRestart}>
 						Waiting for host to restart...
 					</div>
 				: null
