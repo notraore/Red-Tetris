@@ -5,6 +5,7 @@ A Multiplayer Tetris game made with React Hooks, Socket.io and Node
 ### Getting Started
 
 ```
+npm i
 npm run start-prod
 ```
 
